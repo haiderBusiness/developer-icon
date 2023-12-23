@@ -1,0 +1,224 @@
+.header {
+    position:sticky;
+    top: 0;
+    z-index: 2;
+    min-height: 0px !important;
+    width: 100% !important;
+   
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    overflow-x: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+
+
+  .mainDiv {
+    width: 100%;
+    max-width: 1155px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    transition-duration: 0.5s;
+  }
+
+  
+
+  .imageDiv {
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .button {
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0px 20px;
+    font-weight: 600;
+    color: #888282;
+    text-transform: capitalize;
+  }
+
+  .button:hover {
+    color: #000000;
+  }
+
+
+  
+
+  .SearchDivContainer {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 18px;
+    padding-right: 18px;
+    max-width: 630px;
+    width: 100%;
+
+    /* background-color: red; */
+  }
+
+  .searchDiv {
+    padding-block: 10px;
+    padding-inline: 20px;
+    background-color: #F6F7F9;
+    border-radius: 8px;
+    align-items: center;
+    
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+    pointer-events: auto;
+    cursor: text;
+    transition-duration: 8s;
+    /* width: 590px; */ 
+    }
+
+
+  .searchIcon {
+    font-size: 20px;
+    color: #BEC7D5;
+    margin-right: 10px;
+    cursor: default;
+    
+  }
+
+  input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  input::placeholder {
+    color: #C0C9D7;
+  }
+
+
+
+
+
+
+
+@media (max-width: 1023px) {
+
+  .mainDiv {
+    width: 100%;
+    max-width: 768px;
+    
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.checkbox {
+  position: absolute;
+  display: block;
+  height: 32px;
+  width: 32px;
+  top: 26px;
+  
+  z-index: 5;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hamburgerLines {
+  display: block;
+  height: 26px;
+  width: 32px;
+  margin-right: 15px;
+
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+
+.line1 {
+  display: block;
+  height: 4px;
+  width: 100%;
+  border-radius: 10px;
+  background: #0e2431;
+  transform-origin: 0% 0%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.line2 {
+  display: block;
+  height: 4px;
+  width: 100%;
+  border-radius: 10px;
+  background: #0e2431;
+  transition: transform 0.2s ease-in-out;
+}
+
+.line3 {
+  display: block;
+  height: 4px;
+  width: 100%;
+  border-radius: 10px;
+  background: #0e2431;
+  transform-origin: 0% 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+
+
+
+
+.header input[type="checkbox"]:checked ~ .menu-items {
+  transform: translateX(0);
+}
+
+.header input[type="checkbox"]:checked ~ .hamburgerLines .line1 {
+  transform: rotate(45deg);
+}
+
+.header input[type="checkbox"]:checked ~ .hamburgerLines .line2 {
+  transform: scaleY(0);
+}
+
+.header input[type="checkbox"]:checked ~ .hamburgerLines .line3 {
+  transform: rotate(-45deg);
+}
+
+.header input[type="checkbox"]:checked ~ .logo{
+  display: none;
+}

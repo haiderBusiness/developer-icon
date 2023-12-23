@@ -1,0 +1,81 @@
+.nav {
+    background-color: white;
+    padding: 10px 0;
+    position: sticky;
+    top: 80px;
+    z-index: 1;
+    width: 100% !important;
+    height: 30px;
+    /* background-color: red; */
+
+
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+.container {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* padding: 0 20px; */
+    /* overflow-x: scroll; */
+    /* margin: 0px 20px;
+    padding: 0px 20px; */
+    /* background-color: red; */
+
+    /* width: 200px;
+    margin-left: auto; */
+    /* mask: linear-gradient(90deg, transparent, white 2%, white 100%, transparent) */
+    /* margin: 0 auto; */
+    /* padding-right: 20px; */
+    
+    /* max-width: 580px; */
+
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    padding: 0px 10px;
+    margin: 0px 28px;
+    mask: linear-gradient(90deg, transparent, white 1%, white 99%, transparent);
+  }
+
+  .links {
+    display: flex;
+    /* background-color: green; */
+  }
+
+  .link {
+    color: #465471;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+   
+    padding: 5px 10px;
+    margin-right: 7.5px;
+    margin-left: 7.5px;
+    /* width: 100%; */
+    border-radius: 10px;
+    white-space: nowrap;
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+
+  .link:hover {
+    color: #3a3a3a;
+    background-color: #f0f0f0;
+  }
+
+  .container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  .container::-webkit-scrollbar-thumb {
+    background-color: transparent; /* or any color you want */
+  }
+  
+  /* For Firefox */
+  .container {
+    scrollbar-width:unset;
+    scrollbar-color: transparent transparent;
+  }

@@ -1,0 +1,137 @@
+.mainDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 680px; */
+    width: 100%;
+    /* height: 100%; */
+    padding-top: 30px;
+    /* background-color: red; */
+
+   
+    /* width: "100%"; */
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* background-color: yellow; */
+    /* background-color: red; */
+}
+
+.mainDiv *{
+    pointer-events: none;
+}
+
+.listMainDiv {
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* background-color: purple; */
+    /* background-color: purple; */
+    /* background-color: red; */
+}
+
+.list {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 2px;
+    align-items: stretch;
+    justify-items: stretch; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* background-color: green; */
+    
+    /* background-color: green; */
+    /* background-color: green; */
+   
+}
+
+.childDiv {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    height: 90%;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    pointer-events: auto;
+
+}
+.childDiv:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.iconDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    
+    /* margin-left: 20px; */
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    /* max-width: ; */
+    max-width: 115px;
+    width: 100px;
+    height: 75px;
+    margin-bottom: -10px;
+    /* border: 0.5px solid rgba(0, 0, 0, 0.2); */
+}
+
+/* .iconDiv:hover {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+} */
+
+.icon {
+    color: #373737;
+}
+
+
+
+.textDiv {
+    margin-top: 5px;
+    max-width: 100px;
+    /* width: 110px; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+
+  }
+
+  
+  .text {
+    font-size: 12px;
+    color: #373737;
+    /* background-color: red; */
+    text-align: center;
+    /* width: 50px;  */
+    /* overflow: hidden; */
+    word-wrap:break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /* white-space: normal; */
+     text-overflow: ellipsis; 
+}
+
+.iconSectionText {
+    font-size: 11px;
+    margin-top: 5px;
+    color: #373737b4;
+    /* background-color: red; */
+    text-align: center;
+    /* width: 50px;  */
+    /* overflow: hidden; */
+    word-wrap:break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /* white-space: normal; */
+     text-overflow: ellipsis; 
+}
+
+

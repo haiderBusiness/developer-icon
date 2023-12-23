@@ -1,0 +1,16 @@
+.modal {
+    position: fixed;
+    z-index: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: red;
+    height: 200px;
+    width: 300px;
+}
+
+
+.svg {
+    background-color: green;
+    color: white
+}

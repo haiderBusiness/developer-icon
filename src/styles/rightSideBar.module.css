@@ -1,0 +1,14 @@
+
+.rightSideBar {
+    background-color: red;
+    position: fixed;
+    top: 80px;
+    z-index: 1;
+    width: 100% !important;
+    transform: translateX(150%);
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+}
+
