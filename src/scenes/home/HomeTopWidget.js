@@ -1,10 +1,40 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "../../styles/homeTopWidget.module.css"
 import SearchComponent from "../../components/SearchComponent";
 import Space from "../../components/Space";
+import { useDispatch } from "react-redux";
+import { setSeachInputValue } from "../../store/actions";
 
 
 function HomeTopWidget() {
+
+    const dispatch = useDispatch()
+
+    const onTypeFunction = (typedValue) =>  {
+        const topNavigationNav = document.getElementById("sections-nav");
+        const searchInput = document.getElementById("headerSearchInput")
+
+        
+        if (topNavigationNav && typedValue ) {
+            if (searchInput.value !== typedValue) {
+                searchInput.value = typedValue
+                // searchInput.focus()
+            }
+            dispatch(setSeachInputValue(typedValue))
+            
+            topNavigationNav.style.position = "fixed"
+            topNavigationNav.style.zIndex = "-1"
+        } else {
+            if (searchInput.value !== typedValue) {
+                searchInput.value = typedValue
+                // searchInput.focus()
+            }
+            dispatch(setSeachInputValue(typedValue))
+            topNavigationNav.style.position = "sticky"
+            topNavigationNav.style.zIndex = "1"
+        }
+    }
+
 
   return (
         <div className={styles.mainDiv}>
@@ -23,7 +53,7 @@ function HomeTopWidget() {
 
             {/* <IconsTopNavigation/> */}
 
-            <SearchComponent/>
+            <SearchComponent onType={(typedValue) => onTypeFunction(typedValue)}/>
 
             <Space height={20}/>
             

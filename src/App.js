@@ -12,6 +12,7 @@ import SearchComponent from './components/SearchComponent';
 import IconsTopNavgigation from './components/iconsTopNavigation/IconsTopNavgigation';
 import RightSideBar from './components/header/RightSideBar';
 import IconsList from './components/iconsList/IconsList';
+import Theme from './theme/Theme';
 
 
 
@@ -25,11 +26,13 @@ function App() {
 
 
 
-      {/* <Modal/> */}
+     
 
       <Header/>
 
+ {/* <Modal/> */}
       <Modal/>
+      
       <RightSideBar/>
 
       <div className="App-body"> 
@@ -38,10 +41,11 @@ function App() {
 
        {/* <Sidebar/> */}
        <IconsTopNavgigation/>
-       <IconsList/>
+       <IconsList 
+       style={{backgroundColor: Theme.colors.systemBackgroundColor}}
+       />
+       {/* <IconsList style={{top: "80px", position: "fixed", zIndex: "2", backgroundColor: "green", }}/> */}
       </div>
-
-      
 
     </div>
   );

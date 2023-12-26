@@ -10,9 +10,9 @@
 import {createStore ,combineReducers, applyMiddleware } from "redux"
 
 import thunk from "redux-thunk"
-import riderReducer from "./reducers";
+import reducer from "./reducers";
 
-const rootReducer = combineReducers({riderReducer})
+const rootReducer = combineReducers({reducer})
 
 const Store = createStore(rootReducer, applyMiddleware(thunk));
 

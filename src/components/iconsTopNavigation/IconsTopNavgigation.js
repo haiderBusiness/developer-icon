@@ -5,18 +5,25 @@ import iconSections from "../../asets/iconsSections/iconSections.json"
 
 const IconsTopNavgigation = () => {
 
-
   const hash = window.location.hash.replace("#", "")
   const hashNoDashes = hash.replaceAll("-", " ")
   const iconSectionName = hashNoDashes ? hashNoDashes : "Ant Design Icons"
 
   const [selectedSection, setSelectedSection] = useState(iconSectionName)
 
-  function onClick(name) {
+  function onClick(name, activeItemId) {
     // alert("clicked") 
       const specificPoint = document.getElementById("searchDivContainer"); // Replace with your element ID
-      const nav = document.getElementById("sections-nav")
+      // const nav = document.getElementById("sections-nav")
 
+      const scrollContainer = document.getElementById("scrollContainer")
+      const activeItem = document.getElementById(activeItemId)
+      
+      // console.log("scrollContainer: ", scrollContainer)
+
+      const scrollRect = scrollContainer.getBoundingClientRect();
+      const activeRect = activeItem.getBoundingClientRect();
+      
       setSelectedSection(name)
       if (specificPoint) {
         setTimeout(function() {
@@ -24,7 +31,18 @@ const IconsTopNavgigation = () => {
           //   behavior: 'smooth', // Optional: Use smooth scrolling
           //   block: 'start'
           // });
+
+
           window.scrollTo(0, (specificPoint.offsetTop + 40));
+
+          // nav.scrollTo(1000, 0)
+          // nav.scrollTo({ left: 1000, behavior: "smooth" };
+
+        }, 5)
+
+        setTimeout(function() {
+          const scrollLeftPosition = activeRect.left - scrollRect.left - (scrollRect.width / 2) + (activeRect.width / 2)
+          scrollContainer.scrollLeft += scrollLeftPosition;
 
         }, 10)
       }
@@ -39,16 +57,17 @@ const IconsTopNavgigation = () => {
   return (
     <nav id={"sections-nav"} className={styles.nav}>
 
+      {/* <div style={{position: "fixed", zIndex: "5", width: "100%", height: "40px", backgroundColor: "red", }}/> */}
 
-      <div className={styles.container}>
+      <div id={"scrollContainer"} className={styles.container}>
         <div className={styles.links}>
             {iconSections.map((obj, index) => {
-              const name = obj.name
+                const name = obj.name
                 const href = name.replaceAll(" ", "-")
                 const key = obj.shortcut
                 const lastKey = key.slice(1)
 
-                console.log("selectedSection: ", selectedSection, name)
+                // console.log("selectedSection: ", selectedSection, name)
                 const style = {
                   backgroundColor: selectedSection === name ? "#EAF3F8" : null,
                   color: selectedSection === name ? "#0096DF" : null,
@@ -68,7 +87,7 @@ const IconsTopNavgigation = () => {
                
                 // console.log(name, lastKey)
                 return(
-                    <a onClick={() => onClick(name)} id={href} style={style} className={styles.link} data-custom={customKey} key={customKey}  href={"#" + href}>{name}</a>
+                    <a onClick={() => onClick(name, href)} id={href} style={style} className={styles.link} data-custom={customKey} key={customKey}  href={"#" + href}>{name}</a>
                 )
             })}
         </div>

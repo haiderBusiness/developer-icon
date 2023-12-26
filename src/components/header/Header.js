@@ -3,6 +3,8 @@ import React, {useState, useEffect} from "react"
 import styles from "../../styles/header.module.css"
 import Logo from "../../asets/developer-icon-high-resolution-logo-transparent.svg"
 import SearchComponent from "../SearchComponent"
+import { useDispatch } from "react-redux";
+import { setSeachInputValue } from "../../store/actions";
 
 
 
@@ -96,6 +98,33 @@ export default function Header({}) {
     }, [showHamburgerMenu]);
 
 
+
+
+    const dispatch = useDispatch()
+
+    const onTypeFunction = (typedValue) =>  {
+        const topNavigationNav = document.getElementById("sections-nav");
+        const searchInput = document.getElementById("searchInput")
+        if (topNavigationNav && typedValue ) {
+            if (searchInput.value !== typedValue) {
+                searchInput.value = typedValue
+                // searchInput.focus()
+            }
+            dispatch(setSeachInputValue(typedValue))
+            topNavigationNav.style.position = "fixed"
+            topNavigationNav.style.zIndex = "-1"
+        } else {
+            if (searchInput.value !== typedValue) {
+                searchInput.value = typedValue
+                // searchInput.focus()
+            }
+            dispatch(setSeachInputValue(typedValue))
+            topNavigationNav.style.position = "sticky"
+            topNavigationNav.style.zIndex = "1"
+        }
+    }
+
+
     return(
         <div className={styles.header}>
             <div className={styles.mainDiv}>
@@ -105,7 +134,7 @@ export default function Header({}) {
                     </div>
 
 
-                    <SearchComponent cssStyles={styles} id={thisSearchDivContainer}/>
+                    <SearchComponent cssStyles={styles} id={thisSearchDivContainer} onType={(typedValue) => onTypeFunction(typedValue)} inputId={"headerSearchInput"}/>
 
                     {!showHamburgerMenu ?
                     <div  className={styles.buttons}>
@@ -132,6 +161,10 @@ export default function Header({}) {
         </div>
     )
 }
+
+
+
+
 
 
 

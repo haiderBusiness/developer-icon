@@ -8,36 +8,40 @@ import iconSections from "../../asets/iconsSections/iconSections.json"
 import fetchIcons from "../../functions/fetchIcons";
 import Cell from "./Cell";
 
+
 import { useDispatch, useSelector } from 'react-redux';
- 
+import { setIconFunction, setIconsToShow } from '../../store/actions';
 
 
-function calculateColumnCount(divWidth) {
-  
-  if (divWidth >= 1210) {
-    return 7; 
-  } else if (divWidth >= 1070) {
-    return 6;
-  } else if (divWidth >= 930) {
-    return 5;
-  } if (divWidth >= 790) {
-    return 4;
-  } else if (divWidth >= 650) {
-    return 3;
-  } else if (divWidth >= 550) {
-    return 3;
-  } else if (divWidth >= 400) {
-    return 2;
-  } else if(divWidth >= 260) {
-    return 1;
-  } else {
-    return 1;
-  } 
-
+function calculateColumnCount(divWidth, smallNumber) {
+    if (smallNumber > 7) {
+      return smallNumber
+    }
+    if (divWidth >= 1210) {
+      return 7; 
+    } else if (divWidth >= 1070) {
+      return 6;
+    } else if (divWidth >= 930) {
+      return 5;
+    } if (divWidth >= 790) {
+      return 4;
+    } else if (divWidth >= 650) {
+      return 3;
+    } else if (divWidth >= 550) {
+      return 3;
+    } else if (divWidth >= 400) {
+      return 2;
+    } else if(divWidth >= 260) {
+      return 1;
+    } else {
+      return 1;
+    } 
   }
 
 const iconSectionsArr = iconSections
 
+
+let currentIcons = []
 
 const ExampleList = ({divRef}) => {
 
@@ -62,11 +66,6 @@ const ExampleList = ({divRef}) => {
     const [shortcut, setShortcut] = useState(shortcutSmallCase)
 
     let firstRender = true
-
-
-
-  
-  
 
     useEffect(() => {
       // Function to handle hash change
@@ -93,6 +92,9 @@ const ExampleList = ({divRef}) => {
         window.removeEventListener('hashchange', handleHashChange);
       };
     }, []);
+
+
+
 
 
   
@@ -188,13 +190,37 @@ const ExampleList = ({divRef}) => {
     // }, []);
 
 
+
+    let hasBeenSaved = false
+    function convertToStringArray(arr) {
+      const arrayOfStrings = []
+      for(let i = 0; i < arr.length; i++) {
+        arrayOfStrings.push(arr[i].toString())
+      }
+      return arrayOfStrings
+    }
+
  
 
     useEffect(() => {
       const fetchAiArray = async () => {
         try {
-          const icons = await fetchIcons(shortcut)
-          setAllIcons(icons)
+          const icons = await fetchIcons(shortcut);
+          // const icons = await all_icons()
+
+          // if (hasBeenSaved === false) {
+          //   hasBeenSaved = true
+          //   const test = convertToStringArray(icons)
+          //   const savingName = iconSectionName.replaceAll("-", " ")
+          //   saveArrayToFile(test, savingName);
+          //   // console.log("test: ", test[0])
+          //   // // string to function
+          //   // let Copy = new Function('return ' + test[0])();
+          //   // const Icon = icons[0]
+          //   // console.log(Copy);
+          // }
+          // const icons = allIcons
+          setAllIcons(icons);
         } catch (error) {
            console.error("Error fetching array:", error);
         }
@@ -215,10 +241,11 @@ const ExampleList = ({divRef}) => {
                 const divWidth = div.offsetWidth;
                 const obj = {}
                 obj.divWidth = divWidth
-                obj.columnCount = calculateColumnCount(divWidth)
+
+                obj.columnCount = calculateColumnCount(divWidth, allIcons.length)
 
                 obj.columnWidth = (divWidth / 1.032) / obj.columnCount
-                  setListAttributes(obj)
+                setListAttributes(obj)
 
                   // if (div.style.width !== "100px") {
                   //   div.style.width = "100px"
@@ -262,33 +289,89 @@ const ExampleList = ({divRef}) => {
       }
 
     }, []); // Empty dependency array ensures that the effect runs only once on mount
-  
 
-   
 
+
+    // const selector = useSelector()
+
+    const { iconsToShow, searchInputValue } = useSelector((state) => state.reducer)
+
+
+    // console.log(IconsList.name)
 
     useEffect(() => {
-      console.log("test test")
-    }, ["haider"])
+      // const searchInput = document.getElementById("headerSearchInput")
+      if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
 
+      
+        const searchIcons = iconsToShow.filter((item) => {
+          if (!!item && !!item.name && item.name !== "" && item.name !== undefined && item.name !== null) {
+           
+            const iconName = item.name.replace(/([A-Z])(?![A-Z])/g, ' $1');
+            if (iconName.includes(searchInputValue)) {
+              // console.log("item: ", item.name)
+              return item
+            } else {
+              return
+            }
+          } else {
+            return
+          }
+          
+        })
 
+        if (searchIcons && searchIcons.length > 0) {
+          console.log("searchIcons: ", searchIcons[0])
 
+          const obj = listAttributes
+          obj.columnCount = calculateColumnCount(0, searchIcons.length)
+          setListAttributes(obj)
+          setAllIcons(searchIcons)
+        }
+      }
+
+    }, [searchInputValue, iconsToShow])
 
     const dispatch = useDispatch()
     const [selectedItemIndex, setSelectedItemIndex] = useState(null)
 
 
     const handleItemClicked = (object) => {
-      console.log("event", object)
-      setSelectedItemIndex(object.itemIndex)
+      console.log("event", object);
+      setSelectedItemIndex(object.itemIndex);
+      dispatch(setIconFunction(object.iconFunction));
     }
 
 
 
     firstRender = false
 
-    return(
 
+    // useEffect(() => {
+    //   // callback function to call when event triggers
+    //   const onPageLoad = async () => {
+    //     console.log('page loaded');
+    //     // do something else
+    //     const allIconsFunc = require("../../asets/all_icons").all_icons;
+    //     const all_icons = await allIconsFunc();
+    //     dispatch(setIconsToShow(all_icons));
+    //   };
+  
+    //   // Check if the page has already loaded
+    //   if (document.readyState === 'complete') {
+    //     onPageLoad();
+    //   } else {
+    //     window.addEventListener('load', onPageLoad, false);
+    //     // Remove the event listener when component unmounts
+    //     return () => window.removeEventListener('load', onPageLoad);
+    //   }
+    // }, []);
+
+
+
+
+
+    return(
     <ReactWindowScroller isGrid>
     {({ ref, outerRef, style, onScroll }) => (
        allIcons.length > 0 && (
@@ -297,7 +380,7 @@ const ExampleList = ({divRef}) => {
         ref={ref}
         outerRef={outerRef}
         className={styles.list}
-        columnCount={listAttributes.columnCount}
+        columnCount={2}
         rowCount={allIcons.length / listAttributes.columnCount}
         columnWidth={listAttributes.columnWidth}
         rowHeight={150}
@@ -305,7 +388,6 @@ const ExampleList = ({divRef}) => {
         width={window.innerWidth}
         // width={listAttributes.divWidth}
         onScroll={onScroll}
-
       >
         {({ columnIndex, rowIndex, style }) => (
           <Cell
@@ -334,11 +416,11 @@ const ExampleList = ({divRef}) => {
 
  
 
-function IconsList({listWidth}) {
+function IconsList({listWidth, style}) {
 
     const divRef = useRef(null);
     return(
-        <div id={IconsList.name} ref={divRef} className={styles.mainDiv}>
+        <div id={IconsList.name} ref={divRef} className={styles.mainDiv} style={{...style}}>
           <div className={styles.listMainDiv}>
           {ExampleList({divRef})}
           </div>

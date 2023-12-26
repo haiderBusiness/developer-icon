@@ -37,11 +37,18 @@ class Cell extends Component {
       isSelectedItemIndex,
     } = this.props;
 
+    const SingleIcon = allIcons[rowIndex * customParam.columnCount + columnIndex];
+
+    if(!SingleIcon) {
+      return null
+    }
     const clickedStyle = { 
       boxShadow: isSelectedItemIndex ? `0 0 5px ${Theme.colors.themeBlue}` : null,
     }
 
-    const SingleIcon = allIcons[rowIndex * customParam.columnCount + columnIndex];
+    
+
+
 
     const hashWithoutHashtag = window.location.hash.replace('#', '');
     const hash = hashWithoutHashtag.replaceAll('-', ' ');
@@ -53,8 +60,13 @@ class Cell extends Component {
       ? shortcutSmallCase.replace(/^\w/, (match) => match.toUpperCase())
       : '';
 
+    // if (SingleIcon.name) {
+
+    // }
+    // console.log("SingleIcon.name: ", SingleIcon)
     const nameWithoutShortcut = SingleIcon.name.replace(shortcut, '');
 
+    // put a space between before each word starts with capital letter
     const name = nameWithoutShortcut.replace(/([A-Z])(?![A-Z])/g, ' $1');
 
     const customStyle = {

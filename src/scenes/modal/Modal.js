@@ -10,7 +10,7 @@ function Modal() {
     
    
 
-    const { iconFunction } = useSelector((state) => state.riderReducer);
+    const { iconFunction } = useSelector((state) => state.reducer);
 
 
 

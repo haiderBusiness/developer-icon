@@ -1,22 +1,44 @@
-import React, {useState, useRef} from "react"
+import React, {useState, useRef, useEffect} from "react"
 import { IoIosSearch } from "react-icons/io";
-import { Helmet } from "react-helmet";
+
 import css from "../styles/searchComponent.module.css"
+import {useDispatch} from "react-redux"
+import {setIconsToShow} from "../store/actions"
+// import {setIconsToShow} from "../../"
 
+let firstRender = true
 
-export default function SearchComponent({cssStyles = null, id = "searchDivContainer"}) {
+export default function SearchComponent({cssStyles = null, id = "searchDivContainer", onType = null, inputId = "searchInput"}) {
 
     const inputRef = useRef(null)
     const [inputValue, setInputValue] = useState('');
+    const dispatch = useDispatch()
 
     const styles = cssStyles ? cssStyles : css
 
 
-    function onSearchDivClick() {
+    useEffect(() => {
+        if(!firstRender && onType) {
+            onType(inputValue)
+        } else {
+            firstRender = false
+        }
+       
+        // return () => {
+        //     firstRender = true
+        // }
+    }, [inputValue])
+
+    async function onSearchDivClick() {
         if (inputRef.current) {
             // Focus the input elementf
             inputRef.current.focus();
-          }
+        }
+
+        const allIconsFunc = require("../asets/all_icons").all_icons;
+        const all_icons = await allIconsFunc();
+        
+        dispatch(setIconsToShow(all_icons));
     }
 
 
@@ -27,6 +49,7 @@ export default function SearchComponent({cssStyles = null, id = "searchDivContai
 
                 <IoIosSearch className={styles.searchIcon}/>
                 <input
+                id={inputId}
                 type="text"
                 ref={inputRef} 
                 value={inputValue}  // Set the input value from state
