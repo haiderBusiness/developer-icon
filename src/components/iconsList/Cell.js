@@ -37,7 +37,8 @@ class Cell extends Component {
       isSelectedItemIndex,
     } = this.props;
 
-    const SingleIcon = allIcons[rowIndex * customParam.columnCount + columnIndex];
+    const index = rowIndex * customParam.columnCount + columnIndex;
+    const SingleIcon = allIcons[index];
 
     if(!SingleIcon) {
       return null
@@ -50,21 +51,31 @@ class Cell extends Component {
 
 
 
-    const hashWithoutHashtag = window.location.hash.replace('#', '');
-    const hash = hashWithoutHashtag.replaceAll('-', ' ');
-    const iconSectionName = window.location.hash ? hash : 'Ant Design Icons';
+    // const hashWithoutHashtag = window.location.hash.replace('#', '');
+    // const hash = hashWithoutHashtag.replaceAll('-', ' ');
+    // const iconSectionName = window.location.hash ? hash : 'Ant Design Icons';
 
-    const shortcutSmallCase = getItemByName(iconSectionsArr, iconSectionName);
+    // const shortcutSmallCase = getItemByName(iconSectionsArr, iconSectionName);
 
-    const shortcut = shortcutSmallCase
-      ? shortcutSmallCase.replace(/^\w/, (match) => match.toUpperCase())
-      : '';
+
+    // search for the first object in the array where the SingleIcon.name starts with the corresponding shortcut. If a match is found, it logs the matching shortcut
+    const matchingShortcutObj = iconSectionsArr.find(icon => SingleIcon.name.toLowerCase().startsWith(icon.shortcut.toLowerCase()));
+
+    // console.log("matchingShortcutObj", matchingShortcutObj)
+
+
+    // const shortcut = shortcutSmallCase
+    //   ? shortcutSmallCase.replace(/^\w/, (match) => match.toUpperCase())
+    //   : '';
+
+    // make shortcut starts with capital letter
+    const capitalShortcut = matchingShortcutObj.shortcut.replace(/^\w/, (match) => match.toUpperCase())
 
     // if (SingleIcon.name) {
 
     // }
     // console.log("SingleIcon.name: ", SingleIcon)
-    const nameWithoutShortcut = SingleIcon.name.replace(shortcut, '');
+    const nameWithoutShortcut = SingleIcon.name.replace(capitalShortcut, '');
 
     // put a space between before each word starts with capital letter
     const name = nameWithoutShortcut.replace(/([A-Z])(?![A-Z])/g, ' $1');
@@ -87,13 +98,16 @@ class Cell extends Component {
           onClick={() => this.onIconClick(SingleIcon)}
         >
           <div className={styles.iconDiv}>
-            {SingleIcon && <SingleIcon size={35} className={styles.icon} />}
+            {SingleIcon && <SingleIcon 
+            size={35} 
+            className={styles.icon} />}
             {/* <DynamicSvgComponent data={SingleIcon()} className={styles.icon} width={35} height={35} /> */}
           </div>
 
           <div className={styles.textDiv}>
             <div className={styles.text}>{SingleIcon ? name : 'undefined'}</div>
-            <div className={styles.iconSectionText}>{iconSectionName}</div>
+            <div className={styles.iconSectionText}>{matchingShortcutObj.name}</div>
+            {/* <div className={styles.iconSectionText}>{iconSectionName}</div> */}
           </div>
         </div>
       </div>

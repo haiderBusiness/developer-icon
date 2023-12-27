@@ -28,6 +28,7 @@ h1 {
     padding-left: 18px;
 }
 
+
 h1 span {
     color: #667483
 }
@@ -47,9 +48,7 @@ p {
     text-align: center;
 }
 
-a {
-    text-decoration: none;
-}
+
 
 p.lead {
     font-size: 18px;

@@ -13,6 +13,7 @@ import IconsTopNavgigation from './components/iconsTopNavigation/IconsTopNavgiga
 import RightSideBar from './components/header/RightSideBar';
 import IconsList from './components/iconsList/IconsList';
 import Theme from './theme/Theme';
+import TestApp from './test/TestApp';
 
 
 
@@ -41,9 +42,10 @@ function App() {
 
        {/* <Sidebar/> */}
        <IconsTopNavgigation/>
-       <IconsList 
-       style={{backgroundColor: Theme.colors.systemBackgroundColor}}
-       />
+       {/* <TestApp/> */}
+       <IconsList />
+      {/* //  style={{backgroundColor: Theme.colors.systemBackgroundColor}} */}
+       
        {/* <IconsList style={{top: "80px", position: "fixed", zIndex: "2", backgroundColor: "green", }}/> */}
       </div>
 

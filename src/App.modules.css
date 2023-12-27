@@ -7,6 +7,14 @@
   /* overflow-x: hidden; */
 }
 
+a {
+  text-decoration: none;
+  color: #0096df;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

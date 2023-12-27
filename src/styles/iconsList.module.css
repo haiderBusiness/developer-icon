@@ -3,10 +3,19 @@
     justify-content: center;
     align-items: center;
     /* max-width: 680px; */
-    width: 100%;
+    /* width: 100px;
+    height: 300px; */
     /* height: 100%; */
+    width: 97%;
     padding-top: 30px;
-    background-color: red;
+    /* background-color: red; */
+    
+    /* padding-left: 40px;
+    padding-right: 40px; */
+    /* padding-right: 20px;
+    padding-left: 20px; */
+    /* background-color: red; */
+    /* background-color: yellow; */
 
    
     /* width: "100%"; */
@@ -16,14 +25,14 @@
     /* background-color: red; */
 }
 
-.mainDiv *{
+/* .mainDiv *{
     pointer-events: none;
-}
+} */
 
 .listMainDiv {
     /* margin-left: auto;
     margin-right: auto; */
-    background-color: purple;
+    /* background-color: purple; */
     /* background-color: purple; */
     /* background-color: red; */
 }
@@ -37,8 +46,8 @@
     justify-items: stretch; */
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    background-color: green;
+    justify-content: flex-start;
+    /* background-color: green; */
     
     /* background-color: green; */
     /* background-color: green; */
@@ -56,8 +65,12 @@
     cursor: pointer;
     border-radius: 15px;
     pointer-events: auto;
-
+    /* background-color:red; */
 }
+
+
+
+
 .childDiv:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
@@ -86,6 +99,8 @@
 
 .icon {
     color: #373737;
+    /* size: 100px; */
+    font-size: 35px;
 }
 
 
@@ -135,3 +150,46 @@
 }
 
 
+
+
+.emptyTitle {
+    text-align: center;
+    /* max-width: 540px; */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    /* line-height: 54px; */
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #171C24;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 18px;
+    padding-left: 18px;
+    pointer-events: auto;
+}
+
+.emptySupTitle {
+    color: #3c4b62;
+    font-size: 14px;
+    line-height: 28px;
+    margin-top: 10px;
+    letter-spacing: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 18px;
+    padding-left: 18px;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.mainDiv a {
+    text-decoration: none;
+    color: #0096df;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+.mainDiv a:hover {
+    text-decoration:underline
+  }

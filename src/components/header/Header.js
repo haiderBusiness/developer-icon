@@ -103,24 +103,22 @@ export default function Header({}) {
     const dispatch = useDispatch()
 
     const onTypeFunction = (typedValue) =>  {
-        const topNavigationNav = document.getElementById("sections-nav");
+        const searchResultsDiv = document.getElementById("searchResultsDiv");
         const searchInput = document.getElementById("searchInput")
-        if (topNavigationNav && typedValue ) {
+        if (searchResultsDiv && typedValue ) {
             if (searchInput.value !== typedValue) {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
             dispatch(setSeachInputValue(typedValue))
-            topNavigationNav.style.position = "fixed"
-            topNavigationNav.style.zIndex = "-1"
+            searchResultsDiv.style.zIndex = "5"
         } else {
             if (searchInput.value !== typedValue) {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
             dispatch(setSeachInputValue(typedValue))
-            topNavigationNav.style.position = "sticky"
-            topNavigationNav.style.zIndex = "1"
+            searchResultsDiv.style.zIndex = "-1"
         }
     }
 

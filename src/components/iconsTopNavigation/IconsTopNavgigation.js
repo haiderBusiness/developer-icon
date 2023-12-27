@@ -57,7 +57,12 @@ const IconsTopNavgigation = () => {
   return (
     <nav id={"sections-nav"} className={styles.nav}>
 
-      {/* <div style={{position: "fixed", zIndex: "5", width: "100%", height: "40px", backgroundColor: "red", }}/> */}
+    <div 
+    id="searchResultsDiv"
+    className={styles.searchResultsDiv}
+    >
+      Search Results
+    </div>
 
       <div id={"scrollContainer"} className={styles.container}>
         <div className={styles.links}>
