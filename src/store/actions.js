@@ -6,6 +6,7 @@ export const SET_SEARCH_INPUT_VALUE = "SET_SEARCH_INPUT_VALUE"
 
 
 
+
 const nameOfPage = "actions.js"
 
 export const setIconFunction = setIconFunction => dispatch  => {
@@ -31,11 +32,11 @@ export const setIconsToShow = setIconsToShow => dispatch  => {
   }
 };
 
-export const setSeachInputValue = setSeachInputValue => dispatch  => {
+export const setSearchedInputValue = setSearchedInputValue => dispatch  => {
   try{
   dispatch({
       type:  SET_SEARCH_INPUT_VALUE,
-      payload: setSeachInputValue,
+      payload: setSearchedInputValue,
   })
   } catch (error) {
   console.log(`error in ${nameOfPage} > ${this.name}: ${error}`)

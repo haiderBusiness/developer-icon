@@ -193,3 +193,22 @@
 .mainDiv a:hover {
     text-decoration:underline
   }
+
+
+
+  .loaderDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* background-color: red; */
+      width: 300px;
+      height: 200px;
+  }
+
+  .iconLoader {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: green;
+  }

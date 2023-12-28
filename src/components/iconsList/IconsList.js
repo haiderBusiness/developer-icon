@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIconFunction, setIconsToShow } from '../../store/actions';
 import { BiObjectsHorizontalCenter } from "react-icons/bi";
 import calculateColumnCount from "./calculateColumnCount.js";
+import IconLoader from "../IconLoader";
 
 
 
@@ -26,7 +27,7 @@ let savedSearchInputValue = ""
 
 const ExampleList = ({divRef}) => {
 
-    const [listAttributes, setListAttributes] = useState({columnCount: 1, divWidth: 200, columnWidth: 90});
+    const [listAttributes, setListAttributes] = useState({columnCount: 1, divWidth: 200, columnWidth: 160});
 
   
 
@@ -79,12 +80,15 @@ const ExampleList = ({divRef}) => {
 
 
 
+    
 
 
-    const handleResize = () => {
+    const handleResize = (firstArgument = false, arr = [], returnsSomething = false) => {
       let divName = IconsList.name
       const div = document.getElementById(divName);
        // Replace 'your-div-id' with the actual ID of your div
+
+ 
 
       if (div) {
 
@@ -93,7 +97,12 @@ const ExampleList = ({divRef}) => {
           const obj = {}
 
           let calculationObj = {}
-          if (allIcons.length > 0) {
+
+          if(arr.length > 0) {
+            console.log("here", arr[0])
+            calculationObj = calculateColumnCount(divWidth, arr.length)
+          } else 
+          if ( allIcons.length > 0) {
             calculationObj = calculateColumnCount(divWidth, allIcons.length)
           } else {
             calculationObj = calculateColumnCount(divWidth)
@@ -103,7 +112,11 @@ const ExampleList = ({divRef}) => {
           obj.columnCount = calculationObj.numberOfColums
 
 
-          if(allIcons.length < 7 &&  allIcons.length > 0) {
+          if (arr.length < 7 &&  arr.length > 0) {
+            obj.divWidth = 160 * obj.columnCount 
+            div.style.justifyContent = calculationObj.justifyContent
+          }
+          else if(allIcons.length < 7 &&  allIcons.length > 0) {
             obj.divWidth = 160 * obj.columnCount 
             div.style.justifyContent = calculationObj.justifyContent
           } else {
@@ -121,8 +134,15 @@ const ExampleList = ({divRef}) => {
           // obj.columnCount = 2
           obj.columnWidth = 
           (obj.divWidth / 1.032) / obj.columnCount
-          setListAttributes(obj)
 
+          if(returnsSomething) {
+            return obj
+          } else {
+            setListAttributes(obj)
+          }
+          
+
+          
             // if (div.style.width !== "100px") {
             //   div.style.width = "100px"
             // }
@@ -141,13 +161,23 @@ const ExampleList = ({divRef}) => {
         
   };
 
+
+  // on first mount
+  useEffect(() => {
+    handleResize()
+  }, [])
+
+
+ 
+
+
     
 
 
     useEffect(() => {
-
-        if (divRef.current) {
-          const div = divRef.current
+        const div = divRef.current
+        if (div) {
+           
             const  divWidth = div.offsetWidth;
             const obj = {}
   
@@ -185,7 +215,7 @@ const ExampleList = ({divRef}) => {
     
       // Event listeners for window resize and div resize
       window.addEventListener('resize', handleResize);
-      if (divRef.current) {
+      if (div) {
         const resizeObserver = new ResizeObserver(handleResize);
         resizeObserver.observe(divRef.current);
   
@@ -204,14 +234,19 @@ const ExampleList = ({divRef}) => {
 
     const { iconsToShow, searchInputValue } = useSelector((state) => state.reducer)
 
+    const [showLoading, setShowLoading] = useState(true)
+
 
     useEffect(() => {
       const fetchAiArray = async () => {
         try {
           const icons = await fetchIcons(shortcut);
+          setShowLoading(true);
           setAllIcons(icons);
         } catch (error) {
            console.error("Error fetching array:", error);
+        } finally {
+          setShowLoading(false); // Set loading to false after fetch, whether successful or not
         }
       };
       
@@ -222,43 +257,58 @@ const ExampleList = ({divRef}) => {
     }, [shortcut, searchInputValue]);
 
 
-    useEffect(() => {
-      handleResize()
-    }, [])
 
 
     // console.log(IconsList.name)
 
-    useEffect(() => {
-      // const searchInput = document.getElementById("headerSearchInput")
-      if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
 
-      
-        const searchIcons = iconsToShow.filter((item) => {
-          if (!!item && !!item.name && item.name !== "" && item.name !== undefined && item.name !== null) {
 
-            // icon name with space before each word starting with capital letter
-            const iconWithSpaceName = item.name.replace(/([A-Z])(?![A-Z])/g, ' $1');
+    const searchIcons = (icons) => {
+      const searchIcons = icons.filter((item) => {
+        if (!!item && !!item.name && item.name !== "" && item.name !== undefined && item.name !== null) {
 
-            const iconName = iconWithSpaceName.toLocaleLowerCase()
-            if (iconName.includes(searchInputValue)) {
-              // console.log("item: ", item.name)
-              return item
-            } else {
-              return
-            }
+          // icon name with space before each word starting with capital letter
+          const iconWithSpaceName = item.name.replace(/([A-Z])(?![A-Z])/g, ' $1');
+
+          const iconName = iconWithSpaceName.toLocaleLowerCase()
+          if (iconName.includes(searchInputValue)) {
+            // console.log("item: ", item.name)
+            return item
           } else {
             return
           }
-          
-        })
-
-        if (searchIcons && searchIcons.length > 0) {
-          console.log("searchIcons: ", searchIcons[0])
-          setAllIcons(searchIcons)
         } else {
-          setAllIcons([])
+          return
         }
+      })
+
+      if (searchIcons && searchIcons.length > 0) {
+        console.log("searchIcons: ", searchIcons[0])
+        setAllIcons(searchIcons)
+      } else {
+        setAllIcons([])
+      }
+    }
+
+
+    const [loaderAttributes, setLoaderAttributes] = useState({})
+
+    const loaderArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+    
+    useEffect(() => {
+      // const searchInput = document.getElementById("headerSearchInput")
+
+      // show loading once anything is typed
+      setShowLoading(true)
+      if(searchInputValue !== "") {
+        setLoaderAttributes(handleResize(false, loaderArray, true))
+      }
+      
+      if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
+
+        searchIcons(iconsToShow)
+        setShowLoading(false);
       }
 
     }, [searchInputValue, iconsToShow])
@@ -279,12 +329,39 @@ const ExampleList = ({divRef}) => {
 
 
 
+    
 
 
     return(
       // <div></div>
+
+
     <ReactWindowScroller isGrid>
     {({ ref, outerRef, style, onScroll }) => (
+
+
+      // showLoading && (
+      //   <div className={styles.loaderDiv}>
+      //     <IconLoader/>
+      //   </div>
+      // )
+
+        !showLoading ? (
+          // <div className={styles.loaderDiv}>
+          //   <IconLoader/>
+          // </div>
+          <div style={{backgroundColor: "red", }}>
+
+          
+          <IconLoader 
+          style={style}
+          // ref={ref}
+          outerRef={outerRef} 
+          className={styles.iconLoader}
+          loaderArray={loaderArray} listAttributes={listAttributes}/>
+          </div>
+        )
+       : 
        allIcons.length > 0 ? (
       <Grid
         style={style}
@@ -320,7 +397,6 @@ const ExampleList = ({divRef}) => {
         )}
       </Grid>
       ) :
-      
       (<>
       <div className={styles.emptyTitle}>
         No results for "{searchInputValue}"
@@ -349,7 +425,7 @@ function IconsList({listWidth, style}) {
     const divRef = useRef(null);
     return(
         <div id={IconsList.name} ref={divRef} className={styles.mainDiv} 
-        // style={{...style, width: `${window.innerWidth}px` }}
+        // style={{...style, backgroundColor: "red" }}
         >
           <div className={styles.listMainDiv}>
           {ExampleList({divRef})}

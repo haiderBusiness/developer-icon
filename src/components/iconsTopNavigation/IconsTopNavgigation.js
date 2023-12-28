@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import styles from "../../styles/iconsTopNavigation.module.css"
 import iconSections from "../../asets/iconsSections/iconSections.json"
@@ -51,6 +51,25 @@ const IconsTopNavgigation = () => {
 
 
 
+  
+
+
+  useEffect(() => {
+    // Function to handle hash change
+
+        const hash = window.location.hash.replace("#", "")
+        const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
+        const name = iconSectionName.replaceAll("-", " ")
+
+         onClick(name, name)
+  }, []);
+
+  
+
+
+
+
+
 
 
 
@@ -92,7 +111,10 @@ const IconsTopNavgigation = () => {
                
                 // console.log(name, lastKey)
                 return(
-                    <a onClick={() => onClick(name, href)} id={href} style={style} className={styles.link} data-custom={customKey} key={customKey}  href={"#" + href}>{name}</a>
+                    <a onClick={() => onClick(name, name)} 
+                    // id={href} 
+                    id={name} 
+                    style={style} className={styles.link} data-custom={customKey} key={customKey}  href={"#" + href}>{name}</a>
                 )
             })}
         </div>

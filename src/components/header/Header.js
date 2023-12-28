@@ -4,7 +4,7 @@ import styles from "../../styles/header.module.css"
 import Logo from "../../asets/developer-icon-high-resolution-logo-transparent.svg"
 import SearchComponent from "../SearchComponent"
 import { useDispatch } from "react-redux";
-import { setSeachInputValue } from "../../store/actions";
+import { setSearchedInputValue } from "../../store/actions";
 
 
 
@@ -110,14 +110,14 @@ export default function Header({}) {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
-            dispatch(setSeachInputValue(typedValue))
+            dispatch(setSearchedInputValue(typedValue))
             searchResultsDiv.style.zIndex = "5"
         } else {
             if (searchInput.value !== typedValue) {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
-            dispatch(setSeachInputValue(typedValue))
+            dispatch(setSearchedInputValue(typedValue))
             searchResultsDiv.style.zIndex = "-1"
         }
     }

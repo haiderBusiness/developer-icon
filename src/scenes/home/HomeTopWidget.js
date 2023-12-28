@@ -3,7 +3,7 @@ import styles from "../../styles/homeTopWidget.module.css"
 import SearchComponent from "../../components/SearchComponent";
 import Space from "../../components/Space";
 import { useDispatch } from "react-redux";
-import { setSeachInputValue } from "../../store/actions";
+import { setSearchedInputValue } from "../../store/actions";
 
 
 function HomeTopWidget() {
@@ -20,14 +20,14 @@ function HomeTopWidget() {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
-            dispatch(setSeachInputValue(typedValue))
+            dispatch(setSearchedInputValue(typedValue))
             searchResultsDiv.style.zIndex = "5"
         } else {
             if (searchInput.value !== typedValue) {
                 searchInput.value = typedValue
                 // searchInput.focus()
             }
-            dispatch(setSeachInputValue(typedValue))
+            dispatch(setSearchedInputValue(typedValue))
             searchResultsDiv.style.zIndex = "-1"
         }
     }

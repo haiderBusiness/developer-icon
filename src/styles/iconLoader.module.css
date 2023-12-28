@@ -1,0 +1,166 @@
+
+  
+
+
+
+
+
+
+
+/* First */
+/* .loader {
+  width: 215px;
+  height: 215px;
+  display: block;
+  margin: auto;
+  position: relative;
+  background: #FFF;
+  box-sizing: border-box;
+}
+.loader::after {
+  content: '';
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+   radial-gradient(circle 50px , #DDD 100%, transparent 0),
+   linear-gradient(#DDD 16px, transparent 0),
+   linear-gradient(#DDD 24px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 175px, 100% 100px, 80% 16px, 80% 16px;
+  background-position: -185px 0, center 10px, center 125px, center 155px;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+}
+
+
+@keyframes animloader {
+    to {
+      background-position: 185px 0, center 10px, center 125px, center 155px;
+    }
+  } */
+
+  .loader {
+    width: 107.5px; /* half of the original width */
+    height: 107.5px; /* half of the original height */
+    display: block;
+    margin: auto;
+    position: relative;
+    /* background: #FFF; */
+    box-sizing: border-box;
+  }
+  
+  .loader::after {
+    content: '';
+    width: calc(100% - 15px); /* half of the original width adjustment */
+    height: calc(100% - 15px); /* half of the original height adjustment */
+    top: 7.5px; /* half of the original top adjustment */
+    left: 7.5px; /* half of the original left adjustment */
+    position: absolute;
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.63) 50%, transparent 100%),
+     radial-gradient(circle 20px , rgb(236, 236, 236) 100%, transparent 0),
+     linear-gradient(rgb(236, 236, 236) 8px, transparent 0),
+     linear-gradient(rgb(236, 236, 236) 12px, transparent 0);
+    background-repeat: no-repeat;
+    /* background-size: 37.5px 87.5px, 100% 50px, 40% 8px, 40% 12px;  */
+    /* half of the original background size adjustments */
+    background-size: 75px 87.5px, 70% 50px, 100% 16px, 100% 300px;
+    background-position: -92.5px 0, center 5px, center 62.5px, center 77.5px; /* half of the original background position adjustments */
+
+    /* background-position: -185px 0, center 10px, center 125px, center 155px; */
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite;
+  }
+  
+  @keyframes animloader {
+    to {
+      background-position: 92.5px 0, center 5px, center 62.5px, center 77.5px; /* half of the original background position adjustments */
+    }
+  }
+
+
+
+
+
+  /* Second */
+
+  /* .loader {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
+  }
+  .loader::after,
+  .loader::before {
+    content: '';  
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: animloader 2s linear infinite;
+  }
+  .loader::after {
+    animation-delay: 1s;
+  }
+  
+  @keyframes animloader {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  } */
+
+
+
+  /* Third */
+
+  /* .loader {
+    position: relative;
+    width: 164px;
+    height: 164px;
+   
+  }
+  .loader::before , .loader::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    left: 50%;
+    top: 50%;
+    animation: rotate 1.5s ease-in infinite;
+    border-radius: 3px;
+}
+.loader::after {
+  width: 20px;
+  height: 20px;
+  background-color: #0096df;
+  animation: rotate 1.5s ease-in infinite, moveY 1s ease-in infinite ;
+}
+
+@keyframes moveY {
+  0% , 100% {top: 10%}
+  45% , 55% {top: 59%}
+  60% {top: 40%}
+}
+@keyframes rotate {
+  0% { transform: translate(-50%, -100%) rotate(0deg) scale(1 , 1)}
+  25%{ transform: translate(-50%, 0%) rotate(180deg) scale(1 , 1)}
+  45% , 55%{ transform: translate(-50%, 100%) rotate(180deg) scale(3 , 0.5)}
+  60%{ transform: translate(-50%, 100%) rotate(180deg) scale(1, 1)}
+  75%{ transform: translate(-50%, 0%) rotate(270deg) scale(1 , 1)}
+  100%{ transform: translate(-50%, -100%) rotate(360deg) scale(1 , 1)}
+} */
+    
+        
+  
