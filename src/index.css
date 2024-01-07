@@ -15,3 +15,37 @@ code {
     monospace;
 }
 
+
+:root {
+  --background: white;
+  --background-lighter: #F6F7F9;
+  --text-primary: black;
+  --text-primary-lighter: #373737;
+  --text-primary-lighter-extra: #37373781;
+  --text-secondary: #566b8a;
+  --text-tertiary: #7f8fa0;
+  --accent: purple;
+  --special: #0096df;
+  --background-hover: rgba(0, 0, 0, 0.2); 
+  --background-hover-lighter: rgba(0, 0, 0, 0.1); 
+  --background-hover-lighter-extra: rgba(0, 0, 0, 0.05);
+  --loader-background: rgb(236, 236, 236);
+  --loader-flash-color: rgba(255, 255, 255, 0.63);
+}
+[data-theme='dark'] {
+  --background: black;
+  --background-lighter: rgb(20, 20, 20);
+  --text-primary: white;
+  --text-primary-lighter: rgb(233, 233, 233);
+  --text-primary-lighter-extra: rgba(233, 233, 233, 0.63);
+  --text-secondary: #566b8a;
+  --text-tertiary: #7f8fa0;
+  --accent: darkred;
+  --special: #0096df;
+  --background-hover: rgba(255, 255, 255, 0.3); 
+  --background-hover-lighter: rgba(255, 255, 255, 0.2); 
+  --background-hover-lighter-extra: rgba(255, 255, 255, 0.1); 
+  --loader-background: rgb(43, 43, 43);
+  --loader-flash-color: rgba(0, 0, 0, 0.281);
+
+}

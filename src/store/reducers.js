@@ -1,4 +1,4 @@
-import { SET_ICON_FUNCTION, SET_ICONS_TO_SHOW, SET_SEARCH_INPUT_VALUE } from "./actions";
+import { SET_ICON_FUNCTION, SET_ICONS_TO_SHOW, SET_SEARCH_INPUT_VALUE, SET_PREVIOUS_HASH } from "./actions";
 
 
 
@@ -6,6 +6,7 @@ const initialState = {
     iconFunction: null,
     iconsToShow: null,
     searchInputValue: null,
+    previousHash: null
 }
 
 
@@ -25,6 +26,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 searchInputValue: action.payload
+            }
+        case SET_PREVIOUS_HASH:
+            return {
+                ...state,
+                previousHash: action.payload
             }
     }
 

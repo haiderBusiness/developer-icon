@@ -2,11 +2,11 @@ import React, {useState, useRef, useEffect} from "react"
 import { IoIosSearch } from "react-icons/io";
 
 import css from "../styles/searchComponent.module.css"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {setIconsToShow} from "../store/actions"
 // import {setIconsToShow} from "../../"
 
-let firstRender = true
+
 
 export default function SearchComponent({cssStyles = null, id = "searchDivContainer", onType = null, inputId = "searchInput"}) {
 
@@ -14,14 +14,19 @@ export default function SearchComponent({cssStyles = null, id = "searchDivContai
     const [inputValue, setInputValue] = useState('');
     const dispatch = useDispatch()
 
-    const styles = cssStyles ? cssStyles : css
+    const { previousHash } = useSelector((state) => state.reducer)
 
+    const styles = cssStyles ? cssStyles : css
+    const [firstRender, setFirstRender] = useState(true)
 
     useEffect(() => {
-        if(!firstRender && onType) {
+        if(!firstRender) {
+            // console.log("setOnType")
+            console.log("inputValue", inputValue)
             onType(inputValue)
         } else {
-            firstRender = false
+            console.log("inputValue", inputValue)
+            setFirstRender(false)
         }
        
         // return () => {
@@ -42,19 +47,30 @@ export default function SearchComponent({cssStyles = null, id = "searchDivContai
     }
 
 
-    return(
-        <div id={id} className={styles.SearchDivContainer }>
+    const handleBlur = () => {
+        const searchInput = document.getElementById(inputId)
+        if (!searchInput.value || searchInput.value === "" && window.location.hash !== "#Ant-Design-Icons") {
+            window.location.hash = previousHash ? previousHash.replaceAll(" ", "-") : "Ant-Design-Icons"
+        }
+    }
 
-            <div onClick={onSearchDivClick} className={styles.searchDiv}>
+    return(
+        <div className={styles.SearchDivContainer}>
+
+            <div id={id} onClick={onSearchDivClick} className={styles.searchDiv}>
 
                 <IoIosSearch className={styles.searchIcon}/>
                 <input
                 id={inputId}
                 type="text"
                 ref={inputRef} 
-                value={inputValue}  // Set the input value from state
+                // value={inputValue}  
+                // Set the input value from state
+                // onBlur={handleBlur}
                 onChange={(event) => setInputValue(event.target.value)}  // Handle input value change
+                onChange={(event) => onType(event.target.value)}
                 placeholder="Search icons..." 
+                // readOnly={true}
                 />
             </div>
         </div>

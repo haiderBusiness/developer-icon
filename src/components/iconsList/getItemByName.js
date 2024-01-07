@@ -1,4 +1,4 @@
-function getItemByName(arr, name) {
+function getItemByName(arr, name, returnShortcut = true) {
     const searchingName = name.replaceAll("-", " ")
     // let i = 0;
     // const maxIterations = arr.length;
@@ -20,14 +20,18 @@ function getItemByName(arr, name) {
     // }
   
   
-    var foundItem = arr.find(function (item) {
+    var foundObject = arr.find(function (item) {
         // console.log("original: ", item.name.toLowerCase(), "to be searched ",searchingName.toLowerCase())
         // console.log("1: ", item.name.toLowerCase(), " 2: ", searchingName.toLowerCase());
         // console.log("searchingName.toLowerCase()", searchingName.toLowerCase())
         return item.name.toLowerCase() === searchingName.toLowerCase();
     });
   
-    return foundItem ? foundItem["shortcut"] : null;
+    if(returnShortcut) {
+        return foundObject ? foundObject["shortcut"] : null;
+    } else {
+        return foundObject ? foundObject : null;
+    }
   }
 
   export default getItemByName;

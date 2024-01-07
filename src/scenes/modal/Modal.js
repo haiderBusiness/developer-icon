@@ -1,19 +1,23 @@
 
 import { useEffect, useState } from "react";
-import styles from "../../styles/modalStyles.module.css"
+import styles from "../../styles/modal.module.css"
 import { useSelector } from "react-redux"
 import DynamicSvgComponent from "../../components/DynamicSvgComponent";
+import DisplayIcon from "./DisplayIcon";
+import TopBar from "./TopBar";
+import DisplaySections from "./DisplaySections";
 
 
 function Modal() {
+
+    const identifier = "iconModal"
 
     
    
 
     const { iconFunction } = useSelector((state) => state.reducer);
 
-
-
+    const Icon = iconFunction
 
 
     useEffect(() => {
@@ -35,10 +39,26 @@ function Modal() {
     //     }
     // }
 
+    const hideModal = () => {
+        const div = document.getElementById(identifier)
+        if (div) {
+            div.style.zIndex = "-1"
+        }
+    }
+
     return(
-        <div className={styles.modal}>
-            <h2>Extracted SVG:</h2>
-            <DynamicSvgComponent data={iconFunction ? iconFunction() : null}/>
+        <div id={identifier} className={styles.modal}>
+            <div className={styles.child}>
+
+                <TopBar onClosingClick={() => hideModal()}/>
+                
+                <DisplayIcon IconFunc={Icon}/>
+
+                <DisplaySections/>
+                
+                
+            </div>
+            
         </div>
     )
 }

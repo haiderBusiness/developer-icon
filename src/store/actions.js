@@ -3,6 +3,7 @@
 export const SET_ICON_FUNCTION = "SET_ICON_FUNCTION";
 export const SET_ICONS_TO_SHOW = "SET_ICONS_TO_SHOW";
 export const SET_SEARCH_INPUT_VALUE = "SET_SEARCH_INPUT_VALUE" 
+export const SET_PREVIOUS_HASH = "SET_PREVIOUS_HASH"
 
 
 
@@ -37,6 +38,17 @@ export const setSearchedInputValue = setSearchedInputValue => dispatch  => {
   dispatch({
       type:  SET_SEARCH_INPUT_VALUE,
       payload: setSearchedInputValue,
+  })
+  } catch (error) {
+  console.log(`error in ${nameOfPage} > ${this.name}: ${error}`)
+  }
+};
+
+export const setPreviousHash = setPreviousHash => dispatch  => {
+  try{
+  dispatch({
+      type:  SET_PREVIOUS_HASH,
+      payload: setPreviousHash,
   })
   } catch (error) {
   console.log(`error in ${nameOfPage} > ${this.name}: ${error}`)

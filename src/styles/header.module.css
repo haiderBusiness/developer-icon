@@ -5,7 +5,7 @@
     min-height: 0px !important;
     width: 100% !important;
    
-    border-bottom: 2px solid rgba(0,0,0,0.05);
+    border-bottom: 2px solid var(--background-hover-lighter-extra);
     overflow-x: hidden;
     margin-right: auto;
     margin-left: auto;
@@ -13,7 +13,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: var(--background);
   }
 
 
@@ -41,6 +41,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .button {
@@ -48,12 +49,28 @@
     font-size: 14px;
     margin: 0px 20px;
     font-weight: 600;
-    color: #888282;
+    color: var(--text-primary-lighter-extra);
     text-transform: capitalize;
   }
 
   .button:hover {
-    color: #000000;
+    color: var(--text-primary);
+  }
+
+  .darkModeDiv {
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0px 20px;
+    font-weight: 600;
+    color: var(--text-primary-lighter-extra);
+    background-color: transparent;
+    text-transform: capitalize;
+    border-radius: 100px;
+    padding: 8px;
+  }
+
+  .darkModeDiv:hover {
+    background-color: var(--background-hover-lighter);
   }
 
 
@@ -66,6 +83,9 @@
     padding-right: 18px;
     max-width: 630px;
     width: 100%;
+    /* background-color: red; */
+    pointer-events: none;
+    cursor: default;
 
     /* background-color: red; */
   }
@@ -73,7 +93,7 @@
   .searchDiv {
     padding-block: 10px;
     padding-inline: 20px;
-    background-color: #F6F7F9;
+    background-color: var(--background-lighter);
     border-radius: 8px;
     align-items: center;
     
@@ -82,7 +102,7 @@
     margin-right: auto;
     opacity: 1;
     pointer-events: auto;
-    cursor: text;
+    /* cursor: text; */
     transition-duration: 8s;
     /* width: 590px; */ 
     }
@@ -90,9 +110,10 @@
 
   .searchIcon {
     font-size: 20px;
-    color: #BEC7D5;
+    color: var(--text-tertiary);
     margin-right: 10px;
     cursor: default;
+    opacity: 0.5;
     
   }
 
@@ -102,10 +123,14 @@
     font-size: 15px;
     width: 100%;
     background-color: transparent;
+    pointer-events: none;
+    cursor: pointer;
+    /* z-index: -1; */
   }
 
   input::placeholder {
-    color: #C0C9D7;
+    color: var(--text-tertiary);
+    opacity: 0.5;
   }
 
   .test {

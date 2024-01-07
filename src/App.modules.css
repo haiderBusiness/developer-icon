@@ -28,13 +28,12 @@ a {
 
 *{
   scroll-behavior: smooth; 
+  color: var(--text-primary)
 }
-
-
 
 .App-body {
   position:relative;
-  background-color: white;
+  background-color: var(--background);
   z-index: 0;
   min-height: 95vh;
   display: flex;
@@ -42,7 +41,7 @@ a {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--background);
   margin-left: auto;
   margin-right: auto;
   scroll-behavior: smooth;
@@ -59,4 +58,120 @@ a {
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.default_icon {
+  color: var(--background);
+  font-size: 25px;
+}
+
+.icon {
+  color: var(--text-primary-lighter);
+}
+.icon:hover {
+  color: var(--text-primary)
+}
+
+.copyButtonDiv {
+  display: flex;
+  color: var(--background);
+  background-color: transparent;
+  font-size: 30px;
+  size: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: auto;
+  
+}
+
+.copyButtonDiv:hover {
+  background-color: rgba(255,255,255, 0.2);
+}
+
+.copyButtonDiv:active {
+  background-color: rgba(255,255,255, 0.4);
+}
+
+
+
+#notificationDiv {
+  position: fixed;
+  display: flex;
+  background: #000e29;
+  bottom: -100px;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  /* background-color: red; */
+  justify-content:flex-start;
+  align-items: center;
+  color: var(--background);
+  padding: 10px 20px;
+  transition-duration: 0.5s;
+  /* background-color: red; */
+}
+
+
+
+
+.code-snippet-box {
+  background-color: rgb(36, 39, 43);
+  padding: 20px 10px;
+  border-radius: 10px;
+
+}
+
+code {
+  /* font-family: 'Courier New', monospace; */
+  color: rgb(255, 255, 255);
+  font-weight: 550;
+  font-size: 13px;
+  /* font-weight: bold; */
+
+
+}
+
+
+.code-comment {
+  color: rgba(255,255,255,0.5);
+}
+
+.code-type {
+  color: rgba(92, 157, 255, 0.945)
+}
+
+.code-decleration {
+  color: rgba(255, 73, 128, 0.945)
+}
+.code-variable {
+  color: rgb(255, 255, 255);
+}
+
+.code-parentheses {
+  color: rgb(255, 255, 255);
+}
+
+.code-function {
+  color:rgb(166, 34, 255);
+}
+.code-builtin-function {
+  color:rgb(172, 92, 226);
+}
+.code-class-name {
+  color: rgb(209, 162, 253)
+}
+
+.code-string {
+  color: rgb(250, 144, 4);
+}
+.code-number {
+  color: rgb(238, 238, 131);
+}
+.code-property {
+  color: rgb(194, 233, 136)
 }

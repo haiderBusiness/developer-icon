@@ -5,6 +5,11 @@ import Logo from "../../asets/developer-icon-high-resolution-logo-transparent.sv
 import SearchComponent from "../SearchComponent"
 import { useDispatch } from "react-redux";
 import { setSearchedInputValue } from "../../store/actions";
+import onTypeFunction from "../../functions/onTypeFunction";
+
+import { CiLight, CiDark } from "react-icons/ci";
+
+import useLocalStorage from 'use-local-storage'
 
 
 
@@ -24,8 +29,11 @@ function onThirdButtonClick() {
 
 
 const handleScroll = () => {
-    const searchDiv = document.getElementById('thisSearchDivContainer');
+    const searchDiv = document.getElementById('headerSearchDiv');
     const targetDiv =  document.getElementById("searchDivContainer")
+    const headerSearchInput = document.getElementById("headerSearchInput")
+    
+    
 
   //   if (targetDiv) {
   //     const targetRect = targetDiv.getBoundingClientRect();
@@ -42,15 +50,23 @@ const handleScroll = () => {
           searchDiv.style.transitionDuration = '0.2s'
       }
 
-      if (scrollTop > offsetTop + targetDiv.offsetHeight ) {
+    //   headerSearchInput.readOnly = true
+      if (scrollTop > (offsetTop + targetDiv.offsetHeight * 4.4) ) {
           //alert("offsetTop: ", offsetTop + targetDiv.height)
           if (searchDiv) 
           searchDiv.style.opacity = "1"
           searchDiv.style.pointerEvents = "auto"
+          searchDiv.style.cursor = "text"
+        //   headerSearchInput.readOnly = true
+          headerSearchInput.disabled = false;
       } else {
           if (searchDiv) 
           searchDiv.style.opacity = "0"
           searchDiv.style.pointerEvents = "none"
+          headerSearchInput.disabled = true;
+          searchDiv.style.cursor = "default"
+        //   headerSearchInput.readOnly = true
+
       }
   };
 
@@ -63,9 +79,31 @@ const handleScroll = () => {
 
 export default function Header({}) {
 
-    const thisSearchDivContainer = "thisSearchDivContainer"
+    const thisSearchDivContainer = "headerSearchDiv"
 
     const [showHamburgerMenu, setShowHamburgerMenu] = useState(false)
+
+    const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+
+    
+
+    let defaultDarkMode = false
+    const div = document.getElementById("app")
+    if(div) {
+        console.log("theme: ", theme)
+        div.dataset.theme = theme
+        if (div.dataset.theme === "dark") {
+
+            defaultDarkMode = true
+        } else {
+           defaultDarkMode = false
+        }
+    }
+    const [darkMode, setDarkMode] = useState(defaultDarkMode);
+
+
+ 
 
     function handleResize() {
         
@@ -98,29 +136,64 @@ export default function Header({}) {
     }, [showHamburgerMenu]);
 
 
+    const handleModeClick = () => {
+        const div = document.getElementById("app")
+        if(div) {
+            if (div.dataset.theme === "dark") {
+                div.dataset.theme = "light"
+                setTheme("light")
+                setDarkMode(false)
+            } else {
+                div.dataset.theme = "dark"
+                setTheme("dark")
+                setDarkMode(true)
+            }
+            
+        }
+    }
+
+
 
 
     const dispatch = useDispatch()
 
-    const onTypeFunction = (typedValue) =>  {
-        const searchResultsDiv = document.getElementById("searchResultsDiv");
-        const searchInput = document.getElementById("searchInput")
-        if (searchResultsDiv && typedValue ) {
-            if (searchInput.value !== typedValue) {
-                searchInput.value = typedValue
-                // searchInput.focus()
-            }
-            dispatch(setSearchedInputValue(typedValue))
-            searchResultsDiv.style.zIndex = "5"
-        } else {
-            if (searchInput.value !== typedValue) {
-                searchInput.value = typedValue
-                // searchInput.focus()
-            }
-            dispatch(setSearchedInputValue(typedValue))
-            searchResultsDiv.style.zIndex = "-1"
-        }
-    }
+    // const onTypeFunction = (typedValue) =>  {
+    //     const searchResultsDiv = document.getElementById("searchResultsDiv");
+    //     const searchInput = document.getElementById("searchInput")
+    //     const headerSearchInput = document.getElementById("headerSearchInput")
+    //     if (searchResultsDiv && typedValue ) {
+    //         if (searchInput.value !== typedValue) {
+    //             searchInput.value = typedValue
+    //             // searchInput.focus()
+    //         }
+
+    //         if (headerSearchInput !== typedValue) {
+    //             headerSearchInput.value = typedValue
+    //         }
+
+    //         // window.location.hash = `/search/#q=${typedValue}`;
+    //         if(typedValue !== "" && !window.location.hash.includes(typedValue)) {
+    //             window.location.hash = `icons/search/#q=${typedValue}`;
+    //         }
+           
+    //         dispatch(setSearchedInputValue(typedValue))
+    //         searchResultsDiv.style.zIndex = "5"
+    //     } else {
+    //         if (searchInput.value !== typedValue) {
+    //             searchInput.value = typedValue
+    //             // searchInput.focus()
+    //         } 
+    //         if (headerSearchInput !== typedValue) {
+    //             headerSearchInput.value = typedValue
+    //         }
+    //         if(typedValue !== "" && !window.location.hash.includes(typedValue)) {
+    //             window.location.hash = `/search/#q=${typedValue}`;
+    //         }
+    //         // window.location.hash = `/search/#q=${typedValue}`;
+    //         dispatch(setSearchedInputValue(typedValue))
+    //         searchResultsDiv.style.zIndex = "-1"
+    //     }
+    // }
 
 
     return(
@@ -146,6 +219,10 @@ export default function Header({}) {
 
                         <div className={styles.button}  onClick={onThirdButtonClick}>
                             third
+                        </div>
+
+                        <div onClick={() => handleModeClick()} className={styles.darkModeDiv}>
+                           {darkMode ? <CiLight className={"icon dark-mode"} size={30}/> : <CiDark className="icon dark-mode" size={30} />} 
                         </div>
                     </div>
                     : 

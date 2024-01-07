@@ -15,7 +15,7 @@
 
 .searchDiv {
     padding: 20px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-lighter);
     border-radius: 8px;
     align-items: center;
     cursor: text;
@@ -29,9 +29,10 @@
 
 .searchIcon {
     font-size: x-large;
-    color: #BEC7D5;
+    color: var(--text-tertiary);
     margin-right: 10px;
     cursor: default;
+    opacity: 0.5;
     
 }
 
@@ -41,8 +42,10 @@ input {
     font-size: large;
     width: 100%;
     background-color: transparent;
+    color: var(--text-primary);
 }
 
 input::placeholder {
-    color: #C0C9D7;
+    color: var(--text-tertiary);
+    opacity: 0.5;
 }

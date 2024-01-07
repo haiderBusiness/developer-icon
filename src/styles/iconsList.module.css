@@ -72,7 +72,7 @@
 
 
 .childDiv:hover {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 5px var(--background-hover);
 }
 
 
@@ -98,7 +98,7 @@
 } */
 
 .icon {
-    color: #373737;
+    color: var(--text-primary-lighter);
     /* size: 100px; */
     font-size: 35px;
 }
@@ -118,7 +118,7 @@
   
   .text {
     font-size: 12px;
-    color: #373737;
+    color: var(--text-primary-lighter);
     /* background-color: red; */
     text-align: center;
     /* width: 50px;  */
@@ -135,7 +135,8 @@
 .iconSectionText {
     font-size: 11px;
     margin-top: 5px;
-    color: #373737b4;
+    color: var(--text-primary-lighter-extra);
+    
     /* background-color: red; */
     text-align: center;
     /* width: 50px;  */
@@ -161,7 +162,7 @@
     /* line-height: 54px; */
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #171C24;
+    color: var(--text-tertiary);
     margin-left: auto;
     margin-right: auto;
     padding-right: 18px;
@@ -170,7 +171,7 @@
 }
 
 .emptySupTitle {
-    color: #3c4b62;
+    color: var(--text-secondary);
     font-size: 14px;
     line-height: 28px;
     margin-top: 10px;
@@ -185,7 +186,7 @@
 
 .mainDiv a {
     text-decoration: none;
-    color: #0096df;
+    color: var(--special);
     cursor: pointer;
     pointer-events: auto;
   }
@@ -201,14 +202,21 @@
       justify-content: center;
       align-items: center;
       /* background-color: red; */
-      width: 300px;
-      height: 200px;
+      /* width: 300px;
+      height: 200px; */
   }
+
+  /* * {
+    overflow: hidden;
+  } */
 
   .iconLoader {
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: green;
+    /* background-color: yellow; */
+    margin-left: 2.8%;
   }
+
+  

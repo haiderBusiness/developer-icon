@@ -21,9 +21,6 @@ import IconLoader from "../IconLoader";
 const iconSectionsArr = iconSections
 
 
-let currentIcons = []
-
-let savedSearchInputValue = ""
 
 const ExampleList = ({divRef}) => {
 
@@ -37,10 +34,12 @@ const ExampleList = ({divRef}) => {
 
   // console.log(aiArrayTest())
 
-    const hash = window.location.hash.replace("#", "")
-    const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
+   const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
+   const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
+   const iconSectionName = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
 
-    const shortcutSmallCase = getItemByName(iconSectionsArr,iconSectionName)
+
+    const shortcutSmallCase = iconSectionName ? getItemByName(iconSectionsArr,iconSectionName) : null
 
     // console.log("window.location.hash: ")
 
@@ -54,13 +53,12 @@ const ExampleList = ({divRef}) => {
       const handleHashChange = () => {
 
 
-        if (!firstRender) {
+        if (!firstRender && !window.location.hash.includes("search")) {
           const hash = window.location.hash.replace("#", "")
           const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
 
-          const shortcutSmallCase = getItemByName(iconSectionsArr,iconSectionName)
-
-          // console.log(shortcutSmallCase)
+          const shortcutSmallCase = getItemByName(iconSectionsArr,iconSectionName);
+          //console.log(shortcutSmallCase)
           setShortcut(shortcutSmallCase);
         }
 
@@ -92,14 +90,14 @@ const ExampleList = ({divRef}) => {
 
       if (div) {
 
-        console.log("")
+        // console.log("")
           const  divWidth = div.offsetWidth;
           const obj = {}
 
           let calculationObj = {}
 
           if(arr.length > 0) {
-            console.log("here", arr[0])
+            // console.log("here", arr[0])
             calculationObj = calculateColumnCount(divWidth, arr.length)
           } else 
           if ( allIcons.length > 0) {
@@ -234,10 +232,11 @@ const ExampleList = ({divRef}) => {
 
     const { iconsToShow, searchInputValue } = useSelector((state) => state.reducer)
 
-    const [showLoading, setShowLoading] = useState(true)
+    const [showLoading, setShowLoading] = useState(false)
 
 
     useEffect(() => {
+
       const fetchAiArray = async () => {
         try {
           const icons = await fetchIcons(shortcut);
@@ -249,9 +248,12 @@ const ExampleList = ({divRef}) => {
           setShowLoading(false); // Set loading to false after fetch, whether successful or not
         }
       };
+
+      // console.log("shortcut: ", shortcut, " searchInputValue: ", searchInputValue)
       
-      if(searchInputValue === "" || !searchInputValue) {
+      if(shortcut && searchInputValue === "" || shortcut && !searchInputValue) {
         fetchAiArray();
+        // console.log("fetching array");
       }
       
     }, [shortcut, searchInputValue]);
@@ -283,31 +285,41 @@ const ExampleList = ({divRef}) => {
       })
 
       if (searchIcons && searchIcons.length > 0) {
-        console.log("searchIcons: ", searchIcons[0])
+        // console.log("searchIcons: ", searchIcons[0])
         setAllIcons(searchIcons)
       } else {
+        const searchDiv = document.getElementById('headerSearchDiv');
+        const searchInput = document.getElementById("searchInput")
+        if(searchInput) {
+          searchInput.focus()
+        }
+
+        setShowLoading(false)
         setAllIcons([])
       }
     }
 
 
-    const [loaderAttributes, setLoaderAttributes] = useState({})
+    // const [loaderAttributes, setLoaderAttributes] = useState({})
 
     const loaderArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+
+
 
     
     useEffect(() => {
       // const searchInput = document.getElementById("headerSearchInput")
+      // show loading once anything is typed;
 
-      // show loading once anything is typed
-      setShowLoading(true)
-      if(searchInputValue !== "") {
-        setLoaderAttributes(handleResize(false, loaderArray, true))
+      
+      if(searchInputValue !== "" && searchInputValue) {
+        // setLoaderAttributes(handleResize(false, loaderArray, true))
+        setShowLoading(true);
       }
       
       if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
-
-        searchIcons(iconsToShow)
+        searchIcons(iconsToShow);
         setShowLoading(false);
       }
 
@@ -329,6 +341,27 @@ const ExampleList = ({divRef}) => {
 
 
 
+
+
+    // useEffect(() => {
+    //   if(showLoading) {
+    //     const body = document.body
+    //     body.style.overflowY = "hidden"
+    //   } else {
+    //     const body = document.body
+    //     body.style.overflowY = "auto"
+    //   }
+      
+
+    //   return () => {
+    //     divs.forEach((div) => {
+    //       div.style.overflow = '';
+    //     });
+    //   };
+    // }, [showLoading])
+
+
+
     
 
 
@@ -346,11 +379,13 @@ const ExampleList = ({divRef}) => {
       //   </div>
       // )
 
-        !showLoading ? (
+        showLoading ? (
           // <div className={styles.loaderDiv}>
           //   <IconLoader/>
           // </div>
-          <div style={{backgroundColor: "red", }}>
+          <div 
+          // style={{backgroundColor: "red", }}
+          >
 
           
           <IconLoader 
@@ -399,10 +434,10 @@ const ExampleList = ({divRef}) => {
       ) :
       (<>
       <div className={styles.emptyTitle}>
-        No results for "{searchInputValue}"
+        No results for: "{searchInputValue}"
       </div>
       <div className={styles.emptySupTitle}>
-        Not finding an icon that you are sure of its existance within ? <a href="https://ionic.io">File an issue</a> and suggest a new icon.
+        Not finding an icon that you are sure of its existance here ? <a href="https://ionic.io">File an issue</a> We'll fix it as soon as possible.
       </div>
       </>
       )

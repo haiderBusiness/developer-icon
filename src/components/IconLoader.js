@@ -1,6 +1,7 @@
 
-import React, {Component} from "react"
-import styles from "../styles/iconLoader.module.css"
+import React, {Component, useEffect} from "react"
+import iconLoaderStyles from "../styles/iconLoader.module.css"
+import styles from "../styles/iconsList.module.css"
 import { FixedSizeGrid as Grid } from 'react-window';
 
 
@@ -34,14 +35,16 @@ class Cell extends Component {
             // ...customStyle
           }}
         >
-          <span className={styles.loader}></span>
+          <span className={iconLoaderStyles.loader}></span>
         </div>
       );
     }
   }
 
 
+
 export default function IconLoader({loaderArray = [], listAttributes = {}, style, outerRef, className = styles.list }) {
+
 
     
     return(
@@ -80,7 +83,7 @@ export default function IconLoader({loaderArray = [], listAttributes = {}, style
             )}
         </Grid>)
         :
-        (<span className={styles.loader}></span>)
+        (<span className={iconLoaderStyles.loader}></span>)
     )
 }
 

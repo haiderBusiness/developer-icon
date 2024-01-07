@@ -1,5 +1,5 @@
 .mainDiv {
-    background-color: #ffffff;
+    background-color: var(--background);
     box-sizing: border-box;
     width: 100% !important;
     justify-content: center;
@@ -21,7 +21,7 @@ h1 {
     line-height: 54px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #171C24;
+    color: var(--text-primary-lighter);
     margin-left: auto;
     margin-right: auto;
     padding-right: 18px;
@@ -30,13 +30,13 @@ h1 {
 
 
 h1 span {
-    color: #667483
+    color: var(--text-tertiary);
 }
 
 
 
 p {
-    color: #3c4b62;
+    color: var(--text-secondary);
     font-size: 14px;
     line-height: 28px;
     margin-top: 10px;

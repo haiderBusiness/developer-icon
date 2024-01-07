@@ -14,24 +14,31 @@ import RightSideBar from './components/header/RightSideBar';
 import IconsList from './components/iconsList/IconsList';
 import Theme from './theme/Theme';
 import TestApp from './test/TestApp';
+import NotificationMessage from './components/NotificationMessage';
+
+import useLocalStorage from 'use-local-storage'
 
 
 
 function App() {
 
   
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+
+
 
 
   return (
-    <div className="App">
 
+    
+    <div id={"app"} className="App" data-theme={theme}>
 
-
-     
-
+    {/* <div style={{position: "fixed",backgroundColor: "red", height: "100vh", width: "100%", zIndex: "100"}}/> */}
+    
       <Header/>
 
- {/* <Modal/> */}
+    {/* <Modal/> */}
       <Modal/>
       
       <RightSideBar/>
@@ -47,6 +54,10 @@ function App() {
       {/* //  style={{backgroundColor: Theme.colors.systemBackgroundColor}} */}
        
        {/* <IconsList style={{top: "80px", position: "fixed", zIndex: "2", backgroundColor: "green", }}/> */}
+      </div>
+
+      <div id={"notificationDiv"}>
+      <NotificationMessage/>
       </div>
 
     </div>

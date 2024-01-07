@@ -5,14 +5,17 @@ import iconSections from "../../asets/iconsSections/iconSections.json"
 
 const IconsTopNavgigation = () => {
 
-  const hash = window.location.hash.replace("#", "")
-  const hashNoDashes = hash.replaceAll("-", " ")
-  const iconSectionName = hashNoDashes ? hashNoDashes : "Ant Design Icons"
+  const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
+  const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
+  const iconSectionName = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
+  
 
   const [selectedSection, setSelectedSection] = useState(iconSectionName)
 
   function onClick(name, activeItemId) {
-    // alert("clicked") 
+
+    try {
+      // alert("clicked") 
       const specificPoint = document.getElementById("searchDivContainer"); // Replace with your element ID
       // const nav = document.getElementById("sections-nav")
 
@@ -46,8 +49,15 @@ const IconsTopNavgigation = () => {
 
         }, 10)
       }
+    } catch {
+      throw console.error("Error: here is window.location.hash: ", window.location.hash, " Error details: ", Error);
+    }
+    
   
   }
+
+
+
 
 
 
@@ -57,12 +67,49 @@ const IconsTopNavgigation = () => {
   useEffect(() => {
     // Function to handle hash change
 
-        const hash = window.location.hash.replace("#", "")
-        const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
-        const name = iconSectionName.replaceAll("-", " ")
-
-         onClick(name, name)
+    if (hash) {
+      const hash = window.location.hash.replace("#", "")
+      const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
+      const name = iconSectionName.replaceAll("-", " ")
+      onClick(name, name)
+    }
+        
   }, []);
+
+
+
+
+  useEffect(() => {
+    // Function to handle hash change
+    const handleHashChange = () => {
+
+
+
+      const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
+      const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
+      const name = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
+
+
+      if(hash) {
+        onClick(name, name)
+      } else {
+        // setSelectedSection(null)
+      }
+
+
+      
+    };
+
+
+    // Attach event listener for hash change
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
 
   
 

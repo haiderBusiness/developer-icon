@@ -1,0 +1,40 @@
+
+
+
+.IOSFrontage {
+    display: flex;
+    flex-direction: column;
+    /* height: 55vmin; */
+}
+
+.child {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.title {
+    color: var(--text-primary-lighter);
+    font-size: 20px;
+    padding: 10px 0px;
+
+    font-weight: 600;
+}
+
+.downloadButton {
+    display: flex;
+    width: 100%;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px;    
+    background-color: var(--text-primary);
+    color: var(--background);
+    cursor: pointer;
+    opacity: 0.9;
+}
+.downloadButton:hover {
+    /* background-color: var(--background-hover) ; */
+    opacity: 1;
+}

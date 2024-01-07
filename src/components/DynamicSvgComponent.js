@@ -1,5 +1,5 @@
  import React, {useState, useEffect} from 'react';
- import styles from "../styles/modalStyles.module.css"
+ import styles from "../styles/modal.module.css"
 
 const DynamicSvgComponent = ({ data, width = 100, height = 100, fill = "#373737", className = ""}) => {
   const [svgData, setSvgData] = useState({});

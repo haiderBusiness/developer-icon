@@ -1,7 +1,7 @@
 
 const colors = {
     themeBlue: "#0096df",
-    systemBackgroundColor: "#ffffff" 
+    primaryBackgroundColor: "#ffffff",
    }
 
 
