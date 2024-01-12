@@ -1,21 +1,22 @@
-import { SET_ICON_FUNCTION, SET_ICONS_TO_SHOW, SET_SEARCH_INPUT_VALUE, SET_PREVIOUS_HASH } from "./actions";
+import { SET_ICON_OBJECT, SET_ICONS_TO_SHOW, SET_SEARCH_INPUT_VALUE, SET_PREVIOUS_HASH, SET_ACTIVE_SECTION } from "./actions";
 
 
 
 const initialState = {
-    iconFunction: null,
+    iconObject: null,
     iconsToShow: null,
     searchInputValue: null,
-    previousHash: null
+    previousHash: null,
+    activeSection: null,
 }
 
 
 function reducer(state = initialState, action) {
     switch(action.type) {
-        case SET_ICON_FUNCTION:
+        case SET_ICON_OBJECT:
             return {
                 ...state,
-                iconFunction: action.payload
+                iconObject: action.payload
             }
         case SET_ICONS_TO_SHOW:
             return {
@@ -31,6 +32,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 previousHash: action.payload
+            }
+        case SET_ACTIVE_SECTION:
+            return {
+                ...state,
+                activeSection: action.payload
             }
     }
 

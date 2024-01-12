@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import styles from "../../styles/homeTopWidget.module.css"
 import SearchComponent from "../../components/SearchComponent";
 import Space from "../../components/Space";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchedInputValue, setIconsToShow, setPreviousHash } from "../../store/actions";
 
 import iconSections from "../../asets/iconsSections/iconSections.json"
@@ -13,29 +13,62 @@ function HomeTopWidget() {
 
     const dispatch = useDispatch()
 
+    const { searchInputValue } = useSelector((state) => state.reducer)
+
     useEffect(() => {
 
+        const hash = window.location.hash;
+
         async function fetchAllIconsBasedOnSearch() {
-            const searchString = window.location.hash;
+            
 
             // Split the string using '#q=' as the delimiter and select the second part
-            const querySearchString = searchString.split('#q=')[1];
+            const querySearchString = hash.split('#q=')[1];
         
             // console.log("queryString", queryString); // Output: s
 
             // console.log("querySearchString", querySearchString)
             onTypeFunction(querySearchString)
-            console.log(querySearchString)
+            // console.log(querySearchString)
             const allIconsFunc = require("../../asets/all_icons").all_icons;
             const all_icons = await allIconsFunc();
             dispatch(setIconsToShow(all_icons));
         }
 
-        if(window.location.hash.includes("search")) {
+
+        const searchString = "#/search/#q="
+        
+
+        if(hash.includes(searchString) && hash.length > searchString.length) {
             fetchAllIconsBasedOnSearch()
         }
         
     }, [])
+
+
+    useEffect(() => {
+        
+        const headerSearchInput = document.getElementById("headerSearchInput")
+        const searchInput = document.getElementById("searchInput")
+
+        if(!searchInputValue && headerSearchInput && searchInput ) {
+
+            headerSearchInput.value = ""
+            // headerSearchInput.blur()
+            // headerSearchInput.focus()
+        
+            searchInput.value = ""
+            // searchInput.blur()
+
+           
+            // searchInput.focus()
+            
+        } 
+
+        if(!searchInputValue && window.location.hash.includes("#/search/#q=")) {
+                window.location.hash = "#Ant-Design-Icons"
+        }
+    }, [searchInputValue])
 
 
   return (

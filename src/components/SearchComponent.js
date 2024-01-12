@@ -22,11 +22,11 @@ export default function SearchComponent({cssStyles = null, id = "searchDivContai
     useEffect(() => {
         if(!firstRender) {
             // console.log("setOnType")
-            console.log("inputValue", inputValue)
-            onType(inputValue)
+            // console.log("inputValue", inputValue)
+            onType(inputValue);
         } else {
-            console.log("inputValue", inputValue)
-            setFirstRender(false)
+            // console.log("inputValue", inputValue)
+            setFirstRender(false);
         }
        
         // return () => {
@@ -61,6 +61,7 @@ export default function SearchComponent({cssStyles = null, id = "searchDivContai
 
                 <IoIosSearch className={styles.searchIcon}/>
                 <input
+                contentEditable={true}
                 id={inputId}
                 type="text"
                 ref={inputRef} 

@@ -42,7 +42,8 @@ input {
     font-size: large;
     width: 100%;
     background-color: transparent;
-    color: var(--text-primary);
+    color: var(--text-primary-second);
+    lighting-color: red;
 }
 
 input::placeholder {

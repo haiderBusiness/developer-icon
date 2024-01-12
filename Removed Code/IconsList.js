@@ -10,7 +10,7 @@ import Cell from "./Cell";
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setIconFunction, setIconsToShow } from '../../store/actions';
+import { setIconObject, setIconsToShow } from '../../store/actions';
 
 
 function calculateColumnCount(divWidth, smallNumber) {
@@ -341,7 +341,7 @@ const ExampleList = ({divRef}) => {
     const handleItemClicked = (object) => {
       console.log("event", object);
       setSelectedItemIndex(object.itemIndex);
-      dispatch(setIconFunction(object.iconFunction));
+      dispatch(setIconObject(object.iconObject));
     }
 
 

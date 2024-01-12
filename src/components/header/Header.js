@@ -91,7 +91,7 @@ export default function Header({}) {
     let defaultDarkMode = false
     const div = document.getElementById("app")
     if(div) {
-        console.log("theme: ", theme)
+        // console.log("theme: ", theme)
         div.dataset.theme = theme
         if (div.dataset.theme === "dark") {
 

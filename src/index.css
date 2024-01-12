@@ -19,13 +19,19 @@ code {
 :root {
   --background: white;
   --background-lighter: #F6F7F9;
+  
+  --text-primary-second: rgb(46, 41, 41);
   --text-primary: black;
+  --text-primary2: rgba(0, 0, 0, 0.9);
+  --text-primary3: rgba(0, 0, 0, 0.8);
+  --text-primary4: rgba(0, 0, 0, 0.7);
   --text-primary-lighter: #373737;
   --text-primary-lighter-extra: #37373781;
   --text-secondary: #566b8a;
   --text-tertiary: #7f8fa0;
   --accent: purple;
   --special: #0096df;
+  --green: #1EB041;
   --background-hover: rgba(0, 0, 0, 0.2); 
   --background-hover-lighter: rgba(0, 0, 0, 0.1); 
   --background-hover-lighter-extra: rgba(0, 0, 0, 0.05);
@@ -36,16 +42,48 @@ code {
   --background: black;
   --background-lighter: rgb(20, 20, 20);
   --text-primary: white;
+  --text-primary-second: rgb(231,234,237);
+  --text-primary2: rgba(255, 255, 255,0.9);
+  --text-primary3: rgba(255, 255, 255,0.8);
+  --text-primary4: rgba(255, 255, 255,0.7);
   --text-primary-lighter: rgb(233, 233, 233);
   --text-primary-lighter-extra: rgba(233, 233, 233, 0.63);
+  /* --text-primary-hover: #02a6fff1; */
   --text-secondary: #566b8a;
   --text-tertiary: #7f8fa0;
   --accent: darkred;
   --special: #0096df;
+  --green: #1EB041;
   --background-hover: rgba(255, 255, 255, 0.3); 
   --background-hover-lighter: rgba(255, 255, 255, 0.2); 
   --background-hover-lighter-extra: rgba(255, 255, 255, 0.1); 
+  /* --background-select: rgb(94, 94, 94); */
   --loader-background: rgb(43, 43, 43);
   --loader-flash-color: rgba(0, 0, 0, 0.281);
 
+}
+
+.defaultButton {
+    display: flex;
+    width: 100%;
+    height: 35px;
+    margin-block: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 17px;    
+    background-color: var(--text-primary-lighter);
+    color: var(--background-lighter);
+    cursor: pointer;
+    opacity: 0.9;
+    font-weight: 500;
+    padding-block: 5px;
+
+    
+    margin: auto auto;
+}
+
+.defaultButton:hover {
+  background-color: var(--text-primary);
+  color: var(--background)
 }

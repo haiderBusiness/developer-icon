@@ -3,14 +3,23 @@ import React, {useEffect, useState} from 'react';
 import styles from "../../styles/iconsTopNavigation.module.css"
 import iconSections from "../../asets/iconsSections/iconSections.json"
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveSection } from '../../store/actions';
+
 const IconsTopNavgigation = () => {
 
-  const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
-  const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
-  const iconSectionName = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
+  // const hash =  !window.location.hash.includes("search") && !window.location.hash.includes("=") ? window.location.hash.replace("#", "") : null
+
+  // const hash = window.location.hash
+  // const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
+  // const name = iconSections.some(iconSection => iconSection.name === hashNoDashes) ? hashNoDashes : null
+  
+  // const iconSectionName = hashNoDashes ? hashNoDashes : "Ant Design Icons"
   
 
-  const [selectedSection, setSelectedSection] = useState(iconSectionName)
+  const [selectedSection, setSelectedSection] = useState("Ant Design Icons")
+
+  const dispatch = useDispatch()
 
   function onClick(name, activeItemId) {
 
@@ -67,14 +76,97 @@ const IconsTopNavgigation = () => {
   useEffect(() => {
     // Function to handle hash change
 
-    if (hash) {
-      const hash = window.location.hash.replace("#", "")
-      const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
-      const name = iconSectionName.replaceAll("-", " ")
-      onClick(name, name)
+    if (window.location.hash) {
+
+      const hash1 = window.location.hash
+      const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
+      const hash3 = hash2 ? hash2.replaceAll("#", "") : null
+      const sectionName = hash2 ? decodeURIComponent(hash3) : null
+      const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
+     
+      // console.log("beforehand: ", name, ", hash3 beforehand: ", sectionName)
+      
+      const searchResultsDiv = document.getElementById("searchResultsDiv")
+
+      const searchString = "#/search/#q="
+
+
+      
+
+      
+
+    if(!name && !hash1.includes(searchString) && hash1.includes("/icon")) {
+
+        // Split the string using "/icon" as the separator
+        const parts = hash1.split('/icon');
+
+        // The first part of the array will contain the string before "/icon"
+        const stringBeforeIcon = parts[0];
+
+        // Extract the substring between "icon_" and "="
+        const iconValue = hash1.match(/icon_(\d+)=/);
+
+        // Check if a match is found and extract the captured value
+        const numberValue = iconValue ? parseInt(iconValue[1], 10) : null;
+
+
+        const hash2 =  stringBeforeIcon ? stringBeforeIcon.replaceAll("-", " ") : null
+        const hash3 = hash2 ? hash2.replaceAll("#", "") : null
+        const sectionName = hash2 ? decodeURIComponent(hash3) : null
+        const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
+
+        if(name) {
+          if(searchResultsDiv) { 
+            searchResultsDiv.style.zIndex = "-1"
+          }
+          dispatch(setActiveSection(name))
+          onClick(name, name)
+        } else {
+          if(searchResultsDiv) {
+            searchResultsDiv.style.zIndex = "-1"
+            }
+        }
+
+        console.log("stringBeforeIcon", stringBeforeIcon)
+
+        
+
+        
+
+      } else if(!name && hash1.includes(searchString) && hash1.length > searchString.length) {
+        if(searchResultsDiv) {
+          searchResultsDiv.style.zIndex = "5"
+          }
+      }
+      else if(!name && !hash1.includes(searchString)) {
+        if(searchResultsDiv) { 
+          searchResultsDiv.style.zIndex = "-1"
+        }
+        // window.location.hash = "#/Ant-Design-Icons"
+      } else if(name) {
+        if(searchResultsDiv) { 
+          searchResultsDiv.style.zIndex = "-1"
+        }
+        dispatch(setActiveSection(name))
+        onClick(name, name)
+      }  else {
+        if(searchResultsDiv) {
+        searchResultsDiv.style.zIndex = "-1"
+        }
+        // window.location.hash = "#/Ant-Design-Icons"
+      }
+      
     }
         
   }, []);
+
+
+  useEffect(() => {
+
+    // if(undefiendUrl = "") {
+
+    // }
+  }, [])
 
 
 
@@ -85,16 +177,42 @@ const IconsTopNavgigation = () => {
 
 
 
-      const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
-      const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
-      const name = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
+      const hash1 = window.location.hash
+      const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
+      const hash3 = hash2 ? hash2.replaceAll("#", "") : null
+      const sectionName = hash2 ? decodeURIComponent(hash3) : null
+      const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
+     
+      // console.log("beforehand: ", name, ", hash3 beforehand: ", sectionName)
+      
+      const searchResultsDiv = document.getElementById("searchResultsDiv")
+
+      const searchString = "#/search/#q="
 
 
-      if(hash) {
+      if(!name && hash1.includes(searchString) && hash1.length > searchString.length) {
+        if(searchResultsDiv) {
+          searchResultsDiv.style.zIndex = "5"
+          }
+      }
+      else if(!name && !hash1.includes(searchString)) {
+        if(searchResultsDiv) { 
+          searchResultsDiv.style.zIndex = "-1"
+        }
+        // window.location.hash = "#/Ant-Design-Icons"
+      } else if(name) {
+        if(searchResultsDiv) { 
+          searchResultsDiv.style.zIndex = "-1"
+        }
+        dispatch(setActiveSection(name))
         onClick(name, name)
       } else {
-        // setSelectedSection(null)
+        if(searchResultsDiv) {
+        searchResultsDiv.style.zIndex = "-1"
+        }
+        // window.location.hash = "#/Ant-Design-Icons"
       }
+      
 
 
       

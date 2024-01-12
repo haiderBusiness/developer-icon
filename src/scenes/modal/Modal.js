@@ -6,25 +6,45 @@ import DynamicSvgComponent from "../../components/DynamicSvgComponent";
 import DisplayIcon from "./DisplayIcon";
 import TopBar from "./TopBar";
 import DisplaySections from "./DisplaySections";
+import { IconContext } from "react-icons/lib";
 
 
 function Modal() {
 
     const identifier = "iconModal"
 
-    
-   
+    const { iconObject } = useSelector((state) => state.reducer);
 
-    const { iconFunction } = useSelector((state) => state.reducer);
+    // const [Icon, setIcon] = useState(null)
 
-    const Icon = iconFunction
+     const Icon = iconObject
+     
 
+
+    // useEffect(() => {
+    //     if (iconObject && iconObject.iconFunction ) {
+    //         //console.log(iconObject())
+            
+    //         const Icon = iconObject.iconFunction
+    //         setIcon(Icon)
+    //         console.log("iconObject",<Icon/>)
+    //      }
+
+    //      console.log("iconObject",iconObject)
+    // }, [iconObject])
 
     useEffect(() => {
-        if (iconFunction && iconFunction().props && iconFunction().props.children) {
-            //console.log(iconFunction())
+        if (iconObject && iconObject.iconFunction ) {
+            //console.log(iconObject())
+            
+            const Icon = iconObject.iconFunction
+            // setIcon(Icon)
+            // console.log("<Icon/>: ",<Icon/>)
+            // console.log("iconName: ",iconObject.iconFunction.name)
          }
-    }, [iconFunction])
+
+         
+    }, [iconObject])
 
 
     // function pathNames() {
@@ -40,23 +60,29 @@ function Modal() {
     // }
 
     const hideModal = () => {
-        const div = document.getElementById(identifier)
+        const div = document.getElementById("iconModal")
         if (div) {
             div.style.zIndex = "-1"
-        }
+
+            if(window.location.hash.includes("icon_")) {
+                const modifiedString = window.location.hash.replace(/\/icon.*/, '');
+                window.location.hash = modifiedString
+            }
+        } 
     }
 
     return(
+
         <div id={identifier} className={styles.modal}>
+            <div onClick={() =>  hideModal()} style={{width:"100%", height: "100%", position: "fixed"}}/>
             <div className={styles.child}>
 
                 <TopBar onClosingClick={() => hideModal()}/>
                 
-                <DisplayIcon IconFunc={Icon}/>
+                <DisplayIcon IconObject={iconObject}/>
 
                 <DisplaySections/>
-                
-                
+
             </div>
             
         </div>

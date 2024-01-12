@@ -10,10 +10,11 @@ import Cell from "./Cell";
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setIconFunction, setIconsToShow } from '../../store/actions';
+import { setIconObject, setIconsToShow, setSearchedInputValue} from '../../store/actions';
 import { BiObjectsHorizontalCenter } from "react-icons/bi";
 import calculateColumnCount from "./calculateColumnCount.js";
 import IconLoader from "../IconLoader";
+
 
 
 
@@ -34,44 +35,81 @@ const ExampleList = ({divRef}) => {
 
   // console.log(aiArrayTest())
 
-   const hash =  !window.location.hash.includes("search") ? window.location.hash.replace("#", "") : null
-   const hashNoDashes =  hash ? hash.replaceAll("-", " ") : null
-   const iconSectionName = hashNoDashes ? hashNoDashes : !window.location.hash.includes("search") ? "Ant Design Icons" : null
+  const hash1 = window.location.hash
+  const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
+  const hash3 = hash2 ? hash2.replaceAll("#", "") : null
+  const sectionName = hash2 ? decodeURIComponent(hash3) : null
+  const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
 
 
-    const shortcutSmallCase = iconSectionName ? getItemByName(iconSectionsArr,iconSectionName) : null
+    const shortcutSmallCase = name ? getItemByName(iconSectionsArr,name) : null
+
+    const searchingString = "#/search/#q=" 
+
+    const searching = hash1.includes(searchingString) && hash1.length > searchingString.length
 
     // console.log("window.location.hash: ")
 
     const [allIcons, setAllIcons] = useState([]);
-    const [shortcut, setShortcut] = useState(shortcutSmallCase)
+    const [shortcut, setShortcut] = useState(shortcutSmallCase ? shortcutSmallCase : !searching ? "ai" : null)
 
-    let firstRender = true
+    const { iconsToShow, searchInputValue, activeSection } = useSelector((state) => state.reducer)
 
+    const [showLoading, setShowLoading] = useState(true)
+
+
+    // let firstRender = true
+
+
+    /// -> DISPLAY ICONS BASED ON THE ACTIVE SECTION 
     useEffect(() => {
-      // Function to handle hash change
-      const handleHashChange = () => {
+
+      const shortcutSmallCase = activeSection ? getItemByName(iconSectionsArr,activeSection) : null
+      if(shortcut !== shortcutSmallCase) {
+        // console.log("activeSection: ", activeSection)
+        // console.log("shortcutSmallCase: ", shortcutSmallCase)
+        setShortcut(shortcutSmallCase)
+      }
+
+    }, [activeSection])
+
+    /// -> SHOW ICONS WHEN HASH CHANGES 
+
+    // useEffect(() => {
+    //   // Function to handle hash change
+    //   const handleHashChange = () => {
 
 
-        if (!firstRender && !window.location.hash.includes("search")) {
-          const hash = window.location.hash.replace("#", "")
-          const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
+    //     if (!firstRender && window.location.hash) {
+    //       // const hash = window.location.hash.replace("#", "")
+    //       // const iconSectionName = window.location.hash ? hash : "Ant Design Icons"
 
-          const shortcutSmallCase = getItemByName(iconSectionsArr,iconSectionName);
-          //console.log(shortcutSmallCase)
-          setShortcut(shortcutSmallCase);
-        }
+    //         const hash1 = window.location.hash
+    //         const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
+    //         const hash3 = hash2 ? hash2.replaceAll("#", "") : null
+    //         const sectionName = hash2 ? decodeURIComponent(hash3) : null
+    //         const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
+           
+    //         console.log("beforehand: ", name, ", hash3 beforehand: ", sectionName)
 
-      };
+    //       if(name) {
+    //         const shortcutSmallCase = getItemByName(iconSectionsArr,name);
+    //         //console.log(shortcutSmallCase)
+    //         setShortcut(shortcutSmallCase);
+    //       }
+
+    //     }
+
+    //   };
   
-      // Attach event listener for hash change
-      window.addEventListener('hashchange', handleHashChange);
+    //   // Attach event listener for hash change
+    //   window.addEventListener('hashchange', handleHashChange);
   
-      // Clean up the event listener on component unmount
-      return () => {
-        window.removeEventListener('hashchange', handleHashChange);
-      };
-    }, []);
+    //   // Clean up the event listener on component unmount
+    //   return () => {
+    //     window.removeEventListener('hashchange', handleHashChange);
+    //   };
+    // }, []);
 
  
 
@@ -81,86 +119,87 @@ const ExampleList = ({divRef}) => {
     
 
 
-    const handleResize = (firstArgument = false, arr = [], returnsSomething = false) => {
-      let divName = IconsList.name
-      const div = document.getElementById(divName);
-       // Replace 'your-div-id' with the actual ID of your div
-
- 
-
-      if (div) {
-
-        // console.log("")
-          const  divWidth = div.offsetWidth;
-          const obj = {}
-
-          let calculationObj = {}
-
-          if(arr.length > 0) {
-            // console.log("here", arr[0])
-            calculationObj = calculateColumnCount(divWidth, arr.length)
-          } else 
-          if ( allIcons.length > 0) {
-            calculationObj = calculateColumnCount(divWidth, allIcons.length)
-          } else {
-            calculationObj = calculateColumnCount(divWidth)
-          }
-          
-
-          obj.columnCount = calculationObj.numberOfColums
+  /// -> FUNCTION TO RECONFIGURE THE LIST (THE SIZES AND THE NUMBER OF ICONS OF ICONS) SHOWN
+  const handleResize = (firstArgument = false, arr = [], returnsSomething = false) => {
+    let divName = IconsList.name
+    const div = document.getElementById(divName);
+      // Replace 'your-div-id' with the actual ID of your div
 
 
-          if (arr.length < 7 &&  arr.length > 0) {
-            obj.divWidth = 160 * obj.columnCount 
-            div.style.justifyContent = calculationObj.justifyContent
-          }
-          else if(allIcons.length < 7 &&  allIcons.length > 0) {
-            obj.divWidth = 160 * obj.columnCount 
-            div.style.justifyContent = calculationObj.justifyContent
-          } else {
-            obj.divWidth = divWidth
-            div.style.justifyContent = calculationObj.justifyContent
-            // obj.divWidth = divWidth
-          }
-          // obj.divWidth = divWidth
-          
 
-          // console.log("allIcons.length: ", allIcons.length)
-          // obj.divWidth = divWidth
-  
-          
-          // obj.columnCount = 2
-          obj.columnWidth = 
-          (obj.divWidth / 1.032) / obj.columnCount
+    if (div) {
 
-          if(returnsSomething) {
-            return obj
-          } else {
-            setListAttributes(obj)
-          }
-          
+      // console.log("")
+        const  divWidth = div.offsetWidth;
+        const obj = {}
 
-          
-            // if (div.style.width !== "100px") {
-            //   div.style.width = "100px"
-            // }
-          
-          // div.style.transitionDuration = '0.2s'
-          
-      } else {
-          console.error(`Div not found in ${this.name} > handleResize function`);
-      }
-      // Update the divWidth state when the window or div is resized
+        let calculationObj = {}
 
-      // if (divRef.current) {
-      //   console.log("here")
-      //   setDivWidth(divRef.current.offsetWidth);
-      //   };
+        if(arr.length > 0) {
+          // console.log("here", arr[0])
+          calculationObj = calculateColumnCount(divWidth, arr.length)
+        } else 
+        if ( allIcons.length > 0) {
+          calculationObj = calculateColumnCount(divWidth, allIcons.length)
+        } else {
+          calculationObj = calculateColumnCount(divWidth)
+        }
         
+
+        obj.columnCount = calculationObj.numberOfColums
+
+
+        if (arr.length < 7 &&  arr.length > 0) {
+          obj.divWidth = 160 * obj.columnCount 
+          div.style.justifyContent = calculationObj.justifyContent
+        }
+        else if(allIcons.length < 7 &&  allIcons.length > 0) {
+          obj.divWidth = 160 * obj.columnCount 
+          div.style.justifyContent = calculationObj.justifyContent
+        } else {
+          obj.divWidth = divWidth
+          div.style.justifyContent = calculationObj.justifyContent
+          // obj.divWidth = divWidth
+        }
+        // obj.divWidth = divWidth
+        
+
+        // console.log("allIcons.length: ", allIcons.length)
+        // obj.divWidth = divWidth
+
+        
+        // obj.columnCount = 2
+        obj.columnWidth = 
+        (obj.divWidth / 1.032) / obj.columnCount
+
+        if(returnsSomething) {
+          return obj
+        } else {
+          setListAttributes(obj)
+        }
+        
+
+        
+          // if (div.style.width !== "100px") {
+          //   div.style.width = "100px"
+          // }
+        
+        // div.style.transitionDuration = '0.2s'
+        
+    } else {
+        console.error(`Div not found in ${this.name} > handleResize function`);
+    }
+    // Update the divWidth state when the window or div is resized
+
+    // if (divRef.current) {
+    //   console.log("here")
+    //   setDivWidth(divRef.current.offsetWidth);
+    //   };
+      
   };
 
 
-  // on first mount
+  /// -> CALL ONLY ON FIRST MOUNT 
   useEffect(() => {
     handleResize()
   }, [])
@@ -172,6 +211,7 @@ const ExampleList = ({divRef}) => {
     
 
 
+    /// -> RECONFIGURE THE LIST (THE SIZES AND THE NUMBER OF COLUMNS OF THE ICON'S LIST) SHOWN WHEN WINDOW'S SIZE CHANGES
     useEffect(() => {
         const div = divRef.current
         if (div) {
@@ -224,17 +264,15 @@ const ExampleList = ({divRef}) => {
         };
       }
 
-    }, []); // Empty dependency array ensures that the effect runs only once on mount
+    }, []); /// -> Empty dependency array ensures that the effect runs only once on mount
 
 
 
     // const selector = useSelector()
 
-    const { iconsToShow, searchInputValue } = useSelector((state) => state.reducer)
-
-    const [showLoading, setShowLoading] = useState(false)
 
 
+    /// -> FETCH ICONS BASED BASED ON THE CURRENT ACTIVE ICON'S SECTION
     useEffect(() => {
 
       const fetchAiArray = async () => {
@@ -245,6 +283,7 @@ const ExampleList = ({divRef}) => {
         } catch (error) {
            console.error("Error fetching array:", error);
         } finally {
+          console.log("setting to false1")
           setShowLoading(false); // Set loading to false after fetch, whether successful or not
         }
       };
@@ -265,7 +304,16 @@ const ExampleList = ({divRef}) => {
 
 
 
-    const searchIcons = (icons) => {
+    /// -> FUNCTION TO FILTER THE ICONS MATCHING THE SEARCHED VALUE IN THE WHOLE ICON'S JSON (all_icons.js)
+    const searchIcons = (icons, whenFinished = () => {}) => {
+
+      // try {
+
+      // } catch(error) {
+      //   console.log(`error in ${searchIcons} function: `, error.message)
+      // } finally {
+      //   whenFinished()
+      // }
       const searchIcons = icons.filter((item) => {
         if (!!item && !!item.name && item.name !== "" && item.name !== undefined && item.name !== null) {
 
@@ -285,15 +333,18 @@ const ExampleList = ({divRef}) => {
       })
 
       if (searchIcons && searchIcons.length > 0) {
-        // console.log("searchIcons: ", searchIcons[0])
+        /// -> UPDATES THE DISPLAYIED LIST TO SHOW THE SEARCHED VALUE MATCHING ICONS
         setAllIcons(searchIcons)
       } else {
+
+        /// -> IF THE SEARCHED VALUE DOES NOT MATCH ANYTHING DO: 
         const searchDiv = document.getElementById('headerSearchDiv');
         const searchInput = document.getElementById("searchInput")
         if(searchInput) {
           searchInput.focus()
         }
 
+        console.log("setting to false2")
         setShowLoading(false)
         setAllIcons([])
       }
@@ -302,6 +353,7 @@ const ExampleList = ({divRef}) => {
 
     // const [loaderAttributes, setLoaderAttributes] = useState({})
 
+    /// ->  DATA FOR THE LOADING UI DISPLAYIED WHEN SEARCHING OR WHEN RELOADING THE PAGE
     const loaderArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
 
@@ -313,17 +365,35 @@ const ExampleList = ({divRef}) => {
       // show loading once anything is typed;
 
       
-      if(searchInputValue !== "" && searchInputValue) {
-        // setLoaderAttributes(handleResize(false, loaderArray, true))
-        setShowLoading(true);
-      }
+      // if(searchInputValue !== "" && searchInputValue) {
+      //   // setLoaderAttributes(handleResize(false, loaderArray, true))
+      //   setShowLoading(true);
+      // }
       
+
+       
       if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
+        setShowLoading(true)
         searchIcons(iconsToShow);
+        console.log("setting to false3")
         setShowLoading(false);
       }
 
     }, [searchInputValue, iconsToShow])
+
+    const [firstRender, setFirstRender] = useState(true)
+
+
+    useEffect(() => {
+      if(!firstRender && searchInputValue) {
+        setShowLoading(true)
+      } else if (!firstRender) {
+        console.log("onFirstMount")
+        setShowLoading(false)
+      } else {
+        setFirstRender(false)
+      }
+    }, [searchInputValue])
 
     const dispatch = useDispatch()
     const [selectedItemIndex, setSelectedItemIndex] = useState(null)
@@ -331,13 +401,30 @@ const ExampleList = ({divRef}) => {
 
     const handleItemClicked = (object) => {
       console.log("event", object);
-      setSelectedItemIndex(object.itemIndex);
-      dispatch(setIconFunction(object.iconFunction));
+      const itemIndex = object.itemIndex
+      const iconFunction = object.iconFunction
+      setSelectedItemIndex(itemIndex);
+      // window.location.hash = `${window.location.hash}/icon_${itemIndex}=${iconFunction?.name}`;
+      showModal()
+      dispatch(setIconObject(object));
+    }
+
+
+    
+
+
+
+    const showModal = () => {
+      const div = document.getElementById("iconModal")
+      if (div) {
+          div.style.zIndex = "5"
+      }
     }
 
 
 
-    firstRender = false
+
+    // firstRender = false
 
 
 
@@ -432,14 +519,8 @@ const ExampleList = ({divRef}) => {
         )}
       </Grid>
       ) :
-      (<>
-      <div className={styles.emptyTitle}>
-        No results for: "{searchInputValue}"
-      </div>
-      <div className={styles.emptySupTitle}>
-        Not finding an icon that you are sure of its existance here ? <a href="https://ionic.io">File an issue</a> We'll fix it as soon as possible.
-      </div>
-      </>
+      (
+        <NoSearchResults searchInputValue={searchInputValue}/>
       )
     )}
     </ReactWindowScroller>
@@ -449,6 +530,30 @@ const ExampleList = ({divRef}) => {
 
 
 
+
+
+const NoSearchResults = ({searchInputValue}) => {
+
+  const dispatch = useDispatch()
+
+  const onClick = () => {
+
+    window.location.hash = "#Ant-Design-Icons"
+    dispatch(setSearchedInputValue(null));
+  }
+
+  return(
+    <>
+      <div className={styles.emptyTitle}>
+        No results for: "{searchInputValue}"
+      </div>
+      <div className={styles.emptySupTitle}>
+        Not finding an icon that you are sure of its existance here ? <a href="https://ionic.io">File an issue</a> We'll fix it as soon as possible.
+      </div>
+      <div onClick={() => onClick()} style={{width:"fit-content", paddingInline: "10px", margin: "15px auto"}} className={"defaultButton"}>Return to icons</div>
+    </>
+  )
+}
 
 
 

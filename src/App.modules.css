@@ -28,7 +28,7 @@ a {
 
 *{
   scroll-behavior: smooth; 
-  color: var(--text-primary)
+  /* color: var(--text-primary-second) */
 }
 
 .App-body {
@@ -70,12 +70,13 @@ a {
   color: var(--text-primary-lighter);
 }
 .icon:hover {
-  color: var(--text-primary)
+  color: var(--text-primary-second)
 }
 
 .copyButtonDiv {
   display: flex;
-  color: var(--background);
+  /* color: var(--text-primary-second); */
+  color: white;
   background-color: transparent;
   font-size: 30px;
   size: 30px;
@@ -86,7 +87,6 @@ a {
   justify-content: center;
   cursor: pointer;
   margin-left: auto;
-  
 }
 
 .copyButtonDiv:hover {
@@ -131,6 +131,8 @@ code {
   color: rgb(255, 255, 255);
   font-weight: 550;
   font-size: 13px;
+  line-height: 22px;
+  
   /* font-weight: bold; */
 
 
@@ -175,3 +177,34 @@ code {
 .code-property {
   color: rgb(194, 233, 136)
 }
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+  background-color:transparent;
+  width: 0px;
+} 
+
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  cursor: pointer;
+  width: 0px;
+ 
+} 
+::-webkit-scrollbar-track {
+  background: transparent; 
+  background-color: transparent;
+  width: 0px;
+
+}
+
+/* :hover::-webkit-scrollbar-thumb {
+    color: white;
+   background-color: white;
+} */

@@ -5,13 +5,10 @@ import styles from "../../../styles/iosFrontage.module.css"
 
 export default function AndroidFrontage({iconName = "test_icon_st"}) {
 
-    const swift_uikit_to_copy =  `UIImage(named:"${iconName}"")?`
 
-    const objective_c_to_copy =  `[UIImage imageNamed:@"${iconName}"]`
-
-    const handleCopyClick = async (index) => {
+    const handleCopyClick = async () => {
         try {
-          await navigator.clipboard.writeText(index=== 1 ? swift_uikit_to_copy : objective_c_to_copy);
+          await navigator.clipboard.writeText(iconName);
           const div = document.getElementById("notificationDiv") 
           if(div) {
               div.style.bottom = "0px"
@@ -24,55 +21,31 @@ export default function AndroidFrontage({iconName = "test_icon_st"}) {
           console.error('Unable to copy to clipboard', err);
         }
       };
+
+
+   
     
     return(
         <div className={styles.IOSFrontage}>
-            <div className={styles.title}> Use in IOS</div>
+            <div className={styles.child}>
 
+                <div className={styles.title} style={{marginBottom: "20px"}}> Use in Android Studio </div>
 
+                <div className={"code-snippet-box ios"}>
+                    <code>
+                    radio_button_unchecked
+                    </code>
 
-            <h4> Swift </h4>
-
-            <div className={"code-snippet-box ios"}>
-                <code>
-               
-                
-
-                <div class="code-line"> 
-                <span className="code-class-name">UIImage</span> 
-                
-                    (<span className={"code-builtin-function"}>named</span>:<span className="code-"></span><span className={"code-string"}>"{iconName}"</span>)?
-
-                </div> 
-                </code>
-
-                <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(1)}}> 
-                    <IoCopyOutline size={25}/> 
+                    <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick()}}> 
+                        <IoCopyOutline size={25}/> 
+                    </div>
                 </div>
+
+                <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.android.com/studio/write/vector-asset-studio#svg" target="_blank">these instructions</a> to import SVG icons in Android Studio.</h4>
             </div>
 
-
-            <h4> Objective-C </h4>
-
-            <div className={"code-snippet-box ios"}>
-                <code>
-                    <div class="code-line"> 
-                    [
-                    <span className="code-class-name">UIImage </span> 
-
-                        <span className={"code-builtin-function"}>imageNamed</span>:@<span className="code-"></span><span className={"code-string"}>"{iconName}"</span>]
-                    </div> 
-                </code>
-
-                <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(2)}}> 
-                    <IoCopyOutline size={25}/> 
-                </div>
-            </div>
-            
-                
-
-        <h4>Follow <a href="https://developer.apple.com/documentation/uikit/uiimage/configuring_and_displaying_symbol_images_in_your_ui" target="_blank">these instructions</a> to use symbols.</h4>
-                   
+            <div className={styles.downloadButton}>Download</div>
+         
         </div>
     )
 }

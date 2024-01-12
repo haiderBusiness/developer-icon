@@ -5,13 +5,15 @@ import styles from "../../../styles/iosFrontage.module.css"
 
 export default function IOSFrontage({iconName = "test_icon_st"}) {
 
-    const swift_uikit_to_copy =  `UIImage(named:"${iconName}"")?`
+    const swiftUI_to_copy =  `Image("${iconName}")`
+
+    const swift_uikit_to_copy =  `UIImage(named:"${iconName}")?`
 
     const objective_c_to_copy =  `[UIImage imageNamed:@"${iconName}"]`
 
     const handleCopyClick = async (index) => {
         try {
-          await navigator.clipboard.writeText(index=== 1 ? swift_uikit_to_copy : objective_c_to_copy);
+          await navigator.clipboard.writeText(index=== 1 ? swiftUI_to_copy : index === 2 ? swift_uikit_to_copy : objective_c_to_copy);
           const div = document.getElementById("notificationDiv") 
           if(div) {
               div.style.bottom = "0px"
@@ -25,7 +27,6 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
         }
       };
 
-
    
     
     return(
@@ -34,17 +35,20 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
 
                 <div className={styles.title}> Use in IOS</div>
 
-                <h4> Swift </h4>
+
+                <h4> SwiftUI </h4>
 
                 <div className={"code-snippet-box ios"}>
                     <code>
                 
-                    
+                    <span className={"code-comment"}>                                               
+                    </span>
 
-                    <div class="code-line"> 
-                    <span className="code-class-name">UIImage</span> 
+                    <div className="code-line"> 
                     
-                        (<span className={"code-builtin-function"}>named</span>:<span className="code-"></span><span className={"code-string"}>"{iconName}"</span>)?
+                    <span className="code-class-name">Image</span> 
+                    
+                        (<span className={"code-string"}>"{iconName}"</span>)
 
                     </div> 
                     </code>
@@ -55,11 +59,34 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
                 </div>
 
 
+
+
+                <h4> Swift </h4>
+
+                <div className={"code-snippet-box ios"}>
+                    <code>
+                
+                    
+
+                    <div className="code-line"> 
+                    <span className="code-class-name">UIImage</span> 
+                    
+                        (<span className={"code-builtin-function"}>named</span>:<span className="code-"></span><span className={"code-string"}>"{iconName}"</span>)?
+
+                    </div> 
+                    </code>
+
+                    <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(2)}}> 
+                        <IoCopyOutline size={25}/> 
+                    </div>
+                </div>
+
+
                 <h4> Objective-C </h4>
 
                 <div className={"code-snippet-box ios"}>
                     <code>
-                        <div class="code-line"> 
+                        <div className="code-line"> 
                         [
                         <span className="code-class-name">UIImage </span> 
 
@@ -67,17 +94,19 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
                         </div> 
                     </code>
 
-                    <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(2)}}> 
+                    <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(3)}}> 
                         <IoCopyOutline size={25}/> 
                     </div>
                 </div>
                 
                     
 
-                <h4>Follow <a href="https://developer.apple.com/documentation/uikit/uiimage/configuring_and_displaying_symbol_images_in_your_ui" target="_blank">these instructions</a> to use symbols.</h4>
+                <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.apple.com/documentation/uikit/uiimage/configuring_and_displaying_symbol_images_in_your_ui" target="_blank">these instructions</a> to use symbols.</h4>
             </div>
 
-            <div className={styles.downloadButton}>Download</div>
+            <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
+                <div className={styles.downloadButton}>Download</div>
+            </div>
          
         </div>
     )

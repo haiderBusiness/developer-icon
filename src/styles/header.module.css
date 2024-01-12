@@ -54,7 +54,7 @@
   }
 
   .button:hover {
-    color: var(--text-primary);
+    color: var(--text-primary-second);
   }
 
   .darkModeDiv {
