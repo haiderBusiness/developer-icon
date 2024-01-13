@@ -88,7 +88,7 @@ const IconsTopNavgigation = () => {
       
       const searchResultsDiv = document.getElementById("searchResultsDiv")
 
-      const searchString = "#/search/#q="
+      const searchString = "#search/#q="
 
 
       
@@ -187,7 +187,7 @@ const IconsTopNavgigation = () => {
       
       const searchResultsDiv = document.getElementById("searchResultsDiv")
 
-      const searchString = "#/search/#q="
+      const searchString = "#search/#q="
 
 
       if(!name && hash1.includes(searchString) && hash1.length > searchString.length) {

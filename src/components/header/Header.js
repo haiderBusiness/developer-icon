@@ -1,7 +1,8 @@
 
 import React, {useState, useEffect} from "react"
 import styles from "../../styles/header.module.css"
-import Logo from "../../asets/developer-icon-high-resolution-logo-transparent.svg"
+//  import LogoSvg from "../../asets/logo/logo.svg"
+import Logo from "../../asets/logo/Logo"
 import SearchComponent from "../SearchComponent"
 import { useDispatch } from "react-redux";
 import { setSearchedInputValue } from "../../store/actions";
@@ -171,9 +172,9 @@ export default function Header({}) {
     //             headerSearchInput.value = typedValue
     //         }
 
-    //         // window.location.hash = `/search/#q=${typedValue}`;
+    //         // window.location.hash = `search/#q=${typedValue}`;
     //         if(typedValue !== "" && !window.location.hash.includes(typedValue)) {
-    //             window.location.hash = `icons/search/#q=${typedValue}`;
+    //             window.location.hash = `iconssearch/#q=${typedValue}`;
     //         }
            
     //         dispatch(setSearchedInputValue(typedValue))
@@ -187,9 +188,9 @@ export default function Header({}) {
     //             headerSearchInput.value = typedValue
     //         }
     //         if(typedValue !== "" && !window.location.hash.includes(typedValue)) {
-    //             window.location.hash = `/search/#q=${typedValue}`;
+    //             window.location.hash = `search/#q=${typedValue}`;
     //         }
-    //         // window.location.hash = `/search/#q=${typedValue}`;
+    //         // window.location.hash = `search/#q=${typedValue}`;
     //         dispatch(setSearchedInputValue(typedValue))
     //         searchResultsDiv.style.zIndex = "-1"
     //     }
@@ -201,7 +202,8 @@ export default function Header({}) {
             <div className={styles.mainDiv}>
 
                     <div className={styles.imageDiv}>
-                        <img height={"75px"} width={"130"} src={Logo} /> 
+                        {/* <img height={"75px"} width={"130"} src={LogoSvg} />  */}
+                        <Logo height={"80"} width={"130"} developer_text_color={"var(--text-primary)"} icon_text_color={"var(--special)"} icon_color={"var(--special)"} />
                     </div>
 
 

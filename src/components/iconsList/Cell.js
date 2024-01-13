@@ -1,4 +1,4 @@
-import {Component} from "react";
+import {Component, useEffect} from "react";
 
 import { setIconObject } from '../../store/actions';
 import DynamicSvgComponent from "../DynamicSvgComponent";
@@ -11,22 +11,52 @@ import Theme from "../../theme/Theme";
 
 const iconSectionsArr = iconSections
 
-class Cell extends Component {
-  constructor(props) {
-    super(props);
-
-    const {
-      allIcons,
-      columnIndex,
-      rowIndex,
-      style,
-      customParam,
-      isSelectedItemIndex,
-      onClick,
-    } = this.props;
+function Cell ({      
+  allIcons,
+  columnIndex,
+  rowIndex,
+  style,
+  customParam,
+  isSelectedItemIndex,
+  onClick,
+  }) {
 
 
 
+    let state = {
+      onClick: onClick,
+      itemIndex: null,
+      IconFunction: null,
+      iconName: null,
+      iconSectionName: null,
+      style: null,
+      clickedStyle: null
+    };
+
+    // const [state, setState] = useState(initialState)
+
+    
+  
+
+    const onIconClick = (IconFunc) => {
+      // const { onClick, rowIndex, customParam, columnIndex } = this.props;
+      // const itemIndex = rowIndex * customParam.columnCount + columnIndex
+
+      const { onClick, itemIndex, IconFunction, iconName, iconSectionName  } = state;
+
+      // console.log("IconFunc: ", IconFunc)
+      const obj = {
+        itemIndex: itemIndex,
+        iconFunction: IconFunc,
+        iconName: iconName,
+        iconSectionName: iconSectionName
+      }
+      onClick(obj);
+      // dispatch(setIconObject(IconFunc));
+    };
+
+
+    
     const index = rowIndex * customParam.columnCount + columnIndex;
     const SingleIcon = allIcons[index];
 
@@ -75,7 +105,7 @@ class Cell extends Component {
       marginLeft: columnIndex === 0 ? '25px' : '0px',
     };
 
-    this.state = {
+    state = {
       onClick: onClick,
       itemIndex: index,
       IconFunction: SingleIcon,
@@ -89,32 +119,6 @@ class Cell extends Component {
 
 
 
-  }
-
-  onIconClick = (IconFunc) => {
-    // const { onClick, rowIndex, customParam, columnIndex } = this.props;
-    // const itemIndex = rowIndex * customParam.columnCount + columnIndex
-
-    const { onClick, itemIndex, IconFunction, iconName, iconSectionName  } = this.state;
-
-    // console.log("IconFunc: ", IconFunc)
-    const obj = {
-      itemIndex: itemIndex,
-      iconFunction: IconFunc,
-      iconName: iconName,
-      iconSectionName: iconSectionName
-    }
-    onClick(obj);
-    // dispatch(setIconObject(IconFunc));
-  };
-
-  render() {
-   
-
-    const { onClick, itemIndex, IconFunction, iconName, iconSectionName, style, clickedStyle  } = this.state;
-
-
-
     return (
       <div
         style={{
@@ -123,28 +127,27 @@ class Cell extends Component {
         }}
       >
         <div
-          id={this.props.rowIndex}
+          id={rowIndex}
           style={clickedStyle}
           className={styles.childDiv}
-          onClick={() => this.onIconClick(IconFunction)}
+          onClick={() => onIconClick(SingleIcon)}
         >
           <div className={styles.iconDiv}>
-            {IconFunction && <IconFunction 
+            {SingleIcon && <SingleIcon 
             size={35} 
             className={styles.icon} />}
             {/* <DynamicSvgComponent data={SingleIcon()} className={styles.icon} width={35} height={35} /> */}
           </div>
 
           <div className={styles.textDiv}>
-            <div className={styles.text}>{IconFunction ? iconName : 'undefined'}</div>
-            <div className={styles.iconSectionText}>{IconFunction ? iconSectionName : "undefined"}</div>
+            <div className={styles.text}>{SingleIcon ? state.iconName : 'undefined'}</div>
+            <div className={styles.iconSectionText}>{SingleIcon ? state.iconSectionName : "undefined"}</div>
             {/* <div className={styles.iconSectionText}>{iconSectionName}</div> */}
           </div>
         </div>
       </div>
     );
   }
-}
 
 
 

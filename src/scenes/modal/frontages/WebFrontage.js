@@ -2,6 +2,8 @@ import { IoCopyOutline } from "react-icons/io5";
 import { FiDownload } from "react-icons/fi";
 
 import styles from "../../../styles/iosFrontage.module.css"
+import downloadSvg from "../../../functions/downloadSvg";
+import downloadSvgAsPng from "../../../functions/downloadSvgAsPng";
 
 
 export default function WebFrontage({iconName = "test_icon_st"}) {
@@ -36,6 +38,47 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
         }
       };
 
+      const onSvgDownload = () => {
+
+        // This should be the div that holds the displyed icon
+        const svgDiv = document.getElementById("ICON_DIV") 
+          
+        if (svgDiv) {
+            // Get the svg string
+            const svgString = svgDiv.innerHTML
+
+            // Replace the width and height values in the SVG string
+            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+
+            downloadSvg(newSvgString, iconName)
+
+
+            // console.log("svgDiv.innerHtml: ", newSvgString)
+            // console.log('%c ' + "Success", 'color: red; font-size: 20px; text-transform: uppercase;');
+            // console.log('%c ' + "Success: ", 'color: rgb(180, 48, 48); font-size: 12px; font-weight: 500; text-transform: uppercase;', "hello");
+        }
+      }
+
+      const onPngDownLoad = () => {
+
+        // This should be the div that holds the displyed icon
+        const svgDiv = document.getElementById("ICON_DIV") 
+          
+        if (svgDiv) {
+            // Get the svg string
+            const svgString = svgDiv.innerHTML
+
+            // Replace the width and height values in the SVG string
+            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+
+            downloadSvgAsPng(newSvgString, iconName)
+
+
+            // console.log("svgDiv.innerHtml: ", newSvgString)
+            // console.log('%c ' + "Success", 'color: red; font-size: 20px; text-transform: uppercase;');
+            // console.log('%c ' + "Success: ", 'color: rgb(180, 48, 48); font-size: 12px; font-weight: 500; text-transform: uppercase;', "hello");
+        }
+      }
    
     
     return(
@@ -63,7 +106,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         <code>
 
                         <span className={"code-comment"}>  
-                        {`// 1- if Downloaded as SVG:`}                                             
+                        {`// 1- If Downloaded as SVG:`}                                             
                         </span>
 
                         <div className="code-line"> 
@@ -83,7 +126,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         <div style={{width:"100%", height: "30px"}}></div>
                         
 
-                        <span className="code-comment">{`// 2- else if you copied the SVG, either directlly past the copied svg code in your html code you want or past the copied code in a new file and save it as an svg e.g: ${iconName}.svg. And use the (1) method.`}</span> 
+                        <span className="code-comment">{`// 2- Else if you copied the SVG, either directlly past the copied svg code in your html code you want or past the copied code in a new file and save it as an svg e.g: ${iconName}.svg. And use the (1) method.`}</span> 
                             
 
                         </div> 
@@ -95,7 +138,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                     </div>
 
                     <div className={styles.formatsButtonsDiv}>
-                        <div className={styles.downloadSvgButton}>
+                        <div onClick={onSvgDownload} className={styles.downloadSvgButton}>
                             <FiDownload style={{marginRight: "10px"}} size={20}/> Download SVG
                         </div>
                         
@@ -114,7 +157,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         <code>
 
                         <span className={"code-comment"}>  
-                        {`// 1- if Downloaded as PNG:`}                                             
+                        {`// 1- If Downloaded as PNG:`}                                             
                         </span>
 
                         <div className="code-line"> 
@@ -137,7 +180,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         <div style={{width:"100%", height: "30px"}}></div>
                         
 
-                        <span className="code-comment">{`// 2- else if copied the PNG, past the copied image in an image file e.g: ${iconName}.png and use the (1) method.`}</span> 
+                        <span className="code-comment">{`// 2- Else if copied the PNG, past the copied image in an image file e.g: ${iconName}.png and use the (1) method.`}</span> 
                             
 
                         </div> 
@@ -150,7 +193,7 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
 
 
                     <div className={styles.formatsButtonsDiv}>
-                        <div className={styles.downloadPngButton}>
+                        <div onClick={onPngDownLoad} className={styles.downloadPngButton}>
                             <FiDownload style={{marginRight: "10px"}} size={20}/> Download PNG
                         </div>
                         

@@ -13,7 +13,9 @@ function HomeTopWidget() {
 
     const dispatch = useDispatch()
 
-    const { searchInputValue } = useSelector((state) => state.reducer)
+    const { searchInputValue, previousHash } = useSelector((state) => state.reducer)
+
+    const [firstRender, setFirstRender] = useState(true)
 
     useEffect(() => {
 
@@ -36,7 +38,7 @@ function HomeTopWidget() {
         }
 
 
-        const searchString = "#/search/#q="
+        const searchString = "#search/#q="
         
 
         if(hash.includes(searchString) && hash.length > searchString.length) {
@@ -51,7 +53,7 @@ function HomeTopWidget() {
         const headerSearchInput = document.getElementById("headerSearchInput")
         const searchInput = document.getElementById("searchInput")
 
-        if(!searchInputValue && headerSearchInput && searchInput ) {
+        if(!firstRender && !searchInputValue && headerSearchInput && searchInput) {
 
             headerSearchInput.value = ""
             // headerSearchInput.blur()
@@ -65,8 +67,18 @@ function HomeTopWidget() {
             
         } 
 
-        if(!searchInputValue && window.location.hash.includes("#/search/#q=")) {
-                window.location.hash = "#Ant-Design-Icons"
+        const searchString = "#search/#q="
+
+        const hash = window.location.hash
+
+        if(!searchInputValue && hash.includes(searchString) && hash.length <= searchString.length) {
+            console.log("set to ant design icons")
+                if(previousHash) {
+                    window.location.hash = previousHash
+                } else {
+                    window.location.hash = "#Ant-Design-Icons"
+                }
+                
         }
     }, [searchInputValue])
 

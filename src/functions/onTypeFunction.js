@@ -29,10 +29,11 @@ const onTypeFunction = (typedValue) =>  {
         const includesName = name ? iconSections.some(iconSection => iconSection.name === name) : null;
 
         if(includesName) {
-            dispatch(setPreviousHash(name))
+            const previousHash = name.replaceAll(" ", "-")
+            dispatch(setPreviousHash(previousHash))
         }
         
-        window.location.hash = `/search/#q=${typedValue}`;
+        window.location.hash = `search/#q=${typedValue}`;
         
         dispatch(setSearchedInputValue(searchInput.value))
         searchResultsDiv.style.zIndex = "5"
@@ -55,7 +56,7 @@ const onTypeFunction = (typedValue) =>  {
             dispatch(setPreviousHash(name))
         }
 
-        window.location.hash = `/search/#q=${typedValue}`;
+        window.location.hash = `search/#q=${typedValue}`;
             
         
         dispatch(setSearchedInputValue(typedValue))

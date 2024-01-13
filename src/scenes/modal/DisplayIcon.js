@@ -2,7 +2,7 @@ import styles from "../../styles/modal.module.css"
 
 export default function DisplayIcon({IconObject}) {
 
-    console.log("IconFunc: ",IconObject, IconObject && IconObject.iconName)
+    // console.log("IconFunc: ",IconObject, IconObject && IconObject.iconName)
 
     const IconFunction = IconObject && IconObject.iconFunction
 
@@ -18,7 +18,12 @@ export default function DisplayIcon({IconObject}) {
             </div>
             
 
-            {IconFunction ? <IconFunction fontSize={40} className={styles.icon} /> : null}
+            {IconFunction ? 
+                    <div className={styles.icon} id={"ICON_DIV"}>
+                        <IconFunction /> 
+                    </div> 
+                    : null
+            }
             
             {/* <DynamicSvgComponent data={iconFunction ? iconFunction() : null}/> */}
             

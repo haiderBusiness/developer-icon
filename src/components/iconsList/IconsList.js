@@ -44,7 +44,7 @@ const ExampleList = ({divRef}) => {
 
     const shortcutSmallCase = name ? getItemByName(iconSectionsArr,name) : null
 
-    const searchingString = "#/search/#q=" 
+    const searchingString = "#search/#q=" 
 
     const searching = hash1.includes(searchingString) && hash1.length > searchingString.length
 
@@ -187,7 +187,7 @@ const ExampleList = ({divRef}) => {
         // div.style.transitionDuration = '0.2s'
         
     } else {
-        console.error(`Div not found in ${this.name} > handleResize function`);
+        console.error(`Div not found in ${handleResize} > handleResize function`);
     }
     // Update the divWidth state when the window or div is resized
 
@@ -283,7 +283,7 @@ const ExampleList = ({divRef}) => {
         } catch (error) {
            console.error("Error fetching array:", error);
         } finally {
-          console.log("setting to false1")
+          // console.log("setting to false1")
           setShowLoading(false); // Set loading to false after fetch, whether successful or not
         }
       };
@@ -344,7 +344,7 @@ const ExampleList = ({divRef}) => {
           searchInput.focus()
         }
 
-        console.log("setting to false2")
+        // console.log("setting to false2")
         setShowLoading(false)
         setAllIcons([])
       }
@@ -355,6 +355,23 @@ const ExampleList = ({divRef}) => {
 
     /// ->  DATA FOR THE LOADING UI DISPLAYIED WHEN SEARCHING OR WHEN RELOADING THE PAGE
     const loaderArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
+
+
+    const [firstRender, setFirstRender] = useState(true)
+
+    useEffect(() => {
+      if(!firstRender && searchInputValue) {
+        // console.log("not first render and searchInput")
+        setShowLoading(true)
+      } else if (!firstRender) {
+        // console.log("not searchInput and not first render")
+        setShowLoading(false)
+      } else {
+        // console.log("else first render")
+        setFirstRender(false)
+      }
+    }, [searchInputValue])
 
 
 
@@ -375,25 +392,16 @@ const ExampleList = ({divRef}) => {
       if(iconsToShow && iconsToShow.length > 0 && searchInputValue && searchInputValue !== "") {
         setShowLoading(true)
         searchIcons(iconsToShow);
-        console.log("setting to false3")
+        // console.log("setting to false3")
         setShowLoading(false);
       }
 
     }, [searchInputValue, iconsToShow])
 
-    const [firstRender, setFirstRender] = useState(true)
+   
 
 
-    useEffect(() => {
-      if(!firstRender && searchInputValue) {
-        setShowLoading(true)
-      } else if (!firstRender) {
-        console.log("onFirstMount")
-        setShowLoading(false)
-      } else {
-        setFirstRender(false)
-      }
-    }, [searchInputValue])
+
 
     const dispatch = useDispatch()
     const [selectedItemIndex, setSelectedItemIndex] = useState(null)
