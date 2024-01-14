@@ -19,7 +19,7 @@ function HomeTopWidget() {
 
     useEffect(() => {
 
-        const hash = window.location.hash;
+        const hash = window.location.hash ? decodeURIComponent(window.location.hash) : null;
 
         async function fetchAllIconsBasedOnSearch() {
             
@@ -27,9 +27,9 @@ function HomeTopWidget() {
             // Split the string using '#q=' as the delimiter and select the second part
             const querySearchString = hash.split('#q=')[1];
         
-            // console.log("queryString", queryString); // Output: s
+            // console.log("queryString: ", queryString); // Output: s
 
-            // console.log("querySearchString", querySearchString)
+            // console.log("querySearchString: ", querySearchString)
             onTypeFunction(querySearchString)
             // console.log(querySearchString)
             const allIconsFunc = require("../../asets/all_icons").all_icons;
@@ -40,12 +40,13 @@ function HomeTopWidget() {
 
         const searchString = "#search/#q="
         
+        console.log("hash: ", hash)
 
-        if(hash.includes(searchString) && hash.length > searchString.length) {
+        if(hash && hash.includes(searchString) && hash.length > searchString.length) {
             fetchAllIconsBasedOnSearch()
         }
         
-    }, [])
+    }, []);
 
 
     useEffect(() => {
@@ -55,17 +56,19 @@ function HomeTopWidget() {
 
         if(!firstRender && !searchInputValue && headerSearchInput && searchInput) {
 
-            headerSearchInput.value = ""
+            headerSearchInput.value = "";
             // headerSearchInput.blur()
             // headerSearchInput.focus()
         
-            searchInput.value = ""
+            searchInput.value = "";
             // searchInput.blur()
 
            
             // searchInput.focus()
             
-        } 
+        } else {
+            setFirstRender(false)
+        }
 
         const searchString = "#search/#q="
 
@@ -78,7 +81,6 @@ function HomeTopWidget() {
                 } else {
                     window.location.hash = "#Ant-Design-Icons"
                 }
-                
         }
     }, [searchInputValue])
 

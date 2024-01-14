@@ -48,7 +48,7 @@ function Cell ({
       const obj = {
         itemIndex: itemIndex,
         iconFunction: IconFunc,
-        iconName: iconName,
+        iconName: iconName.trim(),
         iconSectionName: iconSectionName
       }
       onClick(obj);

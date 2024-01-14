@@ -81,7 +81,7 @@ const IconsTopNavgigation = () => {
       const hash1 = window.location.hash
       const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
       const hash3 = hash2 ? hash2.replaceAll("#", "") : null
-      const sectionName = hash2 ? decodeURIComponent(hash3) : null
+      const sectionName = hash2 ? hash3 : null
       const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
      
       // console.log("beforehand: ", name, ", hash3 beforehand: ", sectionName)
@@ -95,7 +95,7 @@ const IconsTopNavgigation = () => {
 
       
 
-    if(!name && !hash1.includes(searchString) && hash1.includes("/icon")) {
+    if(!name && hash1 && hash1 && !hash1.includes(searchString) && hash1.includes("/icon")) {
 
         // Split the string using "/icon" as the separator
         const parts = hash1.split('/icon');
@@ -112,7 +112,7 @@ const IconsTopNavgigation = () => {
 
         const hash2 =  stringBeforeIcon ? stringBeforeIcon.replaceAll("-", " ") : null
         const hash3 = hash2 ? hash2.replaceAll("#", "") : null
-        const sectionName = hash2 ? decodeURIComponent(hash3) : null
+        const sectionName = hash2 ? hash3 : null
         const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
 
         if(name) {
@@ -133,12 +133,12 @@ const IconsTopNavgigation = () => {
 
         
 
-      } else if(!name && hash1.includes(searchString) && hash1.length > searchString.length) {
+      } else if(!name && hash1 && hash1.includes(searchString) && hash1.length > searchString.length) {
         if(searchResultsDiv) {
           searchResultsDiv.style.zIndex = "5"
           }
       }
-      else if(!name && !hash1.includes(searchString)) {
+      else if(!name && hash1 && hash1 && !hash1.includes(searchString)) {
         if(searchResultsDiv) { 
           searchResultsDiv.style.zIndex = "-1"
         }
@@ -180,7 +180,7 @@ const IconsTopNavgigation = () => {
       const hash1 = window.location.hash
       const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
       const hash3 = hash2 ? hash2.replaceAll("#", "") : null
-      const sectionName = hash2 ? decodeURIComponent(hash3) : null
+      const sectionName = hash2 ? hash3 : null
       const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
      
       // console.log("beforehand: ", name, ", hash3 beforehand: ", sectionName)
@@ -190,12 +190,12 @@ const IconsTopNavgigation = () => {
       const searchString = "#search/#q="
 
 
-      if(!name && hash1.includes(searchString) && hash1.length > searchString.length) {
+      if(!name && hash1 && hash1.includes(searchString) && hash1.length > searchString.length) {
         if(searchResultsDiv) {
           searchResultsDiv.style.zIndex = "5"
           }
       }
-      else if(!name && !hash1.includes(searchString)) {
+      else if(!name && hash1 && hash1 && !hash1.includes(searchString)) {
         if(searchResultsDiv) { 
           searchResultsDiv.style.zIndex = "-1"
         }

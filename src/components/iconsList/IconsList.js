@@ -38,7 +38,7 @@ const ExampleList = ({divRef}) => {
   const hash1 = window.location.hash
   const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null
   const hash3 = hash2 ? hash2.replaceAll("#", "") : null
-  const sectionName = hash2 ? decodeURIComponent(hash3) : null
+  const sectionName = hash2 ? hash3 : null
   const name =  iconSections.some(iconSection => iconSection.name === sectionName) ? sectionName : null
 
 

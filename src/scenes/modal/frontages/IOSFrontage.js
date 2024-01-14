@@ -2,8 +2,16 @@ import { IoCopyOutline } from "react-icons/io5";
 
 import styles from "../../../styles/iosFrontage.module.css"
 
+import { useSelector } from "react-redux";
+import downloadIosImageSet from "../../../functions/downloadIosImageSet";
 
-export default function IOSFrontage({iconName = "test_icon_st"}) {
+
+export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
+
+
+    const { iconObject } = useSelector((state) => state.reducer);
+
+    let iconName = iconObject && iconObject.iconName ? iconObject.iconName.replaceAll(" ", "_").toLocaleLowerCase() : receivedIconName
 
     const swiftUI_to_copy =  `Image("${iconName}")`
 
@@ -26,6 +34,23 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
           console.error('Unable to copy to clipboard', err);
         }
       };
+
+
+      const handleDownloadImageSet = () => {
+            // This should be the div that holds the displyed icon
+        const svgDiv = document.getElementById("ICON_DIV") 
+
+        if(iconObject && iconObject.iconName && svgDiv) {
+
+            const size = 24
+            // Get the svg string
+            const svgString = svgDiv.innerHTML
+            // const newSvgString = svgString.replace(/ width="[^"]*"/, ` width="${size}"`).replace(/height="[^"]*"/, `height="${size}"`);
+
+
+            downloadIosImageSet(svgString, iconName, size)
+        }
+      }
 
    
     
@@ -105,7 +130,7 @@ export default function IOSFrontage({iconName = "test_icon_st"}) {
             </div>
 
             <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
-                <div className={styles.downloadButton}>Download</div>
+                <div onClick={handleDownloadImageSet} className={styles.downloadButton}>Download</div>
             </div>
          
         </div>

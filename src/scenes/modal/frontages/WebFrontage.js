@@ -4,15 +4,23 @@ import { FiDownload } from "react-icons/fi";
 import styles from "../../../styles/iosFrontage.module.css"
 import downloadSvg from "../../../functions/downloadSvg";
 import downloadSvgAsPng from "../../../functions/downloadSvgAsPng";
+import { useSelector } from "react-redux";
 
 
-export default function WebFrontage({iconName = "test_icon_st"}) {
+export default function WebFrontage({receivedIconName = "test_icon_st"}) {
+
+
+    const { iconObject } = useSelector((state) => state.reducer);
+
+    let iconName = iconObject && iconObject.iconName ? iconObject.iconName.replaceAll(" ", "_").toLocaleLowerCase() : receivedIconName
+
+
 
     const svg_to_copy =  `<img
     src="path/to/downloaed/svg/${iconName}.svg"
     height="90"
     width="90"
-    alt="test_icon_st"/>`
+    alt="${iconName}"/>`
 
     const png_to_copy =  `<img
     src="path/to/downloaed/png/${iconName}.png"
@@ -42,16 +50,20 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
 
         // This should be the div that holds the displyed icon
         const svgDiv = document.getElementById("ICON_DIV") 
-          
-        if (svgDiv) {
+
+        if(iconObject && iconObject.iconName && svgDiv) {
+
+            // iconName = iconObject.iconName
+            
             // Get the svg string
             const svgString = svgDiv.innerHTML
 
             // Replace the width and height values in the SVG string
-            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+            // const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="24"').replace(/height="[^"]*"/, 'height="24"');
+
 
             downloadSvg(newSvgString, iconName)
-
 
             // console.log("svgDiv.innerHtml: ", newSvgString)
             // console.log('%c ' + "Success", 'color: red; font-size: 20px; text-transform: uppercase;');
@@ -59,17 +71,24 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
         }
       }
 
-      const onPngDownLoad = () => {
+      const onPngDownload = () => {
 
         // This should be the div that holds the displyed icon
         const svgDiv = document.getElementById("ICON_DIV") 
           
-        if (svgDiv) {
+        if(iconObject && iconObject.iconName && svgDiv) {
+
+            // iconName = iconObject.iconName
+
+            
+
             // Get the svg string
             const svgString = svgDiv.innerHTML
 
+
             // Replace the width and height values in the SVG string
-            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+            // const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="800px"').replace(/height="[^"]*"/, 'height="800px"');
+            const newSvgString = svgString.replace(/ width="[^"]*"/, ' width="24"').replace(/height="[^"]*"/, 'height="24"');
 
             downloadSvgAsPng(newSvgString, iconName)
 
@@ -116,10 +135,10 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         {/* <div style={{width:"100%", height: "10px"}}></div> */}
                     
                         <div style={{width:"97%", marginLeft: "auto", fontWeight: "600"}}>
-                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>"path/to/downloaed/svg/{iconName}.svg"</span></div>
+                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>"path/to/downloaed/svg/{iconName.replaceAll(" ", "_").toLocaleLowerCase()}.svg"</span></div>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> height</span>=<span className={"code-string"}>"90"</span></div>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> width</span>=<span className={"code-string"}>"90"</span></div>
-                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> alt</span>=<span className={"code-string"}>"{iconName}"</span><span className="code-comment">{`/>`}</span></div>
+                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> alt</span>=<span className={"code-string"}>"{iconName.replaceAll(" ", "_").toLocaleLowerCase()}"</span><span className="code-comment">{`/>`}</span></div>
                         </div>
 
 
@@ -167,13 +186,13 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
                         {/* <div style={{width:"100%", height: "10px"}}></div> */}
                     
                         <div style={{width:"97%", marginLeft: "auto", fontWeight: "600"}}>
-                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>""path/to/downloaed/png/{iconName}.png"</span></div>
+                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>""path/to/downloaed/png/{iconName.replaceAll(" ", "_").toLocaleLowerCase()}.png"</span></div>
 
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> height</span>=<span className={"code-string"}>"90"</span></div>
 
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> width</span>=<span className={"code-string"}>"90"</span></div>
                             
-                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> alt</span>=<span className={"code-string"}>"{iconName}"</span><span className="code-comment">{`/>`}</span></div>
+                            <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> alt</span>=<span className={"code-string"}>"{iconName.replaceAll(" ", "_").toLocaleLowerCase()}"</span><span className="code-comment">{`/>`}</span></div>
                         </div>
 
 
@@ -193,12 +212,12 @@ export default function WebFrontage({iconName = "test_icon_st"}) {
 
 
                     <div className={styles.formatsButtonsDiv}>
-                        <div onClick={onPngDownLoad} className={styles.downloadPngButton}>
+                        <div onClick={onPngDownload} className={styles.downloadPngButton}>
                             <FiDownload style={{marginRight: "10px"}} size={20}/> Download PNG
                         </div>
                         
                         <div className={styles.svgButton}>
-                            <IoCopyOutline style={{marginRight: "10px"}} size={20}/> <div>Copy SVG</div>
+                            <IoCopyOutline style={{marginRight: "10px"}} size={20}/> <div>Copy PNG</div>
                         </div>
                     </div>
                 </div>

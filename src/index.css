@@ -1,20 +1,3 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-
-
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 
 :root {
   --background: white;
@@ -40,7 +23,8 @@ code {
 }
 [data-theme='dark'] {
   --background: black;
-  --background-lighter: rgb(20, 20, 20);
+  /* --background-lighter: rgb(36, 36, 36); */
+  --background-lighter: #202124;
   --text-primary: white;
   --text-primary-second: rgb(231,234,237);
   --text-primary2: rgba(255, 255, 255,0.9);
@@ -62,6 +46,23 @@ code {
   --loader-flash-color: rgba(0, 0, 0, 0.281);
 
 }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0096df;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 
 .defaultButton {
     display: flex;

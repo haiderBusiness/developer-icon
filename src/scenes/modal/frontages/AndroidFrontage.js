@@ -2,9 +2,15 @@ import { IoCopyOutline } from "react-icons/io5";
 
 import styles from "../../../styles/iosFrontage.module.css"
 
+import { useSelector } from "react-redux";
 
-export default function AndroidFrontage({iconName = "test_icon_st"}) {
 
+export default function AndroidFrontage({receivedIconName = "test_icon_st"}) {
+
+
+    const { iconObject } = useSelector((state) => state.reducer);
+
+    let iconName = iconObject && iconObject.iconName ? iconObject.iconName.replaceAll(" ", "_").toLocaleLowerCase() : receivedIconName
 
     const handleCopyClick = async () => {
         try {
@@ -33,7 +39,7 @@ export default function AndroidFrontage({iconName = "test_icon_st"}) {
 
                 <div className={"code-snippet-box ios"}>
                     <code>
-                    radio_button_unchecked
+                    {iconName}
                     </code>
 
                     <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick()}}> 
