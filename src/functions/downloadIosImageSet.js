@@ -15,7 +15,7 @@ function generateJsonOjbect(imageName, size) {
     return object
 }
 
-const downloadIosImageSet = async (svgString = "", folderName, size) => {
+const downloadIosImageSet = async (svgString = "", folderName, size, callBack = () => {console.log("you need to do the callback this is just a test message")}) => {
   const zip = new JSZip();
 
   const svgStrings = [svgString, svgString, svgString]
@@ -76,6 +76,12 @@ const downloadIosImageSet = async (svgString = "", folderName, size) => {
   a.href = url;
   a.download = `${folderName}.zip`;
 
+  a.addEventListener('click', () => {
+    setTimeout(() => {
+      callBack();
+    }, 500); // Adjust the delay as needed
+    
+  });
   // Append the link to the document and trigger the click event
   document.body.appendChild(a);
   a.click();
@@ -83,6 +89,7 @@ const downloadIosImageSet = async (svgString = "", folderName, size) => {
   // Clean up
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+  
 };
 
 // // Example usage

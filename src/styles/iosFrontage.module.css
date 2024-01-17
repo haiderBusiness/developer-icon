@@ -126,6 +126,10 @@
 }
 
 .downloadPngButton:hover {
+    background: linear-gradient(to right, #0a91eb, #0385db);
+}
+
+.downloadPngButton:active {
     background: linear-gradient(to right, #0885d8, #006db6);
 }
 

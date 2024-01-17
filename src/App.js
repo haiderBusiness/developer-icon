@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.modules.css';
+import "./theme/theme.css"
 import HomeTopWidget from './scenes/home/HomeTopWidget';
 import { IoLogoFoursquare } from 'react-icons/io';
 import Modal from './scenes/modal/Modal';

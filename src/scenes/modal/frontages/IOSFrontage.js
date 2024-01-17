@@ -1,9 +1,14 @@
+
 import { IoCopyOutline } from "react-icons/io5";
+import { FiDownload } from "react-icons/fi";
 
 import styles from "../../../styles/iosFrontage.module.css"
 
 import { useSelector } from "react-redux";
 import downloadIosImageSet from "../../../functions/downloadIosImageSet";
+import Dropdown2 from "../../../components/dropdown/Dropdown2";
+import { useState } from "react";
+
 
 
 export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
@@ -22,7 +27,7 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
     const handleCopyClick = async (index) => {
         try {
           await navigator.clipboard.writeText(index=== 1 ? swiftUI_to_copy : index === 2 ? swift_uikit_to_copy : objective_c_to_copy);
-          const div = document.getElementById("notificationDiv") 
+          const div = document.getElementById("notificationDiv"); 
           if(div) {
               div.style.bottom = "0px"
               setTimeout(() => {
@@ -36,19 +41,41 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
       };
 
 
-      const handleDownloadImageSet = () => {
+
+      const [updateLoading, setUpdateLoading] = useState(true)
+
+      const handleDownloadImageSet = (size) => {
             // This should be the div that holds the displyed icon
         const svgDiv = document.getElementById("ICON_DIV") 
 
+        console.log("size: ", size)
+
         if(iconObject && iconObject.iconName && svgDiv) {
 
-            const size = 24
+            // let size = 24
+
+            // if(index === 0) {
+            //     size = 30
+            // } else if (index === 1) {
+            //     size = 60
+            // } else if (index === 2) {
+            //     size = 90
+            // } else if (index === 3) {
+            //     size = 120
+            // } else if (index === 4) {
+            //     size = 240
+            // } else {
+            //     size = 480
+            // }
+
             // Get the svg string
             const svgString = svgDiv.innerHTML
             // const newSvgString = svgString.replace(/ width="[^"]*"/, ` width="${size}"`).replace(/height="[^"]*"/, `height="${size}"`);
 
+            const name = `${iconName}_${size}px`
 
-            downloadIosImageSet(svgString, iconName, size)
+            downloadIosImageSet(svgString, name, size, () => {console.log("logged here"); setUpdateLoading(it => !it)})
+            
         }
       }
 
@@ -129,9 +156,24 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
                 <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.apple.com/documentation/uikit/uiimage/configuring_and_displaying_symbol_images_in_your_ui" target="_blank">these instructions</a> to use symbols.</h4>
             </div>
 
-            <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
+
+
+
+            {/* <div className={styles.formatsButtonsDiv}>
+                <div onClick={() => {}} className={styles.downloadPngButton}>
+                    <FiDownload style={{marginRight: "10px"}} size={20}/> Download PNG
+                </div>
+                
+                <div className={styles.svgButton}>
+                    <IoCopyOutline style={{marginRight: "10px"}} size={20}/> <div>Copy PNG</div>
+                </div>
+            </div> */}
+
+        
+            <Dropdown2 custom={true} sendOption={(size) => {handleDownloadImageSet(size)}} stopLoading={updateLoading}/>
+            {/* <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
                 <div onClick={handleDownloadImageSet} className={styles.downloadButton}>Download</div>
-            </div>
+            </div> */}
          
         </div>
     )

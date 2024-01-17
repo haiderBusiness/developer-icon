@@ -253,7 +253,7 @@ const IconsTopNavgigation = () => {
             {iconSections.map((obj, index) => {
                 const name = obj.name
                 const href = name.replaceAll(" ", "-")
-                const key = obj.shortcut
+                const key = obj.shortcut 
                 const lastKey = key.slice(1)
 
                 // console.log("selectedSection: ", selectedSection, name)

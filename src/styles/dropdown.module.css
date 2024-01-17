@@ -1,0 +1,170 @@
+.downloadPngButton {
+    display: flex;
+    width: 100%;
+    height: 35px;
+    margin-block: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 17px;    
+    background-color: var(--text-primary-second);
+    color: var(--background);
+    cursor: pointer;
+    opacity: 0.9;
+    font-weight: 500;
+    padding-block: 5px;
+    margin-right: 20px;
+    background-color: var(--special);
+    color: white;
+}
+
+.downloadPngButton:hover {
+    background: linear-gradient(to right, #0a91eb, #0385db);
+}
+
+.downloadPngButton:active {
+    background: linear-gradient(to right, #0885d8, #006db6);
+}
+
+
+
+
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 93%;
+    background-color: var(--background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    position: absolute;
+    /* cursor: pointer; */
+    /* padding: 10px 0px; */
+}
+
+.optionDiv {
+    height: 40px;
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    cursor: pointer;
+}
+.option {
+    display: flex;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.option:hover {
+    /* background-color: var(--special); */
+    /* background-color: var(--background-hover-lighter); */
+}
+
+.optionDiv:hover {
+    background-color: var(--background-hover-lighter);
+}
+
+.optionDiv:active {
+    background-color: var(--background-hover);
+}
+
+
+.infoIcon {
+    display: flex;
+    color: var(--text-tertiary);
+    margin-left: 5px;
+    cursor: pointer;
+    /* background-color: red; */
+}
+
+.optionInfo {
+    display: flex;
+    background-color: red;
+    padding: 6px;
+    margin-left: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: var(--background);
+    color: var(--text-primary-second);
+    transition-duration: 0.2s;
+}
+
+[data-option='hide'] { 
+    opacity: 0;
+    margin-left: 5px;
+}
+
+[data-option='show'] { 
+    opacity: 1;
+    margin-left: 15px;
+}
+
+
+.recommended {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+
+.customSizeInput {
+
+    cursor:text;
+    height: fit-content;
+    color: white;
+
+    border: 1px solid var(--text-primary);
+    outline: none;
+    margin-left: 10px;
+    margin-right: 5px;
+    width: 5px;
+    min-width: 100px;
+    /* font-size: large; */
+    /* width: 100%;
+    background-color: transparent; */
+
+
+    /* color: black;
+    lighting-color: red;
+    z-index: 100;
+    position: relative;
+    cursor: text;
+    width: 100%;
+    background-color: red; */
+}
+
+
+.customChooseButton {
+
+}
+
+
+.customChooseButton {
+    display: flex;
+    margin: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 14px;    
+    background-color: var(--text-primary-second);
+    color: var(--background);
+    cursor: pointer;
+    opacity: 0.9;
+    font-weight: 500;
+    padding: 5px;
+    margin-right: 20px;
+    background-color: var(--special);
+    color: white;
+}
+
+.customChooseButton:hover {
+    background: linear-gradient(to right, #0a91eb, #0385db);
+}
+
+.customChooseButton:active {
+    background: linear-gradient(to right, #0885d8, #006db6);
+}
