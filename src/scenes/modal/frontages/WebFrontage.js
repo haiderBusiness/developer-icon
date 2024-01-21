@@ -134,7 +134,7 @@ export default function WebFrontage({receivedIconName = "test_icon_st"}) {
                         <span style={{color: "#0096DF"}}>img</span>
                         {/* <div style={{width:"100%", height: "10px"}}></div> */}
                     
-                        <div style={{width:"97%", marginLeft: "auto", fontWeight: "600"}}>
+                        <div style={{width:"97%", marginLeft: "auto", fontWeight: "600", marginBottom: "-5px"}}>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>"path/to/downloaed/svg/{iconName.replaceAll(" ", "_").toLocaleLowerCase()}.svg"</span></div>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> height</span>=<span className={"code-string"}>"90"</span></div>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> width</span>=<span className={"code-string"}>"90"</span></div>
@@ -142,10 +142,10 @@ export default function WebFrontage({receivedIconName = "test_icon_st"}) {
                         </div>
 
 
-                        <div style={{width:"100%", height: "30px"}}></div>
+                        {/* <div style={{width:"100%", height: "30px"}}></div> */}
                         
 
-                        <span className="code-comment">{`// 2- Else if you copied the SVG, either directlly past the copied svg code in your html code you want or past the copied code in a new file and save it as an svg e.g: ${iconName}.svg. And use the (1) method.`}</span> 
+                        {/* <span className="code-comment">{`// 2- Else if you copied the SVG, either directlly past the copied svg code in your html code you want or past the copied code in a new file and save it as an svg e.g: ${iconName}.svg. And use the (1) method.`}</span>  */}
                             
 
                         </div> 
@@ -185,7 +185,7 @@ export default function WebFrontage({receivedIconName = "test_icon_st"}) {
                         <span style={{color: "#0096DF"}}>img</span>
                         {/* <div style={{width:"100%", height: "10px"}}></div> */}
                     
-                        <div style={{width:"97%", marginLeft: "auto", fontWeight: "600"}}>
+                        <div style={{width:"97%", marginLeft: "auto", fontWeight: "600", marginBottom: "-5px"}}>
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> src</span>=<span className={"code-string"}>""path/to/downloaed/png/{iconName.replaceAll(" ", "_").toLocaleLowerCase()}.png"</span></div>
 
                             <div><span style={{color: "rgba(143, 187, 253, 0.945)"}}> height</span>=<span className={"code-string"}>"90"</span></div>
@@ -196,16 +196,16 @@ export default function WebFrontage({receivedIconName = "test_icon_st"}) {
                         </div>
 
 
-                        <div style={{width:"100%", height: "30px"}}></div>
+                        {/* <div style={{width:"100%", height: "30px"}}></div> */}
                         
 
-                        <span className="code-comment">{`// 2- Else if copied the PNG, past the copied image in an image file e.g: ${iconName}.png and use the (1) method.`}</span> 
+                        {/* <span className="code-comment">{`// 2- Else if copied the PNG, past the copied image in an image file e.g: ${iconName}.png and use the (1) method.`}</span>  */}
                             
 
                         </div> 
                         </code>
                 
-                        <div className={"copyButtonDiv"}  onClick={() => {handleCopyClick(2)}}> 
+                        <div className={"copyButtonDiv"} style={{width: "35px", height: "35px" }}  onClick={() => {handleCopyClick(2)}}> 
                             <IoCopyOutline size={25}/> 
                         </div>
                     </div>

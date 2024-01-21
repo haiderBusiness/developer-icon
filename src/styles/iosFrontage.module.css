@@ -165,7 +165,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 20px; 
+    font-size: 17px; 
     font-weight: 500;   
     background-color: var(--text-primary-second);
     color: var(--background);
@@ -180,3 +180,7 @@
     /* background: linear-gradient(to right, #0885d8, #006db6); */
 
 }
+
+.IOSFrontage a:hover {
+    text-decoration: underline;
+  }

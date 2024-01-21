@@ -3,6 +3,8 @@ import { IoCopyOutline } from "react-icons/io5";
 import styles from "../../../styles/iosFrontage.module.css"
 
 import { useSelector } from "react-redux";
+import downloadSvg from "../../../functions/downloadSvg";
+import downloadAndroidXml from "../../../functions/downloadAndroidXml";
 
 
 export default function AndroidFrontage({receivedIconName = "test_icon_st"}) {
@@ -29,6 +31,19 @@ export default function AndroidFrontage({receivedIconName = "test_icon_st"}) {
       };
 
 
+    const handleDownloadXml = (size) => {
+        // This should be the div that holds the displyed icon
+        const svgDiv = document.getElementById("ICON_DIV") 
+
+        // console.log("size: ", size)
+
+        if(iconObject && iconObject.iconName && svgDiv) {
+            const svgString = svgDiv.innerHTML
+            downloadAndroidXml(svgString, iconName)
+        }
+    }
+
+
    
     
     return(
@@ -50,7 +65,7 @@ export default function AndroidFrontage({receivedIconName = "test_icon_st"}) {
                 <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.android.com/studio/write/vector-asset-studio#svg" target="_blank">these instructions</a> to import SVG icons in Android Studio.</h4>
             </div>
 
-            <div className={styles.downloadButton}>Download</div>
+            <div onClick={handleDownloadXml} className={styles.downloadButton}>Download XML</div>
          
         </div>
     )

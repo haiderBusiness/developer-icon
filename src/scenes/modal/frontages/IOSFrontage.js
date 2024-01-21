@@ -5,7 +5,7 @@ import { FiDownload } from "react-icons/fi";
 import styles from "../../../styles/iosFrontage.module.css"
 
 import { useSelector } from "react-redux";
-import downloadIosImageSet from "../../../functions/downloadIosImageSet";
+import downloadIosImageset from "../../../functions/downloadIosImageset";
 import Dropdown2 from "../../../components/dropdown/Dropdown2";
 import { useState } from "react";
 
@@ -72,9 +72,9 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
             const svgString = svgDiv.innerHTML
             // const newSvgString = svgString.replace(/ width="[^"]*"/, ` width="${size}"`).replace(/height="[^"]*"/, `height="${size}"`);
 
-            const name = `${iconName}_${size}px`
+            // const name = `${iconName}_${size}px`
 
-            downloadIosImageSet(svgString, name, size, () => {console.log("logged here"); setUpdateLoading(it => !it)})
+            downloadIosImageset(svgString, iconName, size, () => {console.log("logged here"); setUpdateLoading(it => !it)})
             
         }
       }
@@ -153,7 +153,7 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
                 
                     
 
-                <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.apple.com/documentation/uikit/uiimage/configuring_and_displaying_symbol_images_in_your_ui" target="_blank">these instructions</a> to use symbols.</h4>
+                <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.apple.com/documentation/xcode/adding-images-to-your-xcode-project" target="_blank">these instructions</a> to import images in Xcode.</h4>
             </div>
 
 
@@ -170,7 +170,7 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
             </div> */}
 
         
-            <Dropdown2 custom={true} sendOption={(size) => {handleDownloadImageSet(size)}} stopLoading={updateLoading}/>
+            <Dropdown2 title={"Choose imageset"} custom={"Download"} sendOption={(size) => {handleDownloadImageSet(size)}} stopLoading={updateLoading}/>
             {/* <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
                 <div onClick={handleDownloadImageSet} className={styles.downloadButton}>Download</div>
             </div> */}

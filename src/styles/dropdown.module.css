@@ -121,8 +121,9 @@
     outline: none;
     margin-left: 10px;
     margin-right: 5px;
-    width: 5px;
-    min-width: 100px;
+    width: 50px;
+    text-align: center;
+    /* min-width: 100px; */
     /* font-size: large; */
     /* width: 100%;
     background-color: transparent; */

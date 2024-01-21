@@ -11,7 +11,7 @@ export default function Dropdown({title = "Select your option", receivedOptions 
 
     function onSelectBtn () {
         const optionMenu = document.querySelector(".select-menu");
-        optionMenu.classList.toggle("active")
+        optionMenu.classList.toggle("active");
     }
 
     function onOptionPress(option) {
@@ -50,8 +50,6 @@ export default function Dropdown({title = "Select your option", receivedOptions 
                 <span className="sBtn-text">{title}</span>
                 <i className="bx bx-chevron-down"></i>
             </div>
-
-
             
         </div>
     )

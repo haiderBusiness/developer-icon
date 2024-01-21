@@ -5,9 +5,9 @@ function generateJsonOjbect(imageName, size) {
     const object = 
     {
         images:[
-            { filename:`${imageName}_${size}pt_1x.png`, idiom:"universal", scale: "1x", size: `${size}x${size}` },
-            { filename:`${imageName}_${size}pt_2x.png`, idiom:"universal", scale: "2x", size: `${size}x${size}` },
-            { filename:`${imageName}_${size}pt_3x.png`, idiom:"universal", scale: "3x", size: `${size}x${size}` }
+            { filename:`${imageName}.png`, idiom:"universal", scale: "1x", size: `${size}x${size}` },
+            { filename:`${imageName}@2x.png`, idiom:"universal", scale: "2x", size: `${size}x${size}` },
+            { filename:`${imageName}@3x.png`, idiom:"universal", scale: "3x", size: `${size}x${size}` }
             ],
         info: { author: "xcode", "template-rendering-intent": "template", version: 1 }
     }
@@ -15,7 +15,7 @@ function generateJsonOjbect(imageName, size) {
     return object
 }
 
-const downloadIosImageSet = async (svgString = "", folderName, size, callBack = () => {console.log("you need to do the callback this is just a test message")}) => {
+const downloadIosImageset = async (svgString = "", folderName, size, callBack = () => {console.log("you need to do the callback...this is just a test message")}) => {
   const zip = new JSZip();
 
   const svgStrings = [svgString, svgString, svgString]
@@ -27,7 +27,7 @@ const downloadIosImageSet = async (svgString = "", folderName, size, callBack = 
     const svgString = pureSvg.replace(/ width="[^"]*"/, ` width="${size * (i + 1)}"`).replace(/height="[^"]*"/, `height="${size * (i + 1)}"`);
 
     
-    const fileName = `${folderName}_${size}pt_${i + 1}x`;
+    const fileName = i === 0 ? `${folderName}` : `${folderName}@${i + 1}x`;
 
     // Optimize the SVG using svgo-browser if needed
 
@@ -74,7 +74,7 @@ const downloadIosImageSet = async (svgString = "", folderName, size, callBack = 
   const url = URL.createObjectURL(content);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${folderName}.zip`;
+  a.download = `${folderName}_${size}px_imageset.zip`;
 
   a.addEventListener('click', () => {
     setTimeout(() => {
@@ -98,4 +98,4 @@ const downloadIosImageSet = async (svgString = "", folderName, size, callBack = 
 //   // Add more SVG strings as needed
 // ];
 
-export default downloadIosImageSet;
+export default downloadIosImageset;

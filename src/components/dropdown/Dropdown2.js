@@ -10,7 +10,7 @@ import useOnClickOutside from "../../functions/useOnClickOutside";
 
 
 export default function Dropdown2 ({title = "Select PNG", 
-options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom = true, stopLoading}) {
+options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom = null, stopLoading}) {
 
 
     const [position, setPosition] = useState({ left: 0, right: 0, top: 0 });
@@ -122,17 +122,18 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
               <span style={{width: "25px", height: "25px", marginRight: "10px"}} className="loader"></span> 
               : 
               <FiDownload style={{marginRight: "10px"}} size={20}/>}   
-              Choose PNG size
+              {title}
             </div>
 
             {/* -> options */}
             <div 
             style={{ 
                 display: isVisible ? 'flex' : 'none',
-                position: 'absolute', 
+                position: 'absolute',
                 // left: `${position.left}px`,
                 // left: `${position.left}px`,
-                bottom: `${position.top}px`,
+                // bottom: `${position.top}px`,
+                bottom: "100px",
             }}
             className={styles.options}>
                 {options.map((item, index) => {
@@ -185,7 +186,7 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
                     //  onMouseOver={handleMouseClick} 
                     onClick={() => { setShowLoading(true); setIsVisible(false); sendOption(inputValue);}} 
                     className={styles.customChooseButton}>
-                    Select
+                    {custom}
                     </div>
                 </div>}
             </div>
