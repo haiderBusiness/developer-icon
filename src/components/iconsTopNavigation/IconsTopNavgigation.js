@@ -36,7 +36,7 @@ const IconsTopNavgigation = () => {
       const scrollRect = scrollContainer.getBoundingClientRect();
       const activeRect = activeItem.getBoundingClientRect();
       
-      setSelectedSection(name)
+      setSelectedSection(name)                      
       if (specificPoint) {
         setTimeout(function() {
           // specificPoint.scrollIntoView({
@@ -174,8 +174,6 @@ const IconsTopNavgigation = () => {
   useEffect(() => {
     // Function to handle hash change
     const handleHashChange = () => {
-
-
 
       const hash1 = window.location.hash
       const hash2 =  hash1 ? hash1.replaceAll("-", " ") : null

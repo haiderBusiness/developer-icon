@@ -239,7 +239,7 @@ import getSvgoInstance from 'svgo-browser/lib/get-svgo-instance';
 
 
 
-const downloadSvgAsPng = async (svgString, fileName) => {
+const downloadSvgAsPng = async (svgString, fileName, size, callBack = () => {console.log("you need to do the callback...this is just a test console")}) => {
 
      // Optimize the SVG using svgo-browser
     const svgo = getSvgoInstance();
@@ -272,7 +272,15 @@ const downloadSvgAsPng = async (svgString, fileName) => {
             // Create a temporary anchor element to trigger the download
             const downloadLink = document.createElement('a');
             downloadLink.href = pngDataUri;
-            downloadLink.download = `${fileName}.png`;;
+            downloadLink.download = `${fileName}_${size}.png`;;
+
+
+            downloadLink.addEventListener('click', () => {
+                setTimeout(() => {
+                  callBack();
+                }, 500); // Adjust the delay as needed
+                
+              });
 
             // Trigger the download
             downloadLink.click();

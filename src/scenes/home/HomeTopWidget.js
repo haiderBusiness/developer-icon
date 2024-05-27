@@ -89,15 +89,15 @@ function HomeTopWidget() {
         <div className={styles.mainDiv}>
             
             <h1>
-                Open source icons.
+                Developers icon.
                 <br/>
                 <span>
-                Lovingly hand-crafted.
+                Free for most platforms.
                 </span>
             </h1>
 
             <p className={styles.lead}>
-                Premium designed icons for use in web, iOS, Android, and desktop apps. Support for SVG. Completely open source, MIT licensed and built by <a>Ionic</a>.
+                Icons for use in web, iOS, Android, and desktop apps. Support for SVG. Completely open source, MIT licensed.
             </p>
 
             {/* <IconsTopNavigation/> */}

@@ -10,30 +10,32 @@ const downloadAndroidXml = (receivedSvgString, fileName = "icon") => {
 
     const svgo = getSvgoInstance();
   
-    // svgo.optimize(svgString, {
+    // svgo.optimize(receivedSvgString, {
     //     plugins: [{ name: 'android' }],
     //   }).then((res) => {
     //     //TODO: 
     //     const optimizedSvgString = res.data
 
-    //     // Convert the SVG string to a Blob
-    //     const blob = new Blob([optimizedSvgString], { type: 'text/plain' });
+    //     console.log("svgo svg: ", optimizedSvgString)
+    //     console.log("svg: ", receivedSvgString)
+        // // Convert the SVG string to a Blob
+        // const blob = new Blob([optimizedSvgString], { type: 'text/plain' });
 
-    //     // Create a download link
-    //     const url = URL.createObjectURL(blob);
-    //     const a = document.createElement('a');
-    //     a.href = url;
+        // // Create a download link
+        // const url = URL.createObjectURL(blob);
+        // const a = document.createElement('a');
+        // a.href = url;
 
-    //     const editedFileName = `${fileName.trim()}.svg`
-    //     a.download = editedFileName;
+        // const editedFileName = `${fileName.trim()}.svg`
+        // a.download = editedFileName;
 
-    //     // Append the link to the document and trigger the click event
-    //     document.body.appendChild(a);
-    //     a.click();
+        // // Append the link to the document and trigger the click event
+        // document.body.appendChild(a);
+        // a.click();
 
-    //     // Clean up
-    //     document.body.removeChild(a);
-    //     URL.revokeObjectURL(url);
+        // // Clean up
+        // document.body.removeChild(a);
+        // URL.revokeObjectURL(url);
     // });
 
     const svgString = receivedSvgString.replace(/ width="[^"]*"/, ` width="24"`).replace(/height="[^"]*"/, `height="24"`);

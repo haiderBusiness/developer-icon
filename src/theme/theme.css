@@ -1,9 +1,9 @@
 :root {
     --background: white;
     --background-lighter: #F6F7F9;
-    --text-primary-second: rgb(46, 41, 41);
     --background-second: rgb(228, 228, 228);
     --text-primary: black;
+    --text-primary-second: rgb(46, 41, 41);
     --text-primary2: rgba(0, 0, 0, 0.9);
     --text-primary3: rgba(0, 0, 0, 0.8);
     --text-primary4: rgba(0, 0, 0, 0.7);
@@ -11,20 +11,24 @@
     --text-primary-lighter-extra: #37373781;
     --text-secondary: #566b8a;
     --text-tertiary: #7f8fa0;
+    --white-black: rgba(0,0,0,0.8);
     --accent: purple;
     --special: #0096df;
     --green: #1EB041;
     --background-hover: rgba(0, 0, 0, 0.2); 
     --background-hover-lighter: rgba(0, 0, 0, 0.1); 
     --background-hover-lighter-extra: rgba(0, 0, 0, 0.05);
-    --loader-background: rgb(236, 236, 236);
+    --loader-background: rgb(226, 225, 225);
     --loader-flash-color: rgba(255, 255, 255, 0.63);
+    --shadow-primary: rgba(0, 0, 0, 0.1);
+    --shadow-primary2: rgba(0, 0, 0, 0.2);
   }
   [data-theme='dark'] {
     --background: black;
     /* --background-lighter: rgb(36, 36, 36); */
     --background-lighter: #202124;
     --background-second: rgb(46, 46, 46);
+   
     --text-primary: white;
     --text-primary-second: rgb(231,234,237);
     --text-primary2: rgba(255, 255, 255,0.9);
@@ -33,6 +37,8 @@
     --text-primary-lighter: rgb(233, 233, 233);
     --text-primary-lighter-extra: rgba(233, 233, 233, 0.63);
     /* --text-primary-hover: #02a6fff1; */
+
+    --white-black: rgba(255,255,255,.9);
     --text-secondary: #566b8a;
     --text-tertiary: #7f8fa0;
     --accent: darkred;
@@ -42,7 +48,9 @@
     --background-hover-lighter: rgba(255, 255, 255, 0.2); 
     --background-hover-lighter-extra: rgba(255, 255, 255, 0.1); 
     /* --background-select: rgb(94, 94, 94); */
-    --loader-background: rgb(43, 43, 43);
-    --loader-flash-color: rgba(0, 0, 0, 0.281);
+    --loader-background: rgb(59, 59, 59);
+    --loader-flash-color: rgba(34, 34, 34, 0.425);
+    --shadow-primary: rgba(255, 255, 255, 0.1);
+    --shadow-primary2: rgba(255, 255, 255, 0.2);
   
   }

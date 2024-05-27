@@ -15,15 +15,15 @@ import useLocalStorage from 'use-local-storage'
 
 
 function onFirstButtonClick() {
-
+    // window.location.href = '/icons';
 }
 
 function onSecondButtonClick() {
-    
+    // window.location.href = '/licenses';
 }
 
 function onThirdButtonClick() {
-    
+    // window.location.href = '/icons';  
 }
 
 
@@ -78,7 +78,7 @@ const handleScroll = () => {
 
     
 
-export default function Header({}) {
+export default function Header() {
 
     const thisSearchDivContainer = "headerSearchDiv"
 
@@ -95,10 +95,9 @@ export default function Header({}) {
         // console.log("theme: ", theme)
         div.dataset.theme = theme
         if (div.dataset.theme === "dark") {
-
             defaultDarkMode = true
         } else {
-           defaultDarkMode = false
+            defaultDarkMode = false
         }
     }
     const [darkMode, setDarkMode] = useState(defaultDarkMode);
@@ -142,10 +141,12 @@ export default function Header({}) {
         if(div) {
             if (div.dataset.theme === "dark") {
                 div.dataset.theme = "light"
+                document.body.style.backgroundColor = '#F6F7F9'
                 setTheme("light")
                 setDarkMode(false)
             } else {
                 div.dataset.theme = "dark"
+                document.body.style.backgroundColor = '#202124'
                 setTheme("dark")
                 setDarkMode(true)
             }
@@ -197,41 +198,56 @@ export default function Header({}) {
     // }
 
 
+
+  const onLogoClick = () => {
+
+    window.location.href = "#Ant-Design-Icons"
+    dispatch(setSearchedInputValue(null));
+  }
+
+
+
     return(
         <div className={styles.header}>
             <div className={styles.mainDiv}>
 
-                    <div className={styles.imageDiv}>
+                    <div onClick={onLogoClick} className={styles.imageDiv}>
                         {/* <img height={"75px"} width={"130"} src={LogoSvg} />  */}
-                        <Logo height={"80"} width={"130"} developer_text_color={"var(--text-primary)"} icon_text_color={"var(--special)"} icon_color={"var(--special)"} />
+                        <Logo className={styles.iconImage} developer_text_color={"var(--text-primary)"} icon_text_color={"var(--special)"} icon_color={"var(--special)"} />
                     </div>
 
 
-                    <SearchComponent cssStyles={styles} id={thisSearchDivContainer} onType={(typedValue) => onTypeFunction(typedValue)} inputId={"headerSearchInput"}/>
+                    <SearchComponent 
+                    cssStyles={styles} 
+                    id={thisSearchDivContainer} 
+                    onType={(typedValue) => onTypeFunction(typedValue)} 
+                    inputId={"headerSearchInput"}
+                    />
 
-                    {!showHamburgerMenu ?
+                    {/* {!showHamburgerMenu ? */}
                     <div  className={styles.buttons}>
-                        <div className={styles.button}  onClick={onFirstButtonClick}>
+                        {/* <div className={styles.button}  onClick={onFirstButtonClick}>
                             Icons
                         </div>
 
                         <div className={styles.button} onClick={onSecondButtonClick}>
-                            second
+                            Licenses
                         </div>
 
                         <div className={styles.button}  onClick={onThirdButtonClick}>
                             third
-                        </div>
+                        </div> */}
 
                         <div onClick={() => handleModeClick()} className={styles.darkModeDiv}>
-                           {darkMode ? <CiLight className={"icon dark-mode"} size={30}/> : <CiDark className="icon dark-mode" size={30} />} 
+                           {darkMode ? <CiLight className={"icon dark-mode"} /> : <CiDark className="icon dark-mode" />} 
                         </div>
                     </div>
-                    : 
-                    <div>
-                        <HamburgerMenu/>
-                    </div>
-                    }
+                    {/*  : 
+                    // <div>
+                    //     <HamburgerMenu/>
+                    // </div>
+
+                    // */}
 
 
             </div>
@@ -260,7 +276,7 @@ const showRightSideBar = (show) => {
     } 
 }
 
-const HamburgerMenu = ({}) =>  {
+const HamburgerMenu = () =>  {
 
     const [show, setShow] = useState(false)
 

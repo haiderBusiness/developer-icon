@@ -49,6 +49,7 @@
     margin: auto;
     position: relative;
     background: var(--background);
+    background: var(--background-lighter);
     box-sizing: border-box;
   }
   

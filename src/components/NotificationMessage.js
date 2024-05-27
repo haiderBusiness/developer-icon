@@ -7,7 +7,7 @@ export default function NotificationMessage({message = {heading: "Copied!", body
 
     return(
       
-      <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+      <div style={{display: "flex", flexDirection: "row", alignItems: "center", color: "white"}}>
         <CiMedicalClipboard style={{color: "white", marginRight: "10px"}} size={30}/>
         <div>
         <strong className="font__weight-semibold">{message.heading + " "}</strong>{message.body}

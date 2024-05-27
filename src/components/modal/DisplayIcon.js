@@ -6,6 +6,7 @@ export default function DisplayIcon({IconObject}) {
 
     const IconFunction = IconObject && IconObject.iconFunction
 
+    console.log("iconObject: ", IconObject)
     return(
         <div className={styles.nameAndIcon}>
                     
@@ -13,7 +14,17 @@ export default function DisplayIcon({IconObject}) {
                 <div className={styles.iconName}>{IconObject && IconObject.iconName ? IconObject.iconName.trim() : "Blumb with which is looking lightning"}
                 </div>
                 <div className={styles.iconSection}>
-                    {"Ant Design Icons"}
+                    {IconObject && IconObject.iconSectionName ? IconObject.iconSectionName.trim() : "Ant Design Icons"}
+                </div>
+
+
+                
+                <div className={styles.license}>
+                {"license: "}
+                <a href={IconObject && IconObject.iconLicenseLink ? IconObject.iconLicenseLink.trim() : ""} target="_blank">{IconObject && IconObject.iconLicenseName ? IconObject.iconLicenseName.trim() : ""}</a>
+
+                
+                    
                 </div>
             </div>
             

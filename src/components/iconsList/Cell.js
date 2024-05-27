@@ -30,7 +30,9 @@ function Cell ({
       iconName: null,
       iconSectionName: null,
       style: null,
-      clickedStyle: null
+      clickedStyle: null,
+      iconLicenseName: null,
+      iconLicenseLink: null
     };
 
     // const [state, setState] = useState(initialState)
@@ -42,14 +44,16 @@ function Cell ({
       // const { onClick, rowIndex, customParam, columnIndex } = this.props;
       // const itemIndex = rowIndex * customParam.columnCount + columnIndex
 
-      const { onClick, itemIndex, IconFunction, iconName, iconSectionName  } = state;
+      const { onClick, itemIndex, IconFunction, iconName, iconSectionName, iconLicenseName, iconLicenseLink  } = state;
 
       // console.log("IconFunc: ", IconFunc)
       const obj = {
         itemIndex: itemIndex,
         iconFunction: IconFunc,
         iconName: iconName.trim(),
-        iconSectionName: iconSectionName
+        iconSectionName: iconSectionName,
+        iconLicenseName: iconLicenseName,
+        iconLicenseLink: iconLicenseLink
       }
       onClick(obj);
       // dispatch(setIconObject(IconFunc));
@@ -111,8 +115,11 @@ function Cell ({
       IconFunction: SingleIcon,
       iconName: name,
       iconSectionName: matchingShortcutObj.name,
+      iconLicenseName: matchingShortcutObj.licenseName,
+      iconLicenseLink: matchingShortcutObj.licenseLink,
       style: style,
       clickedStyle: clickedStyle
+      
     };
 
 

@@ -48,6 +48,7 @@ a {
   margin-left: auto;
   margin-right: auto;
   scroll-behavior: smooth;
+  max-width: 1300px;
 }
 
 .App-link {
@@ -81,8 +82,8 @@ a {
   /* color: var(--text-primary-second); */
   color: white;
   background-color: transparent;
-  font-size: 30px;
-  size: 30px;
+  /* font-size: 30px;
+  size: 30px; */
   width: 40px;
   height: 40px;
   border-radius: 10px;
@@ -90,6 +91,12 @@ a {
   justify-content: center;
   cursor: pointer;
   margin-left: auto;
+}
+
+.copyButtonDiv * {
+  display: flex;
+  font-size: 27px;
+
 }
 
 .copyButtonDiv:hover {
@@ -126,7 +133,8 @@ a {
   background-color: rgb(36, 39, 43);
   padding: 10px 10px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px var(--shadow-primary);
+  font-size: 5px;
 
 }
 
@@ -136,13 +144,12 @@ code {
   font-weight: 550;
   font-size: 13px;
   line-height: 22px;
-
-  
-  
   /* font-weight: bold; */
-
-
 }
+
+
+
+
 
 
 .code-comment {
@@ -182,6 +189,54 @@ code {
 }
 .code-property {
   color: rgb(194, 233, 136)
+}
+
+
+
+@media (max-width: 520px) {
+    .code-snippet-box *  {
+      font-size: 12px ;
+      word-wrap:break-word;
+      width: 85%;
+
+    }
+
+    .copyButtonDiv {
+      width: 30px;
+      height: 30px;
+    }
+
+
+    .copyButtonDiv * {
+      font-size: 20px;
+      size: 20px;
+    }
+}
+
+@media (max-width: 340px) {
+
+  .code-snippet-box {
+    /* width: 50%; */
+  }
+
+  .code-snippet-box * {
+      font-size: 10px ;
+      word-wrap:break-word;
+      width: 85%;
+  }
+
+  .copyButtonDiv {
+    width: 27px;
+    height: 27px;
+  }
+
+
+  .copyButtonDiv * {
+    font-size: 17px;
+    size: 17px;
+  }
+
+
 }
 
 
@@ -234,3 +289,8 @@ code {
       transform: rotate(360deg);
   }
   } 
+
+
+
+
+

@@ -57,10 +57,10 @@ const downloadIosImageset = async (svgString = "", folderName, size, callBack = 
     const pngDataUri = canvas.toDataURL('image/png');
 
     // Add the PNG data to the zip file
-    zip.file(`${folderName}/${fileName}.png`, pngDataUri.split(';base64,').pop(), { base64: true });
+    zip.file(`${folderName}_imageset/${fileName}.png`, pngDataUri.split(';base64,').pop(), { base64: true });
 
     if((i + 1) === svgStrings.length) {
-        zip.file(`${folderName}/Contents.json`, JSON.stringify(generateJsonOjbect(folderName, size)));
+        zip.file(`${folderName}_imageset/Contents.json`, JSON.stringify(generateJsonOjbect(folderName, size)));
     } 
 
     // Clean up

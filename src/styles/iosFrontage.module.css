@@ -6,17 +6,18 @@
     flex-direction: column;
     /* height: 55vmin; */
     max-height: 500px;
-   
 }
 
 
 
-@media (max-width: 900px) {
+
+
+/* @media (max-width: 900px) {
 
     .IOSFrontage {
         display: flex;
         flex-direction: column;
-        /* height: 55vmin; */
+       
         max-height: 450px;
     }
   }
@@ -28,7 +29,7 @@
     .IOSFrontage {
         display: flex;
         flex-direction: column;
-        /* height: 55vmin; */
+        
         max-height: 380px;
     }
 
@@ -39,7 +40,7 @@
     .IOSFrontage {
         display: flex;
         flex-direction: column;
-        /* height: 55vmin; */
+       
         max-height: 250px;
     }
 
@@ -51,8 +52,22 @@
     .IOSFrontage {
         display: flex;
         flex-direction: column;
-        /* height: 55vmin; */
+      
         max-height: 150px;
+    }
+  
+  } */
+
+
+
+
+  @media (max-width: 570px) {
+
+    .IOSFrontage {
+        display: flex;
+        flex-direction: column;
+        max-width: 100% !important;
+        /* max-height: 800px; */
     }
   
   }
@@ -82,6 +97,7 @@
     /* background-color: red; */
     display: flex;
     flex-direction: row;
+    font-size: 17px;    
 }
 
 .svgButton {
@@ -92,7 +108,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 17px;    
+    
     background-color: var(--text-primary2);
     color: var(--background);
     cursor: pointer;
@@ -113,7 +129,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 17px;    
     background-color: var(--text-primary-second);
     color: var(--background);
     cursor: pointer;
@@ -133,6 +148,15 @@
     background: linear-gradient(to right, #0885d8, #006db6);
 }
 
+
+
+.dropDown {
+    width: 100%;
+
+    margin-right: 20px;
+    
+}
+
 .downloadSvgButton {
     display: flex;
     width: 100%;
@@ -141,7 +165,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 17px;    
     background-color: var(--text-primary-second);
     color: var(--background);
     cursor: pointer;
@@ -184,3 +207,70 @@
 .IOSFrontage a:hover {
     text-decoration: underline;
   }
+
+  .icon {
+    font-size: 20px !important;
+    }
+
+
+
+
+@media (max-width: 520px) {
+    .formatsButtonsDiv {
+        font-size: 15px;    
+    }
+
+    .svgButton {
+        font-size: 15px;
+    }
+
+    .IOSFrontage {
+        width: 90%;
+    }
+
+    .IOSFrontage h4 {
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    /* .IOSFrontage h4 {
+        font-size: 17px;
+    } */
+
+
+    .icon {
+        font-size: 22px !important;
+    }
+}
+
+@media (max-width: 340px) {
+
+    .IOSFrontage {
+        width: 90%;
+    }
+
+    .IOSFrontage h4 {
+        font-size: 13px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+
+    .formatsButtonsDiv {
+        font-size: 13px;    
+    }
+
+    .svgButton {
+        font-size: 13px;
+    }
+
+    .icon {
+        font-size: 26px !important;
+    }
+
+}

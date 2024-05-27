@@ -34,6 +34,14 @@
   .imageDiv {
     margin-left: 20px;
     margin-right: 10px;
+    /* height: 50px;
+    width: 100px; */
+    cursor: pointer;
+  }
+
+  .iconImage {
+    height: 80px;
+    width: 130px;
   }
 
 
@@ -67,6 +75,9 @@
     text-transform: capitalize;
     border-radius: 100px;
     padding: 8px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
   }
 
   .darkModeDiv:hover {
@@ -103,7 +114,7 @@
     opacity: 1;
     pointer-events: auto;
     /* cursor: text; */
-    transition-duration: 8s;
+    /* transition-duration: 8s; */
     /* box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); */
     /* width: 590px; */ 
     }
@@ -155,6 +166,67 @@
 
 }
 
+
+
+/* Mobile styles */
+
+@media (max-width: 520px) {
+
+ 
+  .SearchDivContainer {
+    /* background-color: red; */
+    padding: 0;
+  }
+
+  .iconImage {
+    height: 70px;
+    width: 90px;
+  }
+
+  .darkModeDiv {
+    /* background-color: red; */
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+  }
+
+  input {
+    font-size: 14px;
+    /* z-index: -1; */
+  }
+
+}
+
+
+@media (max-width: 340px) {
+
+ 
+  .SearchDivContainer {
+    /* background-color: red; */
+    padding: 0;
+  }
+
+  .iconImage {
+    height: 50px;
+    width: 70px;
+  }
+
+  .darkModeDiv {
+    /* background-color: red; */
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+  }
+
+  input {
+    font-size: 13px;
+  }
+
+}
 
 
 

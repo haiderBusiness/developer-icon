@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 17px;    
+    /* font-size: 17px;     */
     background-color: var(--text-primary-second);
     color: var(--background);
     cursor: pointer;
@@ -34,7 +34,7 @@
     flex-direction: column;
     width: 93%;
     background-color: var(--background);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px var(--shadow-primary2);
     border-radius: 15px;
     overflow: hidden;
     position: absolute;
@@ -81,15 +81,32 @@
 
 .optionInfo {
     display: flex;
-    background-color: red;
+    
+    margin-top: -15px;
+    top: inherit;
+    
     padding: 6px;
     margin-left: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px var(--shadow-primary);
     font-size: 14px;
     border-radius: 10px;
     background-color: var(--background);
     color: var(--text-primary-second);
     transition-duration: 0.2s;
+    background-color: red;
+}
+
+.explationInfo {
+    color: var(--white-black);
+    /* color: var(--background-hover); */
+    display: flex;
+    margin: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: var(--background-hover-lighter);
+    padding: 15px;
+    border-radius: 10px;
+    /* font-size: 15px; */
 }
 
 [data-option='hide'] { 
@@ -168,4 +185,81 @@
 
 .customChooseButton:active {
     background: linear-gradient(to right, #0885d8, #006db6);
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.iconBigger {
+    font-size: 23px !important;
+}
+
+
+@media (max-width: 520px) {
+    .downloadPngButton {
+        font-size: 15px;  
+    }
+
+    /* .options * {
+        font-size: 4vmin;
+    }
+
+    .customChooseButton {
+        width: 18vmin;
+        font-size: 4vmin;
+        margin: 12px;
+    } */
+
+    .options {
+        width: 90%;
+    }
+
+
+    .info {
+        font-size: 14px;
+    }
+    .icon {
+        font-size: 18px;
+    }
+    .iconBigger {
+        font-size: 23px !important;
+    }
+/* 
+    .info {
+        font-size: 16px;
+    } */
+}
+
+@media (max-width: 340px) {
+
+    .downloadPngButton {
+        font-size: 13px;  
+    }
+
+    .options {
+        width: 85%;
+    }
+
+    .options * {
+        font-size: 4vmin;
+    }
+
+    .customChooseButton {
+        width: 16vmin;
+        font-size: 3.5vmin;
+        margin: 8px;
+    }
+
+    .icon {
+        font-size: 5vmin;
+    }
+
+    .iconBigger {
+        font-size: 7vmin !important;
+    }
+
+    .info {
+        font-size: 3.5vmin;
+    }
 }

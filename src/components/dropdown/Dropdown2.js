@@ -9,8 +9,17 @@ import useOnClickOutside from "../../functions/useOnClickOutside";
 
 
 
-export default function Dropdown2 ({title = "Select PNG", 
-options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom = null, stopLoading}) {
+export default function Dropdown2 ({
+title = "Select PNG", 
+options = ["30", "60", "70", "120", "240", "480"], 
+wordAfterEachOption= "imageset",
+sendOption = () => {}, 
+custom = null, 
+stopLoading,
+recommendedIndex = 0,
+includeImageset = false,
+info = "Imageset (@1x, @2x, @3x)"
+}) {
 
 
     const [position, setPosition] = useState({ left: 0, right: 0, top: 0 });
@@ -114,6 +123,7 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
 
              {/* -> select button */}
              <div
+
             //  onMouseOver={handleMouseClick} 
              id={"dropdownSelectButton"}
              onClick={handleMouseClick}
@@ -136,6 +146,12 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
                 bottom: "100px",
             }}
             className={styles.options}>
+
+            <div className={styles.explationInfo}>
+                <CiCircleInfo className={styles.iconBigger}/> 
+                <div className={styles.info} style={{marginLeft: "10px"}}>{info}</div>
+            </div>
+                
                 {options.map((item, index) => {
 
                     const optionId = "optionInfo" + index
@@ -144,27 +160,26 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
                         <div onClick={() => { setShowLoading(true); setIsVisible(false); sendOption(item);}} className={styles.optionDiv} key={index}>
 
 
-                            <FiDownload style={{marginRight: "10px"}} size={20}/>   
+                            <FiDownload className={styles.icon} style={{marginRight: "10px"}}/>   
                             
                             <div className={styles.option}>
-                                {`${item}x${item}`}
+                                {`${item}x${item} ${wordAfterEachOption}`}
                             </div>
 
-                            <div>
 
-                            </div>
-
-                            <div onMouseOver={() => showOption(optionId)} onMouseOut={() => hideOption(optionId)} className={styles.infoIcon}>
+                            {/* <div onMouseOver={() => showOption(optionId)} onMouseOut={() => hideOption(optionId)} className={styles.infoIcon}>
                                 <CiCircleInfo size={20}/>
-                            </div>
+                            </div> */}
 
-                            {index === 0 && <div className={styles.recommended}>
+                            {index === recommendedIndex && <div className={styles.recommended}>
                                 {"Recommended"}
                             </div>}
-                            
-                            <div id={optionId} className={styles.optionInfo} data-option={"hide"}>
-                                Imageset (@1x, @2x, @3x)
+                            <div>
+                                {/* <div  id={optionId} className={styles.optionInfo} data-option={"hide"}>
+                                    {info}
+                                </div> */}
                             </div>
+
                         </div>
                         
                     )
@@ -188,6 +203,7 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
                     className={styles.customChooseButton}>
                     {custom}
                     </div>
+            
                 </div>}
             </div>
             
@@ -202,23 +218,60 @@ options = ["30", "60", "70", "120", "240", "480"], sendOption = () => {}, custom
 const InputComponent = ({onType = null}) => {
 
     const inputRef = useRef(null);
+
+    const [inputValue, setInputValue] = useState(100);
+    const [update, setUpdate] = useState(false)
     
     const focusInput = () => {
+
+
+
         if (inputRef.current) {
             // Focus the input elementf
             inputRef.current.focus();
+
+
+            // Get the input element
+            const input = inputRef.current;
+            
+            // refresh input 
+            input.value = 0
+            setUpdate(it => !it)
+            // setInputValue(100)
+
+            // input.type = 'text';
+
+            // Set the selection range to start from the end of the word
+
+            // const word = inputValue; // Replace 'YourWord' with the actual word
+            // const startIndex = input.value.lastIndexOf(word);
+            // const endIndex = startIndex + word.length;
+            
+            // input.setSelectionRange(endIndex, endIndex);
+            // input.focus();
+            // input.type = 'number';
         }
     }
 
     const onChange = (value) => {
-        if(onType) {
-            console.log(onType)
+
+        if(onType && value.length <= 3 && value !== 0 && value !== "0") {
+            console.log("value: ", typeof value)
             setInputValue(value)
             onType(value)
+            if (value.length < 1) {
+                onType(1)
+            }
+
         }
     }
 
-    const [inputValue, setInputValue] = useState(100);
+    const onBlur = () => {
+        if (inputValue.length < 1) {
+            setInputValue(1)
+        }
+    }
+    
 
 
     return(
@@ -227,8 +280,10 @@ const InputComponent = ({onType = null}) => {
                 contentEditable={true}
                 id={"inputId"}
                 type="number"
+                maxLength={3}
                 ref={inputRef} 
                 value={inputValue}
+                onBlur={onBlur}
                 onChange={(event) =>  onChange(event.target.value)}
                 />
             </div>

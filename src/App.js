@@ -1,21 +1,21 @@
 
 import { useEffect } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.modules.css';
 import "./theme/theme.css"
 import HomeTopWidget from './scenes/home/HomeTopWidget';
-import { IoLogoFoursquare } from 'react-icons/io';
-import Modal from './scenes/modal/Modal';
+// import { IoLogoFoursquare } from 'react-icons/io';
+import Modal from './components/modal/Modal';
 import Header from './components/header/Header';
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 
-import SearchComponent from './components/SearchComponent';
+// import SearchComponent from './components/SearchComponent';
 import IconsTopNavgigation from './components/iconsTopNavigation/IconsTopNavgigation';
 import RightSideBar from './components/header/RightSideBar';
 import IconsList from './components/iconsList/IconsList';
-import Theme from './theme/Theme';
-import TestApp from './test/TestApp';
-import NotificationMessage from './components/NotificationMessage';
+// import Theme from './theme/Theme';
+// import TestApp from './test/TestApp';
+// import NotificationMessage from './components/NotificationMessage';
 
 import useLocalStorage from 'use-local-storage'
 
@@ -23,11 +23,38 @@ import useLocalStorage from 'use-local-storage'
 
 function App() {
 
-  
+
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+  const [
+    theme, 
+    // setTheme
+  ] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
 
 
+  useEffect(() => {
+    // window.location.href = '/';
+
+
+
+    if (theme === "dark") {
+        document.body.style.backgroundColor = '#202124'
+    } else {
+        document.body.style.backgroundColor = '#F6F7F9'
+    }
+      
+
+    // if (window.location.pathname  !== "/licenses" && window.location.pathname  !== "/icons") {
+    //   window.location.pathname = "/icons"
+    // }
+    console.log("test")
+  }, [])
+  
+
+
+  // useEffect(() => {
+  //   // window.location.href = '/';
+  //   window.location.hash = "#testg"
+  // }, [])
   
 
 
@@ -60,9 +87,9 @@ function App() {
        {/* <IconsList style={{top: "80px", position: "fixed", zIndex: "2", backgroundColor: "green", }}/> */}
       </div>
 
-      <div id={"notificationDiv"}>
+      {/* <div id={"notificationDiv"}>
       <NotificationMessage/>
-      </div>
+      </div> */}
 
     </div>
   );

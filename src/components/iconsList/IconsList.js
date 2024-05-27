@@ -425,7 +425,11 @@ const ExampleList = ({divRef}) => {
     const showModal = () => {
       const div = document.getElementById("iconModal")
       if (div) {
+
           div.style.zIndex = "5"
+          div.style.opacity = "1"
+
+          document.body.style.overflow = 'hidden';
       }
     }
 
@@ -546,7 +550,8 @@ const NoSearchResults = ({searchInputValue}) => {
 
   const onClick = () => {
 
-    window.location.hash = "#Ant-Design-Icons"
+
+    window.location.href = "/icons#Ant-Design-Icons"
     dispatch(setSearchedInputValue(null));
   }
 

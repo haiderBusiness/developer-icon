@@ -6,9 +6,9 @@ export default function TopBar({onClosingClick}) {
     return(
         <div className={styles.topBar}>
 
-            <div className={styles.sharingDiv}>
+            {/* <div className={styles.sharingDiv}>
                 <IoMdShare size={31}/>
-            </div>
+            </div> */}
 
             <div onClick={onClosingClick} className={styles.closingDiv}>
                 <IoMdClose size={35}/>
