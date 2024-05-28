@@ -209,8 +209,16 @@
 
 
 @media (max-width: 570px) { 
+
+    .modal {
+        display: flex;
+        width: 100%;
+        height: 100% !important;
+        /* background-color: red; */
+    }
     .child { 
         width: 100% !important;
-        max-width: 500px;
+        height: 100% !important;
+        /* background-color: red; */
     }
 }

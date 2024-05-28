@@ -183,6 +183,9 @@ code {
 
 .code-string {
   color: rgb(250, 144, 4);
+ 
+  /* word-wrap: break-word;
+  overflow-wrap: break-word; */
 }
 .code-number {
   color: rgb(238, 238, 131);
@@ -195,10 +198,13 @@ code {
 
 @media (max-width: 520px) {
     .code-snippet-box *  {
-      font-size: 12px ;
-      word-wrap:break-word;
-      width: 85%;
-
+      font-size: 12px;
+      /* word-wrap:break-word; */
+      /* width: 85%; */
+      word-wrap: break-word; /* Break long words to wrap within the container */
+      overflow-wrap: break-word; /* Break long words to wrap within the container */
+      word-break: break-all; /* Ensure even long words without spaces will break and wrap */
+      white-space: normal; /* Ensure the text wraps to the next line */
     }
 
     .copyButtonDiv {

@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 
 import styles from "../../styles/iconsTopNavigation.module.css"
 import iconSections from "../../asets/iconsSections/iconSections.json"
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSection } from '../../store/actions';
+import usePreventScroll from '../../functions/usePreventScroll';
 
 const IconsTopNavgigation = () => {
 
@@ -234,7 +235,8 @@ const IconsTopNavgigation = () => {
 
 
 
-
+  const scrollRef = useRef(null); // not used currently
+  // usePreventScroll(scrollRef)
 
   return (
     <nav id={"sections-nav"} className={styles.nav}>
@@ -246,7 +248,7 @@ const IconsTopNavgigation = () => {
       Search Results
     </div>
 
-      <div id={"scrollContainer"} className={styles.container}>
+      <div ref={scrollRef} id={"scrollContainer"} className={styles.container}>
         <div className={styles.links}>
             {iconSections.map((obj, index) => {
                 const name = obj.name

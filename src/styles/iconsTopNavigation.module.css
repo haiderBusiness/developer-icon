@@ -28,6 +28,7 @@
   color: var(--text-secondary);
   font-size: 15px;
   font-weight:500;
+
 }
 .container {
     /* display: flex;
@@ -54,6 +55,11 @@
     padding: 0px 10px;
     margin: 0px 28px;
     mask: linear-gradient(90deg, transparent, var(--background) 1%, var(--background) 99%, transparent);
+    
+
+    height: 100px;
+    /* height: 100px; */
+     /* scroll-behavior: auto; */
   }
 
   .links {
@@ -75,6 +81,7 @@
     white-space: nowrap;
     transition-duration: 0.2s;
     cursor: pointer;
+    height: fit-content;
   }
 
   .link:hover {

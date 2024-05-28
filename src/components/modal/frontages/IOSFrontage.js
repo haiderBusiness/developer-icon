@@ -156,7 +156,7 @@ export default function IOSFrontage({receivedIconName = "test_icon_st"}) {
 
                 <h4 style={{margin: "40px 0px"}}>Follow <a href="https://developer.apple.com/documentation/xcode/adding-images-to-your-xcode-project" target="_blank">these instructions</a> to import images in Xcode.</h4>
 
-
+                            
                 <div style={{marginBottom: "40px", display: "flex"}}>
                     <CiCircleInfo size={20}/> 
                     <div style={{marginLeft: "10px"}}>Imageset (@1x, @2x, @3x)</div>
