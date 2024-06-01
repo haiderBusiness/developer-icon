@@ -8,6 +8,9 @@ import TopBar from "./TopBar";
 import DisplaySections from "./DisplaySections";
 import { IconContext } from "react-icons/lib";
 import AndroidVectorDrawablePreview from "../../components/AndroidVectorDrawablePreview";
+import WebFrontage from "./frontages/WebFrontage";
+import IOSFrontage from "./frontages/IOSFrontage";
+import AndroidFrontage from "./frontages/AndroidFrontage";
 
 
 function Modal() {
@@ -76,6 +79,18 @@ function Modal() {
     }
 
 
+
+
+    const [activeSection,setActiveSection] = useState("Web")
+
+
+ 
+
+    const onClick = (section) => {
+        setActiveSection(section)
+    }
+
+
     const xmlString = `<vector xmlns:android="http://schemas.android.com/apk/res/android"
                         android:width="24dp"
                         android:height="24dp"
@@ -90,14 +105,31 @@ function Modal() {
     return(
 
         <div id={identifier} className={styles.modal}>
-            <div onClick={() =>  hideModal()} style={{width:"100%", height: "100%", position: "fixed"}}/>
+            {/* <div onClick={() =>  hideModal()} style={{width:"100%", height: "100%", position: "fixed"}}/> */}
             <div className={styles.child}>
 
+            <div className={styles.header}>
                 <TopBar onClosingClick={() => hideModal()}/>
                 
                 <DisplayIcon IconObject={iconObject}/>
 
-                <DisplaySections/>
+                <DisplaySections onSectionChange={onClick}/> 
+            </div>
+                
+            {activeSection === "IOS" ?  <IOSFrontage/>  : activeSection === "Android" ?  <AndroidFrontage/> : activeSection === "Web" ?  <WebFrontage/> :  null}
+{/* 
+            <div class={styles.list}>
+                <p>Line 1</p>
+                <p>Line 2</p>
+                <p>Line 3</p>
+                <p>Line 4</p>
+                <p>Line 5</p>
+                <p>Line 6</p>
+                <p>Line 7</p>
+                <p>Line 8</p>
+                <p>Line 9</p>
+                <p>Line 10</p>
+            </div> */}
 
                 {/* <AndroidVectorDrawablePreview xmlString={xmlString}/> */}
 

@@ -139,10 +139,11 @@ info = "Imageset (@1x, @2x, @3x)"
             <div 
             style={{ 
                 display: isVisible ? 'flex' : 'none',
-                position: 'absolute',
+                // position: 'fixed',
                 // left: `${position.left}px`,
                 // left: `${position.left}px`,
                 // bottom: `${position.top}px`,
+                zIndex: 30,
                 bottom: "100px",
             }}
             className={styles.options}>

@@ -1,12 +1,67 @@
 
 
 
-.IOSFrontage {
-    display: flex;
-    flex-direction: column;
-    /* height: 55vmin; */
-    max-height: 500px;
-}
+
+    /* .IOSFrontage {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .child {
+        padding-top: 0px;
+        margin-top: 0px;
+        display: flex;
+        flex-direction: column;
+
+        overflow-y: scroll;
+        overflow:overlay;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+     
+    } */
+
+
+
+
+
+
+    .IOSFrontage {
+
+        position: relative;
+        z-index: 1;
+        height: 100%; /* Full viewport height */
+        display: flex;
+        flex-direction: column;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100% !important;
+
+        align-items: center;
+        padding-bottom: 30px;
+        /* min-width: 500px; */
+        /* background-color: green; */
+        /* max-height: 500px; */
+    }
+
+
+    .child {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 20px;
+        padding-top: 220px;
+        /* background-color: red; */
+        overflow:overlay;
+        overflow-x: hidden;
+        width: 500px !important;
+        max-width: 100% !important;
+        /* background-color: red; */
+        /* height: 100%; */
+    }
+
+
+
+
 
 
 
@@ -64,16 +119,7 @@
 
 
 
-.child {
-    display: flex;
-    flex-direction: column;
-    /* background-color: red; */
-    overflow-y: scroll;
-    overflow:overlay;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    /* height: 100%; */
-}
+
 
 .title {
     color: var(--text-primary-lighter);
@@ -246,7 +292,7 @@
     }
 
     .IOSFrontage {
-        width: 90%;
+        /* width: 90%; */
     }
 
     .IOSFrontage h4 {
@@ -270,7 +316,7 @@
 @media (max-width: 340px) {
 
     .IOSFrontage {
-        width: 90%;
+        /* width: 90%; */
     }
 
     .IOSFrontage h4 {

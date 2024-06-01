@@ -4,7 +4,7 @@ import AndroidFrontage from "./frontages/AndroidFrontage"
 import IOSFrontage from "./frontages/IOSFrontage"
 import WebFrontage from "./frontages/WebFrontage"
 
-export default function DisplaySections({}) {
+export default function DisplaySections({onSectionChange}) {
 
     const [activeSection,setActiveSection] = useState("Web")
 
@@ -13,6 +13,7 @@ export default function DisplaySections({}) {
 
     const onClick = (section) => {
         setActiveSection(section)
+        onSectionChange(section)
     }
 
     const sections = ["Web", "Android", "IOS"]
@@ -39,7 +40,8 @@ export default function DisplaySections({}) {
             })}
         </div>
         
-        {activeSection === "IOS" ? <div style={{marginTop: "10px"}}> <IOSFrontage/> </div>  : activeSection === "Android" ? <div style={{marginTop: "10px"}}> <AndroidFrontage/> </div> : activeSection === "Web" ? <div style={{marginTop: "10px"}}> <WebFrontage/> </div> :  null}
+        {/* {activeSection === "IOS" ?  <div><IOSFrontage/></div>  : activeSection === "Android" ?  <AndroidFrontage/> : activeSection === "Web" ?  <WebFrontage/> :  null} */}
+        {/* {activeSection === "IOS" ?  <IOSFrontage/>  : activeSection === "Android" ?  <AndroidFrontage/> : activeSection === "Web" ?  <WebFrontage/> :  null} */}
 
         </div>
     )

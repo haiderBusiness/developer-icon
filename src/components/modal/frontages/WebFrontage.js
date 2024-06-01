@@ -4,6 +4,7 @@ import { IoCopyOutline } from "react-icons/io5";
 import { FiDownload } from "react-icons/fi";
 
 import styles from "../../../styles/iosFrontage.module.css"
+// import styles from "../../../styles/modal.module.css"
 import downloadSvg from "../../../functions/downloadSvg";
 import downloadSvgAsPng from "../../../functions/downloadSvgAsPng";
 import { useSelector } from "react-redux";
@@ -316,4 +317,25 @@ export default function WebFrontage({receivedIconName = "test_icon_st"}) {
          
         </div>
     )
+
+
+    // const identifier = "frontageContainer"
+
+    // return (
+    //         <div id={identifier} className={styles.listContainer}>
+    //           <div class={styles.list}>
+    //             <p>Line 1</p>
+    //             <p>Line 2</p>
+    //             <p>Line 3</p>
+    //             <p>Line 4</p>
+    //             <p>Line 5</p>
+    //             <p>Line 6</p>
+    //             <p>Line 7</p>
+    //             <p>Line 8</p>
+    //             <p>Line 9</p>
+    //             <p>Line 10</p>
+    //           </div> 
+    //         </div>
+            
+    // )
 }
