@@ -13,6 +13,7 @@ import IOSFrontage from "./frontages/IOSFrontage";
 import AndroidFrontage from "./frontages/AndroidFrontage";
 
 
+
 function Modal() {
 
     const identifier = "iconModal"
@@ -117,6 +118,9 @@ function Modal() {
             </div>
                 
             {activeSection === "IOS" ?  <IOSFrontage/>  : activeSection === "Android" ?  <AndroidFrontage/> : activeSection === "Web" ?  <WebFrontage/> :  null}
+
+
+
 {/* 
             <div class={styles.list}>
                 <p>Line 1</p>
