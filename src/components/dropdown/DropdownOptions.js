@@ -7,22 +7,33 @@ import styles from "./dropdownOptions.module.css";
 import useOnClickOutside from "../../functions/useOnClickOutside";
 
 import { useDispatch, useSelector } from "react-redux";
+import { setDropdownProperties } from "../../store/actions";
 
-export default function DropdownOptions({
-  title = "Select PNG",
-  options = ["30", "60", "70", "120", "240", "480"],
-  wordAfterEachOption = "imageset",
-  sendOption = () => {},
-  custom = null,
-  stopLoading,
-  recommendedIndex = 0,
-  includeImageset = false,
-  info = "Imageset (@1x, @2x, @3x)",
-}) {
+export default function DropdownOptions({}) {
   const { dropdownProperties } = useSelector((state) => state.reducer);
+  const dispath = useDispatch();
+
+  const defaultOptions = {
+    visible: false,
+    title: "Select PNG",
+    options: ["30", "60", "70", "120", "240", "480"],
+    wordAfterEachOption: "imageset",
+    sendOption: () => {},
+    custom: null,
+    stopLoading: () => {},
+    showLoading: () => {},
+    recommendedIndex: 0,
+    includeImageset: false,
+    info: "Imageset (@1x, @2x, @3x)",
+    rect: null,
+    center: false,
+  };
+  const [properties, setProperties] = useState(defaultOptions);
   const [position, setPosition] = useState({ left: 0, right: 0, top: 0 });
   const [isVisible, setIsVisible] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
+  // const [showLoading, setShowLoading] = useState(false);
+
+  const max_height = 380;
 
   const handleMouseClick = (event) => {
     /// -> mouse poistion
@@ -53,14 +64,65 @@ export default function DropdownOptions({
     }
   };
 
+  const handlePosition = () => {
+    const position = {};
+
+    const modalRef = document.getElementById("modal_child");
+    let modalRect = null;
+    if (modalRef) {
+      modalRect = modalRef.getBoundingClientRect();
+    }
+
+    position.top = dropdownProperties.rect.top - 10;
+
+    // const centerX = modalRect.rect.left + modalRect.rect.width / 2;
+
+    if (dropdownProperties.center) {
+      position.left =
+        // centerX - dropdownProperties.rect.width;
+        dropdownProperties.rect.left +
+        window.scrollX -
+        (modalRect.width - dropdownProperties.rect.width) / 3;
+    } else {
+      position.left = dropdownProperties.rect.left + window.scrollX;
+    }
+
+    // (dropdownProperties.center ? window.scrollX + 60 : window.scrollX);
+
+    setPosition(position);
+  };
   // show dropdown
   useEffect(() => {
     console.log("DropdownOptions", dropdownProperties);
+    if (dropdownProperties) {
+      setProperties(dropdownProperties);
+
+      if (dropdownProperties.visible) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+
+      handlePosition();
+
+      // reset
+      dispath(setDropdownProperties(null));
+    }
+
+    // setOptions();
   }, [dropdownProperties]);
 
-  useEffect(() => {
-    setShowLoading(false);
-  }, [stopLoading]);
+  // useEffect(() => {
+  //   window.addEventListener("resize", handlePosition);
+
+  //   return () => {
+  //     window.removeEventListener("resize", handlePosition);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   setShowLoading(false);
+  // }, [properties.stopLoading]);
 
   const showOption = (optionId) => {
     if (optionId) {
@@ -76,22 +138,29 @@ export default function DropdownOptions({
     }
   };
 
-  const hideOptions = () => {
+  const hideThisComponent = () => {
     setIsVisible(false);
+    setProperties(defaultOptions);
   };
 
   const wrapperRef = useRef(null);
-  useOnClickOutside(wrapperRef, () => hideOptions());
+  useOnClickOutside(wrapperRef, () => hideThisComponent());
 
   const [inputValue, setInputValue] = useState(100);
 
   return (
     <div
+      ref={wrapperRef}
       id="dropDownComponent"
       style={{
-        // display: isVisible ? 'flex' : 'none',
-        display: "none",
-        // position: 'fixed',
+        display: isVisible ? "flex" : "none",
+        // display: "flex",
+        top: properties.rect ? `${position.top - max_height}px` : "0px",
+        left: properties.rect ? `${position.left}px` : "0px",
+        position: "fixed",
+        maxHeight: `${max_height}px`,
+        // marginRight: "auto",
+        // marginLeft: "auto",
         // left: `${position.left}px`,
         // left: `${position.left}px`,
         // bottom: `${position.top}px`,
@@ -102,19 +171,20 @@ export default function DropdownOptions({
       <div className={styles.explationInfo}>
         <CiCircleInfo className={styles.iconBigger} />
         <div className={styles.info} style={{ marginLeft: "10px" }}>
-          {info}
+          {properties.info}
         </div>
       </div>
 
-      {options.map((item, index) => {
+      {properties.options.map((item, index) => {
         const optionId = "optionInfo" + index;
 
         return (
           <div
             onClick={() => {
-              setShowLoading(true);
+              // setShowLoading(true);
+              properties.showLoading();
               setIsVisible(false);
-              sendOption(item);
+              properties.sendOption(item);
             }}
             className={styles.optionDiv}
             key={index}
@@ -125,14 +195,14 @@ export default function DropdownOptions({
             />
 
             <div className={styles.option}>
-              {`${item}x${item} ${wordAfterEachOption}`}
+              {`${item}x${item} ${properties.wordAfterEachOption}`}
             </div>
 
             {/* <div onMouseOver={() => showOption(optionId)} onMouseOut={() => hideOption(optionId)} className={styles.infoIcon}>
                                 <CiCircleInfo size={20}/>
                             </div> */}
 
-            {index === recommendedIndex && (
+            {index === properties.recommendedIndex && (
               <div className={styles.recommended}>{"Recommended"}</div>
             )}
             <div>
@@ -144,7 +214,7 @@ export default function DropdownOptions({
         );
       })}
 
-      {!custom && (
+      {properties.custom && (
         <div
           style={{ backgroundColor: "var(--background)", cursor: "text" }}
           className={styles.optionDiv}
@@ -156,14 +226,15 @@ export default function DropdownOptions({
           <div
             //  onMouseOver={handleMouseClick}
             onClick={() => {
-              setShowLoading(true);
+              // setShowLoading(true);
+              properties.setShowLoading();
               setIsVisible(false);
-              sendOption(inputValue);
+              properties.sendOption(inputValue);
             }}
             className={styles.customChooseButton}
           >
-            {/* {custom} */}
-            Put custom
+            {properties.custom}
+            {/* Put custom */}
           </div>
         </div>
       )}

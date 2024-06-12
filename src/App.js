@@ -18,6 +18,7 @@ import IconsList from "./components/iconsList/IconsList";
 
 import useLocalStorage from "use-local-storage";
 import DropdownOptions from "./components/dropdown/DropdownOptions";
+import TestA from "./TestA";
 
 function App() {
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -46,6 +47,30 @@ function App() {
   //   window.location.hash = "#testg"
   // }, [])
 
+  //   return (
+  //     <div id={"app"} className="App" data-theme={theme}>
+  //       {/* <Header /> */}
+
+  //       <DropdownOptions />
+
+  //       <TestA />
+
+  //       {/* <Modal /> */}
+
+  //       {/* <RightSideBar /> */}
+  //       {/*
+  //       <div className="App-body">
+  //         <HomeTopWidget />
+
+  //         <IconsTopNavgigation />
+
+  //         <IconsList />
+
+  //       </div> */}
+  //     </div>
+  //   );
+  // }
+
   return (
     <div id={"app"} className="App" data-theme={theme}>
       {/* <div style={{position: "fixed",backgroundColor: "red", height: "100vh", width: "100%", zIndex: "100"}}/> */}
@@ -72,34 +97,10 @@ function App() {
       </div>
 
       {/* <div id={"notificationDiv"}>
-      <NotificationMessage/>
-      </div> */}
+    <NotificationMessage/>
+    </div> */}
     </div>
   );
 }
 
 export default App;
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }

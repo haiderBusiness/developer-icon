@@ -46,7 +46,7 @@ function reducer(state = initialState, action) {
     case SET_DROPDOWN_PROPERTIES:
       return {
         ...state,
-        activeSection: action.payload,
+        dropdownProperties: action.payload,
       };
   }
 

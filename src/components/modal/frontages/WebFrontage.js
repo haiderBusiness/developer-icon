@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { IoCopyOutline } from "react-icons/io5";
 import { FiDownload } from "react-icons/fi";
@@ -8,11 +8,12 @@ import styles from "../../../styles/iosFrontage.module.css";
 import downloadSvg from "../../../functions/downloadSvg";
 import downloadSvgAsPng from "../../../functions/downloadSvgAsPng";
 
-import CopyButton from "../../buttons/CopyButton";
-import Dropdown2 from "../../../components/dropdown/Dropdown2";
+// import CopyButton from "../../buttons/CopyButton";
+// import Dropdown2 from "../../../components/dropdown/Dropdown2";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setDropdownProperties } from "../../../store/actions";
+import AnimatedCopyIcon from "../../buttons/AnimatedCopyIcon";
 
 const dropdownObject = {
   visible: true,
@@ -25,12 +26,17 @@ const dropdownObject = {
   recommendedIndex: 0,
   info: "Choose PNG size",
   wordAfterEachOption: "",
+  rect: null,
+  customPosition: null,
 };
 
 export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
+  const { coppied, setShowCoppied } = useState(false);
 
   const dispath = useDispatch();
+  const donwloadPngButtonRef = useRef(null);
+  const thisComponentRef = useRef(null);
 
   let iconName =
     iconObject && iconObject.iconName
@@ -167,11 +173,14 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   };
 
   function showDropdown() {
+    const rect = donwloadPngButtonRef.current.getBoundingClientRect();
+    // rect.top = rect.top + thisComponentRef.current.scrollY;
+    dropdownObject.rect = rect;
     dispath(setDropdownProperties(dropdownObject));
   }
 
   return (
-    <div className={styles.IOSFrontage}>
+    <div ref={thisComponentRef} className={styles.IOSFrontage}>
       <div className={styles.child}>
         {/* <div style={{marginBlock: "10px"}} className={styles.title}> Choose a format that suits your need</div> */}
 
@@ -270,7 +279,8 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
             </div>
 
             <div onClick={handleCopyRealSvgClick} className={styles.svgButton}>
-              <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "}
+              {/* <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "} */}
+              <AnimatedCopyIcon style={{ marginRight: "10px" }} />
               <div>Copy SVG</div>
             </div>
           </div>
@@ -380,7 +390,11 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
                         </div> */}
             {/* <CopyButton/> */}
 
-            <div onClick={showDropdown} className={styles.downloadSvgButton}>
+            <div
+              ref={donwloadPngButtonRef}
+              onClick={showDropdown}
+              className={styles.downloadSvgButton}
+            >
               <FiDownload style={{ marginRight: "10px" }} size={20} /> Download
               PNG
             </div>

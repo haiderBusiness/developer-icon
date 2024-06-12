@@ -1,13 +1,16 @@
+import { useState, useRef, useEffect } from "react";
+
 import { IoCopyOutline } from "react-icons/io5";
 import { FiDownload } from "react-icons/fi";
 import { CiCircleInfo } from "react-icons/ci";
 
 import styles from "../../../styles/iosFrontage.module.css";
 
-import { useSelector } from "react-redux";
 import downloadIosImageSet from "../../../functions/downloadIosImageSet";
 import Dropdown2 from "../../../components/dropdown/Dropdown2";
-import { useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { setDropdownProperties } from "../../../store/actions";
 
 export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
@@ -47,7 +50,7 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
 
   const [updateLoading, setUpdateLoading] = useState(true);
 
-  const handleDownloadImageSet = (size) => {
+  const handleDownloadImageset = (size) => {
     // This should be the div that holds the displyed icon
     const svgDiv = document.getElementById("ICON_DIV");
 
@@ -82,8 +85,44 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
     }
   };
 
+  const dispath = useDispatch();
+  const downloadButtonRef = useRef(null);
+  const thisComponentRef = useRef(null);
+
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    setShowLoading(false);
+  }, [updateLoading]);
+
+  const dropdownObject = {
+    visible: true,
+    title: "Choose imageset",
+    custom: "Download",
+    sendOption: (size) => {
+      handleDownloadImageset(size);
+    },
+    stopLoading: updateLoading,
+    showLoading: () => setShowLoading(true),
+    options: ["30", "60", "70", "120", "240", "480"],
+    includeImageset: true,
+    recommendedIndex: 0,
+    info: "Imageset (@1x, @2x, @3x)",
+    wordAfterEachOption: "imageset",
+    rect: null,
+    center: true,
+  };
+
+  function showDropdown() {
+    const rect = downloadButtonRef.current.getBoundingClientRect();
+    // rect.top = rect.top + thisComponentRef.current.scrollY;
+    dropdownObject.rect = rect;
+
+    dispath(setDropdownProperties(dropdownObject));
+  }
+
   return (
-    <div className={styles.IOSFrontage}>
+    <div ref={thisComponentRef} className={styles.IOSFrontage}>
       <div className={styles.child}>
         <div className={styles.title}> Use in IOS</div>
 
@@ -170,24 +209,38 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
         </div>
       </div>
 
-      {/* <div className={styles.formatsButtonsDiv}>
-                <div onClick={() => {}} className={styles.downloadPngButton}>
-                    <FiDownload style={{marginRight: "10px"}} size={20}/> Download PNG
-                </div>
-                
-                <div className={styles.svgButton}>
-                    <IoCopyOutline style={{marginRight: "10px"}} size={20}/> <div>Copy PNG</div>
-                </div>
-            </div> */}
+      <div className={styles.formatsButtonsDiv}>
+        <div
+          ref={downloadButtonRef}
+          onClick={showDropdown}
+          style={{
+            width: "fit-content",
+            marginRight: "auto",
+            marginLeft: "auto",
+            paddingInline: "10px",
+          }}
+          className={styles.downloadPngButton}
+        >
+          {showLoading ? (
+            <span
+              style={{ width: "20px", height: "20px", marginRight: "10px" }}
+              className="loader"
+            ></span>
+          ) : (
+            <FiDownload style={{ marginRight: "10px" }} size={20} />
+          )}
+          Choose imageset
+        </div>
+      </div>
 
-      <Dropdown2
+      {/* <Dropdown2
         title={"Choose imageset"}
         custom={"Download"}
         sendOption={(size) => {
           handleDownloadImageSet(size);
         }}
         stopLoading={updateLoading}
-      />
+      /> */}
       {/* <div style={{paddingTop: "10px", backgroundColor: "var(--background)", borderTop: "2px solid var(--background-hover)"}}>
                 <div onClick={handleDownloadImageSet} className={styles.downloadButton}>Download</div>
             </div> */}
