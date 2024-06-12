@@ -278,11 +278,14 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               SVG
             </div>
 
-            <div onClick={handleCopyRealSvgClick} className={styles.svgButton}>
-              {/* <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "} */}
-              <AnimatedCopyIcon style={{ marginRight: "10px" }} />
-              <div>Copy SVG</div>
-            </div>
+            {/* <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "} */}
+            <AnimatedCopyIcon
+              onClick={handleCopyRealSvgClick}
+              className={styles.svgButton}
+              iconStyle={{ marginRight: "10px" }}
+              childrenAfter={<div>Copy SVG</div>}
+              showCopiedWordOnClick={true}
+            />
           </div>
 
           <h4> PNG Usage </h4>
