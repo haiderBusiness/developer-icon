@@ -14,6 +14,7 @@ import downloadAndroidImageset from "../../../functions/downloadAndroidImageset"
 
 import { useSelector, useDispatch } from "react-redux";
 import { setDropdownProperties } from "../../../store/actions";
+import AnimatedCopyIcon from "../../buttons/AnimatedCopyIcon";
 
 export default function AndroidFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
@@ -105,14 +106,23 @@ export default function AndroidFrontage({ receivedIconName = "test_icon_st" }) {
         <div className={"code-snippet-box ios"}>
           <code>{iconName}</code>
 
-          <div
+          {/* <div
             className={"copyButtonDiv"}
             onClick={() => {
               handleCopyClick();
             }}
           >
             <IoCopyOutline />
-          </div>
+          </div> */}
+
+          <AnimatedCopyIcon
+            onClick={() => {
+              handleCopyClick();
+            }}
+            className={"copyButtonDiv"}
+            showCopiedWordOnClick={false}
+            iconSize={26}
+          />
         </div>
 
         <h4 style={{ margin: "40px 0px" }}>

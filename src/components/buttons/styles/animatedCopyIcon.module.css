@@ -1,0 +1,15 @@
+.coppied {
+  font-size: 17px;
+}
+
+@media (max-width: 520px) {
+  .coppied {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 340px) {
+  .coppied {
+    font-size: 13px;
+  }
+}

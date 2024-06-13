@@ -11,6 +11,7 @@ import Dropdown2 from "../../../components/dropdown/Dropdown2";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setDropdownProperties } from "../../../store/actions";
+import AnimatedCopyIcon from "../../buttons/AnimatedCopyIcon";
 
 export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
@@ -138,14 +139,23 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
             </div>
           </code>
 
-          <div
+          {/* <div
             className={"copyButtonDiv"}
             onClick={() => {
               handleCopyClick(1);
             }}
           >
             <IoCopyOutline />
-          </div>
+          </div> */}
+
+          <AnimatedCopyIcon
+            onClick={() => {
+              handleCopyClick(1);
+            }}
+            className={"copyButtonDiv"}
+            showCopiedWordOnClick={false}
+            iconSize={26}
+          />
         </div>
 
         <h4> Swift </h4>
@@ -160,14 +170,23 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
             </div>
           </code>
 
-          <div
+          {/* <div
             className={"copyButtonDiv"}
             onClick={() => {
               handleCopyClick(2);
             }}
           >
             <IoCopyOutline />
-          </div>
+          </div> */}
+
+          <AnimatedCopyIcon
+            onClick={() => {
+              handleCopyClick(2);
+            }}
+            className={"copyButtonDiv"}
+            showCopiedWordOnClick={false}
+            iconSize={26}
+          />
         </div>
 
         <h4> Objective-C </h4>
@@ -182,14 +201,14 @@ export default function IOSFrontage({ receivedIconName = "test_icon_st" }) {
             </div>
           </code>
 
-          <div
-            className={"copyButtonDiv"}
+          <AnimatedCopyIcon
             onClick={() => {
               handleCopyClick(3);
             }}
-          >
-            <IoCopyOutline />
-          </div>
+            className={"copyButtonDiv"}
+            showCopiedWordOnClick={false}
+            iconSize={26}
+          />
         </div>
 
         <h4 style={{ margin: "40px 0px" }}>

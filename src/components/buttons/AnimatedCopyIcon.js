@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
-import styles from "./styles/copyButton.module.css";
+import { IoCopy } from "react-icons/io5";
+import styles from "./styles/animatedCopyIcon.module.css";
 
 export default function AnimatedCopyIcon({
   childrenBefore,
@@ -14,6 +15,7 @@ export default function AnimatedCopyIcon({
   onClick,
   onIconClick,
   showCopiedWordOnClick = false,
+  coppiedClassName,
 }) {
   const [show, setShow] = useState(false);
 
@@ -42,17 +44,17 @@ export default function AnimatedCopyIcon({
           />
 
           {showCopiedWordOnClick ? (
-            <div style={{ fontSize: `${17}px` }}>Copied</div>
+            <div
+              className={coppiedClassName ? coppiedClassName : styles.coppied}
+            >
+              Copied
+            </div>
           ) : (
             ""
           )}
         </>
       ) : (
-        <IoCopyOutline
-          onClick={onIconClick}
-          style={iconStyle}
-          size={iconSize}
-        />
+        <IoCopy style={{ marginRight: "5px" }} size={iconSize} />
       )}
 
       {!show && showCopiedWordOnClick && childrenAfter}

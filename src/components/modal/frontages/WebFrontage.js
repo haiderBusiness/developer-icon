@@ -34,8 +34,12 @@ const dropdownObject = {
 export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
 
-  const [showLoading, setShowLoading] = useState(false);
-  const [updateLoading, setUpdateLoading] = useState(true);
+  const [showSvgLoading, setShowSvgLoading] = useState(false);
+  const [showPngLoading, setShowPngLoading] = useState(false);
+  const [updatePngDownloadLoading, setUpdatePngDownloadLoading] =
+    useState(true);
+  const [updateSvgDownloadLoading, setUpdateSvgDownloadLoading] =
+    useState(true);
 
   const dispath = useDispatch();
   const donwloadPngButtonRef = useRef(null);
@@ -93,7 +97,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   const onSvgDownload = () => {
     // This should be the div that holds the displyed icon
     const svgDiv = document.getElementById("ICON_DIV");
-    setShowLoading(true);
+    setShowSvgLoading(true);
 
     if (iconObject && iconObject.iconName && svgDiv) {
       // iconName = iconObject.iconName
@@ -108,7 +112,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
         .replace(/height="[^"]*"/, 'height="24"');
 
       downloadSvg(newSvgString, iconName, () => {
-        setUpdateLoading((it) => !it);
+        setUpdateSvgDownloadLoading((it) => !it);
       });
 
       // console.log("svgDiv.innerHtml: ", newSvgString)
@@ -117,7 +121,6 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
     }
   };
 
-  // TODO:
   const copyRealImageToClipboard = async () => {
     const svgDiv = document.getElementById("ICON_DIV");
 
@@ -154,8 +157,12 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   //   }
 
   useEffect(() => {
-    setShowLoading(false);
-  }, [updateLoading]);
+    setShowPngLoading(false);
+  }, [updatePngDownloadLoading]);
+
+  useEffect(() => {
+    setShowSvgLoading(false);
+  }, [updateSvgDownloadLoading]);
 
   const dropdownObject = {
     visible: true,
@@ -164,8 +171,8 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
     sendOption: (size) => {
       handleDownloadImage(size);
     },
-    stopLoading: updateLoading,
-    showLoading: () => setShowLoading(true),
+    stopLoading: updatePngDownloadLoading,
+    showLoading: () => setShowPngLoading(true),
     options: ["30", "60", "70", "120", "240", "480"],
     includeImageset: false,
     recommendedIndex: 0,
@@ -189,12 +196,12 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
         .replace(/height="[^"]*"/, `height="${size}"`);
 
       downloadSvgAsPng(newSvgString, iconName, size, () => {
-        setUpdateLoading((it) => !it);
+        setUpdatePngDownloadLoading((it) => !it);
       });
 
       // const name = `${iconName}_${size}px`
 
-      // downloadIosImageset(svgString, iconName, size, () => {console.log("logged here"); setUpdateLoading(it => !it)})
+      // downloadIosImageset(svgString, iconName, size, () => {console.log("logged here"); setUpdatePngDownloadLoading(it => !it)})
     }
   };
 
@@ -309,7 +316,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
 
           <div className={styles.formatsButtonsDiv}>
             <div onClick={onSvgDownload} className={styles.downloadSvgButton}>
-              {showLoading ? (
+              {showSvgLoading ? (
                 <span
                   style={{ width: "20px", height: "20px", marginRight: "10px" }}
                   className="loader"
@@ -430,7 +437,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
                 sendOption={(size) => {
                   handleDownloadImage(size);
                 }}
-                stopLoading={updateLoading}
+                stopLoading={updatePngDownloadLoading}
                 options={["30", "60", "70", "120", "240", "480"]}
                 includeImageset={false}
                 recommendedIndex={0}
@@ -449,7 +456,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               onClick={showDropdown}
               className={styles.downloadSvgButton}
             >
-              {showLoading ? (
+              {showPngLoading ? (
                 <span
                   style={{ width: "20px", height: "20px", marginRight: "10px" }}
                   className="loader"
