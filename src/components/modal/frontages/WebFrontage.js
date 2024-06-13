@@ -14,6 +14,7 @@ import downloadSvgAsPng from "../../../functions/downloadSvgAsPng";
 import { useSelector, useDispatch } from "react-redux";
 import { setDropdownProperties } from "../../../store/actions";
 import AnimatedCopyIcon from "../../buttons/AnimatedCopyIcon";
+import copySvgAsPngToClipboard from "../../../functions/copySvgAsPngToClipboard";
 
 const dropdownObject = {
   visible: true,
@@ -32,7 +33,9 @@ const dropdownObject = {
 
 export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   const { iconObject } = useSelector((state) => state.reducer);
-  const { coppied, setShowCoppied } = useState(false);
+
+  const [showLoading, setShowLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(true);
 
   const dispath = useDispatch();
   const donwloadPngButtonRef = useRef(null);
@@ -44,13 +47,15 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
       : receivedIconName;
 
   const svg_to_copy = `<img
-    src="path/to/downloaed/svg/${iconName}.svg"
+    src="path/to/downloaded
+    /svg/${iconName}.svg"
     height="90"
     width="90"
     alt="${iconName}"/>`;
 
   const png_to_copy = `<img
-    src="path/to/downloaed/png/${iconName}.png"
+    src="path/to/downloaded
+    /png/${iconName}.png"
     height="90"
     width="90"
     alt="${iconName}"/>`;
@@ -88,6 +93,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   const onSvgDownload = () => {
     // This should be the div that holds the displyed icon
     const svgDiv = document.getElementById("ICON_DIV");
+    setShowLoading(true);
 
     if (iconObject && iconObject.iconName && svgDiv) {
       // iconName = iconObject.iconName
@@ -101,7 +107,9 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
         .replace(/ width="[^"]*"/, ' width="24"')
         .replace(/height="[^"]*"/, 'height="24"');
 
-      downloadSvg(newSvgString, iconName);
+      downloadSvg(newSvgString, iconName, () => {
+        setUpdateLoading((it) => !it);
+      });
 
       // console.log("svgDiv.innerHtml: ", newSvgString)
       // console.log('%c ' + "Success", 'color: red; font-size: 20px; text-transform: uppercase;');
@@ -112,14 +120,12 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   // TODO:
   const copyRealImageToClipboard = async () => {
     const svgDiv = document.getElementById("ICON_DIV");
-    const svgString = svgDiv.innerHTML;
-    try {
-      const blob = new Blob([svgString], { type: "image/svg+xml" });
-      const clipboardItem = new ClipboardItem({ "image/svg+xml": blob });
-      await navigator.clipboard.write([clipboardItem]);
-      alert("SVG copied to clipboard!");
-    } catch (error) {
-      console.error("Failed to copy SVG: ", error);
+
+    if (iconObject && iconObject.iconName && svgDiv) {
+      // Get the svg string
+      const svgString = svgDiv.innerHTML;
+
+      copySvgAsPngToClipboard(svgString, iconName);
     }
   };
 
@@ -147,7 +153,27 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
   //     }
   //   }
 
-  const [updateLoading, setUpdateLoading] = useState(true);
+  useEffect(() => {
+    setShowLoading(false);
+  }, [updateLoading]);
+
+  const dropdownObject = {
+    visible: true,
+    title: "Download PNG",
+    custom: "Download",
+    sendOption: (size) => {
+      handleDownloadImage(size);
+    },
+    stopLoading: updateLoading,
+    showLoading: () => setShowLoading(true),
+    options: ["30", "60", "70", "120", "240", "480"],
+    includeImageset: false,
+    recommendedIndex: 0,
+    info: "Choose PNG size",
+    wordAfterEachOption: "",
+    rect: null,
+    center: false,
+  };
 
   const handleDownloadImage = (size) => {
     // This should be the div that holds the displyed icon
@@ -262,20 +288,36 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               </div>
             </code>
 
-            <div
+            {/* <div
               className={"copyButtonDiv"}
               onClick={() => {
                 handleCopyClick(1);
               }}
             >
               <IoCopyOutline />
-            </div>
+            </div> */}
+
+            <AnimatedCopyIcon
+              onClick={() => {
+                handleCopyClick(1);
+              }}
+              className={"copyButtonDiv"}
+              showCopiedWordOnClick={false}
+              iconSize={26}
+            />
           </div>
 
           <div className={styles.formatsButtonsDiv}>
             <div onClick={onSvgDownload} className={styles.downloadSvgButton}>
-              <FiDownload style={{ marginRight: "10px" }} size={20} /> Download
-              SVG
+              {showLoading ? (
+                <span
+                  style={{ width: "20px", height: "20px", marginRight: "10px" }}
+                  className="loader"
+                ></span>
+              ) : (
+                <FiDownload style={{ marginRight: "10px" }} size={20} />
+              )}
+              Download SVG
             </div>
 
             {/* <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "} */}
@@ -356,7 +398,7 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               </div>
             </code>
 
-            <div
+            {/* <div
               className={"copyButtonDiv"}
               style={{ width: "35px", height: "35px" }}
               onClick={() => {
@@ -364,7 +406,16 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               }}
             >
               <IoCopyOutline />
-            </div>
+            </div> */}
+
+            <AnimatedCopyIcon
+              onClick={() => {
+                handleCopyClick(2);
+              }}
+              className={"copyButtonDiv"}
+              showCopiedWordOnClick={false}
+              iconSize={26}
+            />
           </div>
 
           <div className={styles.formatsButtonsDiv}>
@@ -398,17 +449,24 @@ export default function WebFrontage({ receivedIconName = "test_icon_st" }) {
               onClick={showDropdown}
               className={styles.downloadSvgButton}
             >
-              <FiDownload style={{ marginRight: "10px" }} size={20} /> Download
-              PNG
+              {showLoading ? (
+                <span
+                  style={{ width: "20px", height: "20px", marginRight: "10px" }}
+                  className="loader"
+                ></span>
+              ) : (
+                <FiDownload style={{ marginRight: "10px" }} size={20} />
+              )}
+              Download PNG
             </div>
 
-            <div
+            <AnimatedCopyIcon
               onClick={copyRealImageToClipboard}
               className={styles.svgButton}
-            >
-              <IoCopyOutline style={{ marginRight: "10px" }} size={20} />{" "}
-              <div>Copy SVG</div>
-            </div>
+              iconStyle={{ marginRight: "10px" }}
+              childrenAfter={<div>Copy PNG</div>}
+              showCopiedWordOnClick={true}
+            />
           </div>
         </div>
       </div>
